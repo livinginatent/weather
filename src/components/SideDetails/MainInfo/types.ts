@@ -1,7 +1,7 @@
 export type MainDetailsT = {
   country: string;
   city: string;
-  temp: number;
+  temp: any;
   sunset:string,
   sunrise:string
 };

@@ -1,13 +1,17 @@
+import { currentTemp } from "@/actions/getCurrent";
 import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
-export default function Home() {
+
+export default async function Home() {
+  const currentData = await currentTemp();
+
+  console.log(currentData);
+  
   return (
     <main className="flex">
-      <SideDetails />
-      <MainDetails/>
+      <SideDetails temp={currentData.current.temp_c} />
+      <MainDetails />
     </main>
   );
 }
