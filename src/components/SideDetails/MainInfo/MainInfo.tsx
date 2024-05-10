@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { CiCalendar } from "react-icons/ci";
@@ -8,7 +9,14 @@ import { MainDetailsT } from "./types";
 
 type Props = {};
 
-const MainInfo = ({ country, city, temp, sunset, sunrise }: MainDetailsT) => {
+const MainInfo = ({
+  country,
+  city,
+  temp,
+  sunset,
+  sunrise,
+  condition,
+}: MainDetailsT) => {
   return (
     <div className="flex flex-col gap-5 color-white justify-center align-center mt-20">
       <div className="flex justify-center align-center gap-10">
@@ -38,7 +46,7 @@ const MainInfo = ({ country, city, temp, sunset, sunrise }: MainDetailsT) => {
       </div>
       <div className="flex justify-center gap-4 mr-10">
         <IoSunnyOutline color="white" size={"2em"} className="" />
-        <p className="text-slate-50 text-xl font-light">Sunny</p>
+        <p className="text-slate-50 text-xl font-light">{condition}</p>
       </div>
     </div>
   );

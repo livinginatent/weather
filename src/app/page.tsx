@@ -1,16 +1,14 @@
-import { currentTemp } from "@/actions/getCurrent";
+import { useEffect, useState } from "react";
 import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
-
+import { DEFAULT_LOCATION } from "@/lib/config";
+import { getCurrent } from "@/actions/getCurrent";
 
 export default async function Home() {
-  const currentData = await currentTemp();
 
-  console.log(currentData);
-  
   return (
     <main className="flex">
-      <SideDetails temp={currentData.current.temp_c} />
+      <SideDetails />
       <MainDetails />
     </main>
   );
