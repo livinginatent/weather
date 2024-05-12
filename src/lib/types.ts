@@ -15,7 +15,7 @@ export type WeatherDataT = {
     lat: number;
     lon: number;
     tz_id: string;
-    localtime: string;
+    localtime: any;
     localtime_epoch: number;
   };
   current: {

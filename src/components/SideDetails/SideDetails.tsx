@@ -1,23 +1,34 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import MainInfo from "./MainInfo/MainInfo";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getCurrent } from "@/actions/getCurrent";
 import { WeatherDataT } from "@/lib/types";
+import { locationNames } from "@/lib/locationNames";
+import { days, months } from "@/lib/dateTranslations";
 
 export const SideDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
-  const [weatherData, setWeatherData] = useState<WeatherDataT | null>(null);
+  const [weatherData, setWeatherData] = useState<WeatherDataT | undefined>();
+  const [loading, setLoading] = useState(true);
 
+  // Helper function to format date
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const dayOfWeek = days[date.toLocaleString("en-US", { weekday: "long" })];
+    const month = months[date.toLocaleString("en-US", { month: "long" })];
+    const dayOfMonth = date.getDate();
+    const time = `${date.getHours()}:${date.getMinutes()}`;
+
+    return `${dayOfWeek}, ${dayOfMonth} ${month}, ${time} `;
+  };
+
+  // Fetch location from navigator or use default
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const newLocation = {
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        };
-        setLocation(newLocation);
-        console.log("Location updated:", newLocation);
+        const { latitude, longitude } = position.coords;
+        setLocation({ lat: latitude, lon: longitude });
       },
       (error) => {
         console.error("Error getting location", error);
@@ -25,28 +36,40 @@ export const SideDetails = () => {
     );
   }, []);
 
+  // Fetch weather data when location is updated
   useEffect(() => {
-    if (location) {
+    if (location !== DEFAULT_LOCATION) {
       getCurrent(location)
         .then((data) => {
           setWeatherData(data);
-          console.log("Weather data fetched", data);
+          setLoading(false);
         })
-        .catch((error) => {
-          console.error("Error fetching weather data", error);
-        });
+        .catch((error) => console.error("Error fetching weather data", error));
     }
-  }, [location]);
+  }, [location, loading]);
+
+  const formattedDate = weatherData
+    ? formatDate(weatherData.location.localtime)
+    : "";
+
+  const localCityName =
+    (weatherData && locationNames[weatherData.location?.region]) ||
+    weatherData?.location?.region;
+  const localCountryName =
+    (weatherData && locationNames[weatherData.location?.country]) ||
+    weatherData?.location?.country;
 
   return (
     <aside className="w-1/5 h-screen bg-[#5c9ce5]">
       <MainInfo
-        sunrise={"07:19"}
-        sunset={"20:08"}
-        condition={weatherData?.current?.condition.text}
-        country={weatherData?.location?.country}
-        city={weatherData?.location?.region}
-        temp={weatherData?.current?.temp_c}
+        loading={loading}
+        date={formattedDate}
+        sunrise="07:19"
+        sunset="20:08"
+        condition={weatherData?.current?.condition.text || "Not available"}
+        country={localCountryName}
+        city={localCityName}
+        temp={`${weatherData?.current?.temp_c || "N/A"}°C`}
       />
     </aside>
   );
