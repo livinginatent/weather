@@ -60,7 +60,7 @@ export const SideDetails = () => {
     weatherData?.location?.country;
 
   return (
-    <aside className="w-1/5 h-screen bg-[#5c9ce5]">
+    <aside className="md:w-1/4 bg-[#5c9ce5]">
       <MainInfo
         loading={loading}
         date={formattedDate}
