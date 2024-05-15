@@ -1,5 +1,5 @@
 import { formatDate } from "@/lib/formatDate";
-import { HourlyWeatherDataT } from "@/lib/types";
+import { DailyForecastT, HourlyWeatherDataT } from "@/lib/types";
 import React from "react";
 import { IoSunnyOutline } from "react-icons/io5";
 import { BeatLoader } from "react-spinners";
@@ -12,13 +12,12 @@ import {
   LabelList,
 } from "recharts";
 import { SunIconLabel, TempLabel, TimeLabel } from "./labels";
+import Humidity from "../SecondaryDetails/Humidity/Humidity";
+import SecondaryDetails from "../SecondaryDetails/SecondaryDetails";
 
-type Props = {
-  hourlyWeatherData: any | undefined;
-  loading: boolean;
-};
 
-const DailyForecast = ({ hourlyWeatherData, loading }: Props) => {
+
+const DailyForecast = ({ hourlyWeatherData, loading, }: DailyForecastT) => {
   const getCurrentWeather = () => ({
     time: "İndi",
     windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph)}kmh`,
@@ -69,9 +68,9 @@ const DailyForecast = ({ hourlyWeatherData, loading }: Props) => {
   }
 
   return (
-    <div className="bg-white w-5/6 h-80 mt-10 rounded-2xl flex flex-col justify-between">
+    <div className="bg-white w-full h-70 mt-10 rounded-2xl flex flex-col justify-between">
       <div className="px-4 py-2"></div>
-      <h2 className="ml-5">Saatlıq proqnoz</h2>
+      <h2 className="ml-5">Gün Ərzində</h2>
       <div className="pb-4">
         <ResponsiveContainer width="100%" height={225}>
           <ComposedChart
@@ -96,6 +95,7 @@ const DailyForecast = ({ hourlyWeatherData, loading }: Props) => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
+    
     </div>
   );
 };

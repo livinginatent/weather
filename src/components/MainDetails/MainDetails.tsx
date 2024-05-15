@@ -5,12 +5,13 @@ import DailyForecast from "./DailyForecast/DailyForecast";
 import { HourlyWeatherDataT } from "@/lib/types";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getHourly } from "@/actions/getHourly";
+import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
 type Props = {};
 
 const MainDetails = (props: Props) => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
   const [hourlyWeatherData, setHourlyWeatherData] = useState<
-    HourlyWeatherDataT | undefined
+    HourlyWeatherDataT
   >();
   const [loading, setLoading] = useState(true);
 
@@ -44,6 +45,7 @@ const MainDetails = (props: Props) => {
         Həftəlik və günlük hava proqnozu
       </h1>
       <DailyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
+      <SecondaryDetails/>
     </section>
   );
 };
