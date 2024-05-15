@@ -1,73 +1,102 @@
+import { formatDate } from "@/lib/formatDate";
+import { HourlyWeatherDataT } from "@/lib/types";
 import React from "react";
+import { IoSunnyOutline } from "react-icons/io5";
+import { BeatLoader } from "react-spinners";
 import {
   ComposedChart,
-  Line,
   Area,
   Bar,
   XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Scatter,
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import { SunIconLabel, TempLabel, TimeLabel } from "./labels";
 
-type Props = {};
+type Props = {
+  hourlyWeatherData: any | undefined;
+  loading: boolean;
+};
 
-const DailyForecast = (props: Props) => {
+const DailyForecast = ({ hourlyWeatherData, loading }: Props) => {
+  const getCurrentWeather = () => ({
+    time: "İndi",
+    windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph)}kmh`,
+    bar: 20,
+    temp: hourlyWeatherData?.current.temp_c,
+  });
 
-
-    
   const getHourlyData = () => {
-    const hours = [];
-    const now = new Date(); // Current date and time
-    for (let i = 0; i < 12; i++) {
-      now.setHours(now.getHours() + 1);
+    const hours = [getCurrentWeather()];
+    const now = new Date();
+    const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
+
+    for (let i = 0; i < 10; i++) {
+      const newHour = new Date(nextHour.getTime() + i * 60 * 60 * 1000);
+      const hourIndex = newHour.getHours();
+      const temp = Math.round(
+        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.temp_c
+      );
+      const windSpeed = Math.round(
+        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.wind_kph
+      );
+
       hours.push({
-        windSpeed: `${Math.floor(Math.random() * 10)}kmh`,
-        chanceOfRain: Math.floor(Math.random() * 10),
+        time: newHour
+          .toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23",
+          })
+          .replace(/AM|PM/, ""),
+        windSpeed: `${windSpeed}kmh`,
         bar: 20,
-        temp: `${Math.floor(Math.random() * 10+1)}C`,
+        temp: temp,
       });
     }
+
     return hours;
   };
 
   const data = getHourlyData();
-  return (
-    <>
-      <div className="bg-white w-5/6 h-80 mt-10 rounded-2xl flex flex-col justify-between">
-        <div className="px-4 py-2"></div>
-        <div className=" pb-4">
-    
-          <ComposedChart
-            width={1250}
-            height={200}
-            data={data}
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}
-          >
-            <XAxis dataKey="windSpeed" />
 
-            <Area
-              type="monotone"
-              dataKey="chanceOfRain"
-              fill="#5c9ce5"
-              stroke="transparent"
-            />
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-20">
+        <BeatLoader color="#98E4FF" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white w-5/6 h-80 mt-10 rounded-2xl flex flex-col justify-between">
+      <div className="px-4 py-2"></div>
+      <h2 className="ml-5">Saatlıq proqnoz</h2>
+      <div className="pb-4">
+        <ResponsiveContainer width="100%" height={225}>
+          <ComposedChart
+            data={data}
+            margin={{ top: 80, right: 20, bottom: 10, left: 20 }}
+          >
+            <Area type="monotone" dataKey="temp" fill="#77bae8" />
+            <XAxis style={{ fontSize: 12 }} dataKey="windSpeed" />
             <Bar dataKey="bar" barSize={2} fill="#C7C8CC">
-              <LabelList dataKey="temp" position="top" />
+              <LabelList
+                dataKey="time"
+                content={<TimeLabel />}
+                position="top"
+              />
+              <LabelList content={<SunIconLabel />} position="top" />
+              <LabelList
+                content={<TempLabel />}
+                dataKey="temp"
+                position="top"
+              />
             </Bar>
           </ComposedChart>
-        </div>
+        </ResponsiveContainer>
       </div>
-    </>
+    </div>
   );
 };
 

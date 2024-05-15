@@ -3,13 +3,13 @@ import React, { Suspense, useEffect, useState } from "react";
 import MainInfo from "./MainInfo/MainInfo";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getCurrent } from "@/actions/getCurrent";
-import { WeatherDataT } from "@/lib/types";
+import { CurrentWeatherDataT } from "@/lib/types";
 import { locationNames } from "@/lib/locationNames";
 import { days, months } from "@/lib/dateTranslations";
 
 export const SideDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
-  const [weatherData, setWeatherData] = useState<WeatherDataT | undefined>();
+  const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | undefined>();
   const [loading, setLoading] = useState(true);
 
   // Helper function to format date
