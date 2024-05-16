@@ -1,7 +1,5 @@
-import { formatDate } from "@/lib/formatDate";
-import { DailyForecastT, HourlyWeatherDataT } from "@/lib/types";
+import { DailyForecastT } from "@/lib/types";
 import React from "react";
-import { IoSunnyOutline } from "react-icons/io5";
 import { BeatLoader } from "react-spinners";
 import {
   ComposedChart,
