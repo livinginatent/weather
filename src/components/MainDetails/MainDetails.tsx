@@ -45,7 +45,7 @@ const MainDetails = (props: Props) => {
         Həftəlik və günlük hava proqnozu
       </h1>
       <DailyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
-      <SecondaryDetails/>
+      <SecondaryDetails hourlyWeatherData = {hourlyWeatherData} />
     </section>
   );
 };

@@ -12,12 +12,8 @@ import {
   LabelList,
 } from "recharts";
 import { SunIconLabel, TempLabel, TimeLabel } from "./labels";
-import Humidity from "../SecondaryDetails/Humidity/Humidity";
-import SecondaryDetails from "../SecondaryDetails/SecondaryDetails";
 
-
-
-const DailyForecast = ({ hourlyWeatherData, loading, }: DailyForecastT) => {
+const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
   const getCurrentWeather = () => ({
     time: "İndi",
     windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph)}kmh`,
@@ -95,7 +91,6 @@ const DailyForecast = ({ hourlyWeatherData, loading, }: DailyForecastT) => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-    
     </div>
   );
 };
