@@ -38,12 +38,10 @@ const MainDetails = (props: Props) => {
         .catch((error) => console.error("Error fetching weather data", error));
     }
   }, [location, loading]);
-
+console.log(hourlyWeatherData)
   return (
-    <section className="bg-[#e4f1ff] flex flex-col items-start justify-start w-full h-screen rounded-l-[30px] px-8">
-      <h1 className="font-normal mt-10 text-xl self-start">
-        Həftəlik və günlük hava proqnozu
-      </h1>
+    <section className="bg-[#e4f1ff] flex flex-col items-start justify-start w-full h-full rounded-l-[30px] px-8">
+      
       <DailyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails loading={loading} hourlyWeatherData = {hourlyWeatherData} />
     </section>

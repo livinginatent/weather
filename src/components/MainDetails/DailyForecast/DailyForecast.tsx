@@ -62,7 +62,7 @@ const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
   }
 
   return (
-    <div className="bg-white w-full h-70 mt-10 rounded-2xl flex flex-col justify-between">
+    <div className="bg-white w-full h-70 mt-5 rounded-2xl flex flex-col justify-between">
       <div className="px-4 py-2"></div>
       <h2 className="ml-5">Gün Ərzində</h2>
       <div className="pb-4">

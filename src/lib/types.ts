@@ -199,3 +199,9 @@ export type DailyForecastT = {
 export type Humidity = {
   humidity:number
 }
+export type Wind = {
+  wind:number
+}
+export type UVIndex = {
+  UVindex:number
+}

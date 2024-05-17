@@ -7,7 +7,7 @@ import { getCurrent } from "@/actions/getCurrent";
 export default async function Home() {
 
   return (
-    <main className="flex">
+    <main className="flex h-screen">
       <SideDetails />
       <MainDetails />
     </main>
