@@ -206,3 +206,7 @@ export type Wind = {
 export type UVIndex = {
   UVindex:number
 }
+
+export type FeelsLike ={
+  feelsLike:number
+}

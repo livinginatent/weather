@@ -1,11 +1,12 @@
 import React from "react";
 import HumidityCard from "./Humidity/HumidityCard";
-import { DailyForecastT } from "@/lib/types";
 import { BeatLoader } from "react-spinners";
 import WindCard from "./Wind/WindCard";
 import UVIndexCard from "./UVIndex/UVIndexCard";
+import FeelsLikeCard from "./FeelsLike/FeelsLike";
+import { HourlyForecastT } from "@/lib/types";
 
-const SecondaryDetails = ({ hourlyWeatherData, loading }: DailyForecastT) => {
+const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center mt-20">
@@ -18,7 +19,7 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: DailyForecastT) => {
       <HumidityCard humidity={hourlyWeatherData?.current.humidity} />
       <WindCard wind={hourlyWeatherData?.current.wind_kph} />
       <UVIndexCard UVindex={hourlyWeatherData?.current.uv} />
-      
+      <FeelsLikeCard feelsLike={hourlyWeatherData?.current.feelslike_c} />
     </div>
   );
 };
