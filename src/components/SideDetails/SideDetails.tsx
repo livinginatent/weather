@@ -1,16 +1,21 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-import MainInfo from "./MainInfo/MainInfo";
+import React, { useEffect, useState } from "react";
+import MainInfo from "./SideDetailsMainInfo/SideDetailsMainInfo";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getCurrent } from "@/actions/getCurrent";
 import { CurrentWeatherDataT } from "@/lib/types";
 import { locationNames } from "@/lib/locationNames";
 import { days, months } from "@/lib/dateTranslations";
+import { conditionTranslations } from "@/lib/conditionTranslations";
+import { getIcon } from "@/lib/getIcon";
 
 export const SideDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
-  const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | undefined>();
+  const [weatherData, setWeatherData] = useState<
+    CurrentWeatherDataT | undefined
+  >();
   const [loading, setLoading] = useState(true);
+  const [logoUrl, setLogoUrl] = useState("");
 
   // Helper function to format date
   const formatDate = (dateString: string) => {
@@ -43,10 +48,15 @@ export const SideDetails = () => {
         .then((data) => {
           setWeatherData(data);
           setLoading(false);
+          if (data && data.current && data.current.condition.icon) {
+            const localIconPath = getIcon(data.current.condition.icon);
+            setLogoUrl(localIconPath);
+            console.log(localIconPath);
+          }
         })
         .catch((error) => console.error("Error fetching weather data", error));
     }
-  }, [location, loading]);
+  }, [location]);
 
   const formattedDate = weatherData
     ? formatDate(weatherData.location.localtime)
@@ -66,10 +76,14 @@ export const SideDetails = () => {
         date={formattedDate}
         sunrise="07:19"
         sunset="20:08"
-        condition={weatherData?.current?.condition.text || "Not available"}
+        condition={
+          conditionTranslations[weatherData?.current?.condition.text] ||
+          "Not available"
+        }
         country={localCountryName}
         city={localCityName}
         temp={`${weatherData?.current?.temp_c || "N/A"}°C`}
+        logo={logoUrl}
       />
     </aside>
   );

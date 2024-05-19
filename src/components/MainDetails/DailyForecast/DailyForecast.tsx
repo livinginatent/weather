@@ -1,5 +1,5 @@
 import { DailyForecastT } from "@/lib/types";
-import React from "react";
+import React, { useState } from "react";
 import { BeatLoader } from "react-spinners";
 import {
   ComposedChart,
@@ -18,6 +18,8 @@ const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
     bar: 20,
     temp: hourlyWeatherData?.current.temp_c,
   });
+
+  const [logoUrl, setLogoUrl] = useState("");
 
   const getHourlyData = () => {
     const hours = [getCurrentWeather()];

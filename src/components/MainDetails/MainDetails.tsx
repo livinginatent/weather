@@ -10,10 +10,10 @@ type Props = {};
 
 const MainDetails = (props: Props) => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
-  const [hourlyWeatherData, setHourlyWeatherData] = useState<
-    HourlyWeatherDataT
-  >();
+  const [hourlyWeatherData, setHourlyWeatherData] =
+    useState<HourlyWeatherDataT>();
   const [loading, setLoading] = useState(true);
+  const [logoUrl, setLogoUrl] = useState("");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -34,16 +34,19 @@ const MainDetails = (props: Props) => {
         .then((data) => {
           setHourlyWeatherData(data);
           setLoading(false);
+          
         })
         .catch((error) => console.error("Error fetching weather data", error));
     }
   }, [location, loading]);
-console.log(hourlyWeatherData)
+
   return (
     <section className="bg-[#e4f1ff] flex flex-col items-start justify-start w-full h-full rounded-l-[30px] px-8">
-      
       <DailyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
-      <SecondaryDetails loading={loading} hourlyWeatherData = {hourlyWeatherData} />
+      <SecondaryDetails
+        loading={loading}
+        hourlyWeatherData={hourlyWeatherData}
+      />
     </section>
   );
 };
