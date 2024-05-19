@@ -3,6 +3,7 @@ import React from "react";
 import { TbUvIndex } from "react-icons/tb";
 import ProgressBar from "@/components/ui/ProgressBar/ProgressBar";
 import { UVIndex } from "@/lib/types";
+import { categorizeUVIndex } from "@/utils/categorizeUvIndex";
 
 const UVIndexCard = ({ UVindex }: UVIndex) => {
   const ranges = ["0-2", "3-5", "6-7", "8-10", "11+"];
@@ -22,6 +23,8 @@ const UVIndexCard = ({ UVindex }: UVIndex) => {
     }
   };
 
+  const UVIndexLevel = categorizeUVIndex(UVindex)
+
   return (
     <Card className="h-[195px] w-80 rounded-2xl ">
       <CardHeader className="p-0 m-4">
@@ -33,7 +36,7 @@ const UVIndexCard = ({ UVindex }: UVIndex) => {
       <CardContent className="flex flex-col justify-center gap-8 p-0 text-xl font-bold items-center">
         <div className="flex gap-1 justify-center items-center">
           <p>{`${UVindex}`}</p>
-          <p className="text-sm text-center font-normal">Yüksək</p>
+          <p className="text-sm text-center font-normal">{UVIndexLevel}</p>
         </div>
         <div className="flex justify-center items-center w-full gap-1">
           {ranges.map((range, index) => (
