@@ -51,7 +51,8 @@ export const SideDetails = () => {
           if (data && data.current && data.current.condition.icon) {
             const localIconPath = getIcon(data.current.condition.icon);
             setLogoUrl(localIconPath);
-            console.log(localIconPath);
+            console.log(localIconPath)
+            
           }
         })
         .catch((error) => console.error("Error fetching weather data", error));

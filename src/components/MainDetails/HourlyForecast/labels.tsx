@@ -1,8 +1,15 @@
-import { IoSunnyOutline } from "react-icons/io5";
+import Image from "next/image";
 
-export const SunIconLabel = ({ x, y }: any) => (
-  <g transform={`translate(${x - 8},${y - 50})`}>
-    <IoSunnyOutline style={{ marginBottom: 20 }} size={20} />
+export const WeatherIconLabel = ({ x, y,icon,value }: any) => (
+  <g transform={`translate(${x - 12},${y - 60})`}>
+    <foreignObject width={30} height={30}>
+      <Image
+        alt="test"
+        width={64}
+        height={64}
+        src={value}
+      />
+    </foreignObject>
   </g>
 );
 

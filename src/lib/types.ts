@@ -191,9 +191,10 @@ export type HourlyWeatherDataT = {
   };
 };
 
-export type DailyForecastT = {
+export type HourlyForecastT = {
   hourlyWeatherData: HourlyWeatherDataT;
   loading: boolean;
+ 
 };
 
 export type Humidity = {

@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { BarChart } from "@mui/x-charts";
-import DailyForecast from "./DailyForecast/DailyForecast";
+import DailyForecast from "./HourlyForecast/HourlyForecast";
 import { HourlyWeatherDataT } from "@/lib/types";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
+import { getIcon } from "@/lib/getIcon";
+import HourlyForecast from "./HourlyForecast/HourlyForecast";
+import { BeatLoader } from "react-spinners";
 type Props = {};
 
 const MainDetails = (props: Props) => {
@@ -13,7 +16,7 @@ const MainDetails = (props: Props) => {
   const [hourlyWeatherData, setHourlyWeatherData] =
     useState<HourlyWeatherDataT>();
   const [loading, setLoading] = useState(true);
-  const [logoUrl, setLogoUrl] = useState("");
+ 
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -34,15 +37,23 @@ const MainDetails = (props: Props) => {
         .then((data) => {
           setHourlyWeatherData(data);
           setLoading(false);
+           
           
         })
         .catch((error) => console.error("Error fetching weather data", error));
     }
   }, [location, loading]);
+   if (loading) {
+     return (
+       <div className="flex  mt-20">
+         <BeatLoader color="#98E4FF" />
+       </div>
+     );
+   }
 
   return (
     <section className="bg-[#e4f1ff] flex flex-col items-start justify-start w-full h-full rounded-l-[30px] px-8">
-      <DailyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
+      <HourlyForecast  loading={loading} hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails
         loading={loading}
         hourlyWeatherData={hourlyWeatherData}

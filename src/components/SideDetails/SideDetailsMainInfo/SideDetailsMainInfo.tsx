@@ -14,7 +14,7 @@ const SideDetailsMainInfo = ({
   date,
   logo,
 }: MainDetailsT) => {
-  const imagePath = logo;
+
   if (loading) return <BeatLoader color="#98E4FF" />;
   return (
     <div className="flex flex-col w-auto gap-2 justify-center items-center mt-10">
@@ -33,7 +33,7 @@ const SideDetailsMainInfo = ({
       </div>
       <div className="flex flex-col justify-center gap-4">
         <div className="flex justify-center items-center lg:gap-4 xl:gap-4 sm:gap-1 md:gap-1">
-          <Image alt={`${condition}`} src={imagePath} width={64} height={64} />
+          <Image alt={`${condition}`} src={logo} width={64} height={64} />
           <p className="text-slate-50 text-sm md:text-lg lg:text-xl xl:text-xl font-light">
             {condition}
           </p>

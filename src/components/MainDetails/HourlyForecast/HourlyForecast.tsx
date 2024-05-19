@@ -1,5 +1,5 @@
-import { DailyForecastT } from "@/lib/types";
-import React, { useState } from "react";
+import { HourlyForecastT } from "@/lib/types";
+import React from "react";
 import { BeatLoader } from "react-spinners";
 import {
   ComposedChart,
@@ -9,17 +9,17 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import { SunIconLabel, TempLabel, TimeLabel } from "./labels";
+import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
+import { getIcon } from "@/lib/getIcon";
 
-const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
+const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   const getCurrentWeather = () => ({
     time: "İndi",
     windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph)}kmh`,
     bar: 20,
     temp: hourlyWeatherData?.current.temp_c,
+    icon: getIcon(hourlyWeatherData?.current.condition.icon),
   });
-
-  const [logoUrl, setLogoUrl] = useState("");
 
   const getHourlyData = () => {
     const hours = [getCurrentWeather()];
@@ -47,6 +47,10 @@ const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
         windSpeed: `${windSpeed}kmh`,
         bar: 20,
         temp: temp,
+        icon: getIcon(
+          hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.condition
+            .icon
+        ),
       });
     }
 
@@ -54,14 +58,6 @@ const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
   };
 
   const data = getHourlyData();
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center mt-20">
-        <BeatLoader color="#98E4FF" />
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white w-full h-70 mt-5 rounded-2xl flex flex-col justify-between">
@@ -81,7 +77,11 @@ const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
                 content={<TimeLabel />}
                 position="top"
               />
-              <LabelList content={<SunIconLabel />} position="top" />
+              <LabelList
+                dataKey="icon"
+                content={<WeatherIconLabel />}
+                position="top"
+              />
               <LabelList
                 content={<TempLabel />}
                 dataKey="temp"
@@ -95,4 +95,4 @@ const DailyForecast = ({ hourlyWeatherData, loading }: DailyForecastT) => {
   );
 };
 
-export default DailyForecast;
+export default HourlyForecast;
