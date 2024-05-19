@@ -10,7 +10,7 @@ import {
   LabelList,
 } from "recharts";
 import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
-import { getIcon } from "@/lib/getIcon";
+import { getIcon } from "@/utils/getIcon";
 
 const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   const getCurrentWeather = () => ({

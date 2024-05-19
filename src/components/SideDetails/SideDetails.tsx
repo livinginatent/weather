@@ -7,7 +7,7 @@ import { CurrentWeatherDataT } from "@/lib/types";
 import { locationNames } from "@/lib/locationNames";
 import { days, months } from "@/lib/dateTranslations";
 import { conditionTranslations } from "@/lib/conditionTranslations";
-import { getIcon } from "@/lib/getIcon";
+import { getIcon } from "@/utils/getIcon";
 
 export const SideDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
@@ -51,8 +51,7 @@ export const SideDetails = () => {
           if (data && data.current && data.current.condition.icon) {
             const localIconPath = getIcon(data.current.condition.icon);
             setLogoUrl(localIconPath);
-            console.log(localIconPath)
-            
+            console.log(localIconPath);
           }
         })
         .catch((error) => console.error("Error fetching weather data", error));
