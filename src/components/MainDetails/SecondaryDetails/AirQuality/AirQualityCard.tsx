@@ -23,7 +23,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
   };
 
   return (
-    <Card className="h-[225px] w-80 rounded-2xl">
+    <Card className="h-[195px] w-80 rounded-2xl">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
           Hava Keyfiyyəti
@@ -33,6 +33,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
       <CardContent className="flex flex-col justify-center p-0 text-xl font-bold items-center">
         <p>{formatTextValue(airQuality["us-epa-index"])}</p>
         <GaugeComponent
+        style={{marginBottom:80}}
           type="semicircle"
           arc={{
             padding: 0.02,

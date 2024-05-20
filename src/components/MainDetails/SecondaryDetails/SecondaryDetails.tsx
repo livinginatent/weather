@@ -5,6 +5,7 @@ import WindCard from "./Wind/WindCard";
 import UVIndexCard from "./UVIndex/UVIndexCard";
 import { HourlyForecastT } from "@/lib/types";
 import AirQualityCard from "./AirQuality/AirQualityCard";
+import SunTimes from "./SunTimes/SunTimesCard";
 
 const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   if (loading) {
@@ -19,7 +20,17 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
       <HumidityCard humidity={hourlyWeatherData?.current.humidity} />
       <WindCard wind={hourlyWeatherData?.current.wind_kph} />
       <UVIndexCard UVindex={hourlyWeatherData?.current.uv} />
-      <AirQualityCard airQuality={hourlyWeatherData.current.air_quality}/>
+      <AirQualityCard airQuality={hourlyWeatherData.current.air_quality} />
+      <SunTimes
+        sunrise={hourlyWeatherData.forecast.forecastday[0].astro.sunrise}
+        sunset={hourlyWeatherData.forecast.forecastday[0].astro.sunset}
+        moonrise={""}
+        moonset={""}
+        moon_phase={""}
+        moon_illumination={0}
+        is_moon_up={0}
+        is_sun_up={0}
+      />
     </div>
   );
 };

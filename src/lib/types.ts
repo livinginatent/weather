@@ -39,7 +39,7 @@ type Day = {
   air_quality: AirQuality;
 };
 
-type Astro = {
+export type Astro = {
   sunrise: string;
   sunset: string;
   moonrise: string;
