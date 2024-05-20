@@ -76,6 +76,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
             length: 0.7,
             width: 12,
             animate: true,
+            type:'blob'
             // elastic: true,
           }}
           value={airQuality["us-epa-index"]}

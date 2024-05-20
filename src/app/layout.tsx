@@ -1,6 +1,7 @@
 import "@/app/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { Noto_Sans } from "next/font/google";
+import { Mulish } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,8 @@ const noto_sans = Noto_Sans({
   variable: "--noto-sans",
 });
 
+const mulish = Mulish({ subsets: ["latin"] });
+
 export default function RootLayout({
   children,
 }: {
@@ -24,11 +27,10 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "noto-sans m-0 p-0 h-full w-full overflow-x-hidden bg-[#5c9ce5] antialiased",
-          noto_sans.className
+          "noto-sans m-0 p-0 h-full w-full overflow-x-hidden bg-[#5c9ce5] antialiased"
         )}
       >
-        {children}
+        <main className={mulish.className}>{children}</main>
       </body>
     </html>
   );
