@@ -3,8 +3,8 @@ import HumidityCard from "./Humidity/HumidityCard";
 import { BeatLoader } from "react-spinners";
 import WindCard from "./Wind/WindCard";
 import UVIndexCard from "./UVIndex/UVIndexCard";
-import FeelsLikeCard from "./FeelsLike/FeelsLike";
 import { HourlyForecastT } from "@/lib/types";
+import AirQualityCard from "./AirQuality/AirQualityCard";
 
 const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   if (loading) {
@@ -19,7 +19,7 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
       <HumidityCard humidity={hourlyWeatherData?.current.humidity} />
       <WindCard wind={hourlyWeatherData?.current.wind_kph} />
       <UVIndexCard UVindex={hourlyWeatherData?.current.uv} />
-      <FeelsLikeCard feelsLike={hourlyWeatherData?.current.feelslike_c} />
+      <AirQualityCard airQuality={14}/>
     </div>
   );
 };
