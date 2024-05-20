@@ -19,7 +19,7 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
       <HumidityCard humidity={hourlyWeatherData?.current.humidity} />
       <WindCard wind={hourlyWeatherData?.current.wind_kph} />
       <UVIndexCard UVindex={hourlyWeatherData?.current.uv} />
-      <AirQualityCard airQuality={14}/>
+      <AirQualityCard airQuality={hourlyWeatherData.current.air_quality}/>
     </div>
   );
 };
