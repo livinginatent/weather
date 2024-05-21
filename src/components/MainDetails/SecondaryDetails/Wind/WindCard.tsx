@@ -7,10 +7,9 @@ const GaugeComponent = dynamic(() => import("react-gauge-component"), {
   ssr: false,
 });
 
-
 const WindCard = ({ wind }: Wind) => {
   return (
-    <Card className="h-[195px] w-80 rounded-2xl">
+    <Card className="h-[195px]  w-80 rounded-2xl">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
           Külək
@@ -20,7 +19,6 @@ const WindCard = ({ wind }: Wind) => {
       <CardContent className="flex flex-col justify-center p-0 text-xl font-bold items-center">
         <GaugeComponent
           type="semicircle"
-         
           arc={{
             width: 0.2,
             padding: 0.005,

@@ -32,58 +32,35 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
       </CardHeader>
       <CardContent className="flex flex-col justify-center p-0 text-xl font-bold items-center">
         <p>{formatTextValue(airQuality["us-epa-index"])}</p>
-        <GaugeComponent
-        style={{marginBottom:80}}
-          type="semicircle"
-          arc={{
-            padding: 0.02,
-            nbSubArcs: 6,
-            cornerRadius: 4,
-            subArcs: [
-              {
-                limit: 1,
-                color: "#9ADE7B",
-                showTick: true,
-              },
-              {
-                limit: 2,
-                color: "#C3FF93",
-                showTick: true,
-              },
-              {
-                limit: 3,
-                color: "#FFC100",
-                showTick: true,
-              },
-              {
-                limit: 4,
-                color: "#FF8A08",
-                showTick: true,
-              },
-              {
-                limit: 5,
-                color: " #FF6500",
-                showTick: true,
-              },
-              {
-                limit: 6,
-                color: "#C40C0C",
-                showTick: true,
-              },
-            ],
-          }}
-          pointer={{
-            color: "#77bae8",
-            length: 0.7,
-            width: 12,
-            animate: true,
-            type:'blob'
-            // elastic: true,
-          }}
-          value={airQuality["us-epa-index"]}
-          minValue={1}
-          maxValue={6}
-        />
+        <div className="relative">
+          <GaugeComponent
+            type="semicircle"
+            arc={{
+              padding: 0.02,
+              nbSubArcs: 6,
+              cornerRadius: 4,
+              subArcs: [
+                { limit: 1, color: "#9ADE7B", showTick: true },
+                { limit: 2, color: "#C3FF93", showTick: true },
+                { limit: 3, color: "#FFC100", showTick: true },
+                { limit: 4, color: "#FF8A08", showTick: true },
+                { limit: 5, color: " #FF6500", showTick: true },
+                { limit: 6, color: "#C40C0C", showTick: true },
+              ],
+            }}
+            pointer={{
+              color: "#77bae8",
+              length: 0.7,
+              width: 12,
+              animate: true,
+              type: "blob",
+            }}
+            value={airQuality["us-epa-index"]}
+            minValue={1}
+            maxValue={6}
+            style={{ marginTop: "-30px" }}
+          />
+        </div>
       </CardContent>
     </Card>
   );

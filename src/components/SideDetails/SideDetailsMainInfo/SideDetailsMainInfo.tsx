@@ -14,14 +14,13 @@ const SideDetailsMainInfo = ({
   date,
   logo,
 }: MainDetailsT) => {
-
   if (loading) return <BeatLoader color="#98E4FF" />;
   return (
     <div className="flex flex-col w-auto gap-2 justify-center items-center mt-10">
       <div className="flex justify-center items-center gap-1 flex-col sm:flex-row">
         <CiLocationOn color="white" size={24} />
         <div>
-          <p className="text-slate-50 text-sm md:text-lg lg:text-xl xl:text-xl">
+          <p className="text-slate-50 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
             {city}, {country}
           </p>
         </div>

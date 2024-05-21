@@ -4,15 +4,24 @@ import { calculateDayLength } from "@/utils/calculateDayLength";
 import React from "react";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 import { GoSun } from "react-icons/go";
+import { PiSunDuotone } from "react-icons/pi";
+
 
 const SunTimes = ({sunrise,sunset}:Astro) => {
       const dayLength = calculateDayLength(sunrise,sunset);
 
   return (
-    <Card className="h-[195px] w-80 rounded-2xl">
+    <Card className="h-[195px]  w-80 rounded-2xl">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
           Gün doğumu və batımı
+          {
+            <PiSunDuotone
+              style={{ marginBottom: 2 }}
+              color="#77bae8"
+              size={30}
+            />
+          }
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col  gap-8 p-0 text-xl font-bold">

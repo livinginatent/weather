@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
 import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
-import { DEFAULT_LOCATION } from "@/lib/config";
-import { getCurrent } from "@/actions/getCurrent";
 
 export default async function Home() {
-
   return (
-    <main className="flex h-screen">
+    <main className="sm:flex-col md:flex-col lg:flex-row xl:flex-row h-screen flex">
       <SideDetails />
       <MainDetails />
     </main>

@@ -6,6 +6,7 @@ import UVIndexCard from "./UVIndex/UVIndexCard";
 import { HourlyForecastT } from "@/lib/types";
 import AirQualityCard from "./AirQuality/AirQualityCard";
 import SunTimes from "./SunTimes/SunTimesCard";
+import ExtraDetailsCard from "./ExtraDetails/ExtraDetailsCard";
 
 const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   if (loading) {
@@ -30,6 +31,12 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
         moon_illumination={0}
         is_moon_up={0}
         is_sun_up={0}
+      />
+      <ExtraDetailsCard
+        current={hourlyWeatherData.current}
+        forecast={{
+          forecastday: [],
+        }}
       />
     </div>
   );
