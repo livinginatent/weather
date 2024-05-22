@@ -6,7 +6,7 @@ export const getCurrent = async ({
   lon: number;
 }) => {
   const data = await fetch(
-    `http://localhost:3000/api/weather/current?lat=${lat}&lon=${lon}`
+    `http://${process.env.VERCEL_URL}/api/weather/current?lat=${lat}&lon=${lon}`
   );
   if (!data.ok) {
     throw new Error("Failed to fetch data");
