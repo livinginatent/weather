@@ -153,7 +153,7 @@ export type CurrentWeatherDataT = {
 export type HourlyWeatherDataT = {
   forecast: Forecast;
   current: {
-    time_epoch: number;
+    time_epoch: number | undefined;
     time: string;
     temp_c: number;
     temp_f: number;
@@ -192,7 +192,7 @@ export type HourlyWeatherDataT = {
 };
 
 export type HourlyForecastT = {
-  hourlyWeatherData: HourlyWeatherDataT;
+  hourlyWeatherData: HourlyWeatherDataT | undefined;
   loading: boolean;
  
 };

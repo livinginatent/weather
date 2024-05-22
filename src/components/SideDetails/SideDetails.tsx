@@ -69,17 +69,19 @@ export const SideDetails = () => {
     (weatherData && locationNames[weatherData.location?.country]) ||
     weatherData?.location?.country;
 
+  const conditionText = weatherData?.current?.condition.text;
+  const condition = conditionText
+    ? conditionTranslations[conditionText]
+    : "Not available";
+
   return (
-    <aside className="md:w-1/4 bg-[#5c9ce5]">
+    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 bg-[#5c9ce5]">
       <MainInfo
         loading={loading}
         date={formattedDate}
         sunrise="07:19"
         sunset="20:08"
-        condition={
-          conditionTranslations[weatherData?.current?.condition.text] ||
-          "Not available"
-        }
+        condition={condition}
         country={localCountryName}
         city={localCityName}
         temp={`${weatherData?.current?.temp_c || "N/A"}°C`}

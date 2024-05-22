@@ -16,15 +16,34 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
       </div>
     );
   }
+  const humidity = hourlyWeatherData?.current.humidity ?? 0;
+  const wind = hourlyWeatherData?.current.wind_kph ?? 0;
+  const UVIndex = hourlyWeatherData?.current.uv ?? 0;
+  const airQuality = hourlyWeatherData?.current.air_quality ?? {
+    co: 0,
+    no2: 0,
+    o3: 0,
+    so2: 0,
+    pm2_5: 0,
+    pm10: 0,
+    "us-epa-index": 0,
+    "gb-defra-index": 0,
+  };
+
+  const sunrise =
+    hourlyWeatherData?.forecast.forecastday[0].astro.sunrise ?? "";
+  const sunset = hourlyWeatherData?.forecast.forecastday[0].astro.sunset ?? "";
+   const current = hourlyWeatherData?.current
+
   return (
     <div className="container mt-4 w-full h-full pb-1 px-1 grid grid-cols-1 md:grid-cols-3 gap-2">
-      <HumidityCard humidity={hourlyWeatherData?.current.humidity} />
-      <WindCard wind={hourlyWeatherData?.current.wind_kph} />
-      <UVIndexCard UVindex={hourlyWeatherData?.current.uv} />
-      <AirQualityCard airQuality={hourlyWeatherData.current.air_quality} />
+      <HumidityCard humidity={humidity} />
+      <WindCard wind={wind} />
+      <UVIndexCard UVindex={UVIndex} />
+      <AirQualityCard airQuality={airQuality} />
       <SunTimes
-        sunrise={hourlyWeatherData.forecast.forecastday[0].astro.sunrise}
-        sunset={hourlyWeatherData.forecast.forecastday[0].astro.sunset}
+        sunrise={sunrise}
+        sunset={sunset}
         moonrise={""}
         moonset={""}
         moon_phase={""}
@@ -33,7 +52,7 @@ const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
         is_sun_up={0}
       />
       <ExtraDetailsCard
-        current={hourlyWeatherData.current}
+        current={current}
         forecast={{
           forecastday: [],
         }}

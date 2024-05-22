@@ -49,7 +49,7 @@ const MainDetails = (props: Props) => {
   }
 
   return (
-    <section className="bg-[#e4f1ff] flex flex-col items-start justify-start w-full h-screen rounded-l-[30px] pl-8">
+    <section className="bg-[#e4f1ff] flex flex-col  justify-center items-center w-full h-full rounded-l-[30px] pl-8">
       <HourlyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails
         loading={loading}

@@ -15,10 +15,10 @@ import { getIcon } from "@/utils/getIcon";
 const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   const getCurrentWeather = () => ({
     time: "İndi",
-    windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph)}kmh`,
+    windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph ?? 0)}kmh`,
     bar: 20,
-    temp: hourlyWeatherData?.current.temp_c,
-    icon: getIcon(hourlyWeatherData?.current.condition.icon),
+    temp: hourlyWeatherData?.current.temp_c ?? 0,
+    icon: getIcon(hourlyWeatherData?.current.condition.icon ?? ''),
   });
 
   const getHourlyData = () => {
@@ -30,10 +30,11 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
       const newHour = new Date(nextHour.getTime() + i * 60 * 60 * 1000);
       const hourIndex = newHour.getHours();
       const temp = Math.round(
-        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.temp_c
+        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.temp_c ?? 0
       );
       const windSpeed = Math.round(
-        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.wind_kph
+        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.wind_kph ??
+          0
       );
 
       hours.push({
@@ -49,7 +50,7 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
         temp: temp,
         icon: getIcon(
           hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.condition
-            .icon
+            .icon ?? ''
         ),
       });
     }
@@ -60,7 +61,7 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   const data = getHourlyData();
 
   return (
-    <div className="bg-white w-full sm:w-5/6 h-70 mt-5 rounded-2xl flex flex-col justify-between">
+    <div className="bg-white w-full mr-10 h-70 mt-5 rounded-2xl flex flex-col justify-between">
       <div className="px-4 py-2"></div>
       <h2 className="ml-5">Gün Ərzində</h2>
       <div className="pb-4">

@@ -7,7 +7,7 @@ import { GoSun } from "react-icons/go";
 import { CgDetailsMore } from "react-icons/cg";
 import { WindDirection, windDirectionTranslations } from "@/utils/windDirections";
 
-const ExtraDetailsCard = ({ current }: HourlyWeatherDataT) => {
+const ExtraDetailsCard = ({ current }: any) => {
 const getAzeriWindDirection = (direction: string): any => {
   return windDirectionTranslations[direction];
 };

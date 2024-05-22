@@ -15,7 +15,7 @@ export const WeatherIconLabel = ({ x, y,icon,value }: any) => (
 
 export const TimeLabel = ({ x, y, value }: any) => (
   <g transform={`translate(${x - 12},${y - 65})`}>
-    <text fontSize={14}>{value}</text>
+    <text className="text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px]" >{value}</text>
   </g>
 );
 

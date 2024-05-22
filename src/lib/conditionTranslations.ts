@@ -1,4 +1,4 @@
-export const conditionTranslations = {
+export const conditionTranslations:{[key:string]:string} = {
   "Sunny": "Günəşli",
   "Clear": "Açıq",
   "Partly cloudy": "Qismən buludlu",
