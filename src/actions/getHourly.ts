@@ -6,7 +6,7 @@ export const getHourly = async ({
   lon: number;
 }) => {
   const data = await fetch(
-    `http:///weather-sand-one.vercel.app/api/weather/hourly?lat=${lat}&lon=${lon}`
+    `https:///weather-sand-one.vercel.app/api/weather/hourly?lat=${lat}&lon=${lon}`
   );
   if (!data.ok) {
     throw new Error("Failed to fetch data");
