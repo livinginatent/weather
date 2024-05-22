@@ -56,10 +56,7 @@ const WindCard = ({ wind }: Wind) => {
             },
             tickLabels: {
               type: "outer",
-              valueConfig: {
-                formatTextValue: (value) => value + "ºB",
-                fontSize: 10,
-              },
+
               ticks: [
                 { value: 30 },
                 { value: 50 },
