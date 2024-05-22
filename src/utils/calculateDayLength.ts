@@ -1,11 +1,9 @@
- export const calculateDayLength = (sunrise:string, sunset:string) =>{
+export const calculateDayLength = (sunrise: string, sunset: string) => {
   // Helper function to parse time string
-  const parseTimeString = (timeString:string | any)=> {
+  const parseTimeString = (timeString: string) => {
     const [time, modifier] = timeString.split(" ");
 
-    let [hours, minutes] = time.split(":");
-    hours = parseInt(hours);
-    minutes = parseInt(minutes);
+    let [hours, minutes] = time.split(":").map(Number);
 
     if (modifier === "PM" && hours !== 12) {
       hours += 12;
@@ -14,7 +12,7 @@
     }
 
     return { hours, minutes };
-  }
+  };
 
   // Parse the sunrise and sunset times
   const sunriseTime = parseTimeString(sunrise);
@@ -38,11 +36,11 @@
   );
 
   // Calculate the difference in milliseconds
-  const diffMs = sunsetDate - sunriseDate;
+  const diffMs = sunsetDate.getTime() - sunriseDate.getTime();
 
   // Convert milliseconds to hours and minutes
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
 
   return `${diffHours} saat ${diffMinutes} dəqiqə`;
-}
+};
