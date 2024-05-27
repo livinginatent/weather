@@ -5,8 +5,9 @@ export const getCurrent = async ({
   lat: number;
   lon: number;
 }) => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const data = await fetch(
-    `https://weather-sand-one.vercel.app/api/weather/current?lat=${lat}&lon=${lon}`
+    `${baseUrl}/api/weather/current?lat=${lat}&lon=${lon}`
   );
   if (!data.ok) {
     throw new Error("Failed to fetch data");

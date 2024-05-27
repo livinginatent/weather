@@ -14,8 +14,9 @@ export const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<
     CurrentWeatherDataT | undefined
   >();
-  const [loading, setLoading] = useState(true);
-  const [logoUrl, setLogoUrl] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [logoUrl, setLogoUrl] = useState<string>("");
+  const [permission, setPermission] = useState<boolean>(false);
 
   // Helper function to format date
   const formatDate = (dateString: string) => {
@@ -34,9 +35,11 @@ export const SideDetails = () => {
       (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({ lat: latitude, lon: longitude });
+        setPermission(true);
       },
       (error) => {
         console.error("Error getting location", error);
+        setPermission(false);
       }
     );
   }, []);

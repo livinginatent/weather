@@ -1,12 +1,7 @@
-export const getHourly = async ({
-  lat,
-  lon,
-}: {
-  lat: number;
-  lon: number;
-}) => {
+export const getHourly = async ({ lat, lon }: { lat: number; lon: number }) => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const data = await fetch(
-    `https:///weather-sand-one.vercel.app/api/weather/hourly?lat=${lat}&lon=${lon}`
+    `${baseUrl}/api/weather/hourly?lat=${lat}&lon=${lon}`
   );
   if (!data.ok) {
     throw new Error("Failed to fetch data");
