@@ -22,22 +22,26 @@ export const SideDetails = () => {
   
   // Fetch location from navigator or use default
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setLocation({ lat: latitude, lon: longitude });
-        setPermission(true);
-      },
-      (error) => {
-        console.error("Error getting location", error);
-        setPermission(false);
-      }
-    );
+    const getLocation = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lon: longitude });
+        },
+        (error) => {
+          console.error("Error getting location", error);
+          setLocation(DEFAULT_LOCATION); // Use default location on error
+        },
+        { timeout: 10000 } // Set a timeout to handle the case where geolocation takes too long
+      );
+    };
+
+    getLocation();
   }, []);
 
   // Fetch weather data when location is updated
   useEffect(() => {
-    if (location !== DEFAULT_LOCATION) {
+    if (location !== DEFAULT_LOCATION || loading) {
       getCurrent(location)
         .then((data) => {
           setWeatherData(data);
