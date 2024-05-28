@@ -5,6 +5,8 @@ import { MainDetailsT } from "./types";
 import Image from "next/image";
 import { BeatLoader } from "react-spinners";
 
+import Search from "@/components/Search/Search";
+
 const SideDetailsMainInfo = ({
   country,
   city,
@@ -16,7 +18,7 @@ const SideDetailsMainInfo = ({
 }: MainDetailsT) => {
   if (loading) return <BeatLoader color="#98E4FF" />;
   return (
-    <div className="flex flex-col w-100% gap-2 justify-center items-center mt-10">
+    <div className="flex flex-col w-full gap-2 justify-center items-center mt-10">
       <div className="flex justify-center items-center gap-1 flex-col ">
         <CiLocationOn color="white" size={32} />
         <div>
@@ -42,6 +44,7 @@ const SideDetailsMainInfo = ({
           </p>
         </div>
       </div>
+    
     </div>
   );
 };

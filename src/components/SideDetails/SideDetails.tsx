@@ -8,6 +8,8 @@ import { locationNames } from "@/lib/locationNames";
 import { days, months } from "@/lib/dateTranslations";
 import { conditionTranslations } from "@/lib/conditionTranslations";
 import { getIcon } from "@/utils/getIcon";
+import Search from "../Search/Search";
+import { formatDate } from "@/utils/formatDate";
 
 export const SideDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
@@ -17,18 +19,7 @@ export const SideDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [logoUrl, setLogoUrl] = useState<string>("");
   const [permission, setPermission] = useState<boolean>(false);
-
-  // Helper function to format date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const dayOfWeek = days[date.toLocaleString("en-US", { weekday: "long" })];
-    const month = months[date.toLocaleString("en-US", { month: "long" })];
-    const dayOfMonth = date.getDate();
-    const time = `${date.getHours()}:${date.getMinutes()}`;
-
-    return `${dayOfWeek}, ${dayOfMonth} ${month}, ${time} `;
-  };
-
+  
   // Fetch location from navigator or use default
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -78,18 +69,19 @@ export const SideDetails = () => {
     : "Not available";
 
   return (
-    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 bg-[#5c9ce5]">
+    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col items-center bg-[#5c9ce5]">
       <MainInfo
         loading={loading}
         date={formattedDate}
-        sunrise="07:19"
-        sunset="20:08"
         condition={condition}
         country={localCountryName}
         city={localCityName}
         temp={`${weatherData?.current?.temp_c || "N/A"}°C`}
         logo={logoUrl}
       />
+      <div className="flex w-4/5 max-w-sm items-center self-center space-x-2">
+        <Search />
+      </div>
     </aside>
   );
 };

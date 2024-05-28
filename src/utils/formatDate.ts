@@ -1,13 +1,11 @@
-export const formatDate = (date:Date) => {
-  // Get the year, month, and day
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+import { days, months } from "@/lib/dateTranslations";
 
-  // Get the hours and minutes
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const dayOfWeek = days[date.toLocaleString("en-US", { weekday: "long" })];
+  const month = months[date.toLocaleString("en-US", { month: "long" })];
+  const dayOfMonth = date.getDate();
+  const time = `${date.getHours()}:${date.getMinutes()}`;
 
-  // Construct the formatted date string
-  return `${year}-${month}-${day} ${hours}:${minutes}`;
+  return `${dayOfWeek}, ${dayOfMonth} ${month}, ${time} `;
 };
