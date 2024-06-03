@@ -193,7 +193,7 @@ export type HourlyWeatherDataT = {
 
 export type HourlyForecastT = {
   hourlyWeatherData: HourlyWeatherDataT | undefined;
-  loading: boolean;
+  
  
 };
 

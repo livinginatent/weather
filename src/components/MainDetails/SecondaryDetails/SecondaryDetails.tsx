@@ -8,14 +8,8 @@ import AirQualityCard from "./AirQuality/AirQualityCard";
 import SunTimes from "./SunTimes/SunTimesCard";
 import ExtraDetailsCard from "./ExtraDetails/ExtraDetailsCard";
 
-const SecondaryDetails = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center mt-20">
-        <BeatLoader color="#98E4FF" />
-      </div>
-    );
-  }
+const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
+
   const humidity = hourlyWeatherData?.current.humidity ?? 0;
   const wind = hourlyWeatherData?.current.wind_kph ?? 0;
   const UVIndex = hourlyWeatherData?.current.uv ?? 0;

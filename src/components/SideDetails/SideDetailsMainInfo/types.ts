@@ -6,6 +6,5 @@ export type MainDetailsT = {
   temp: any;
   condition: string | undefined;
   date: string | undefined;
-  loading: boolean;
   logo: any;
 };
