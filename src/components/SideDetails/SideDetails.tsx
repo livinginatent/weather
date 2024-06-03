@@ -4,12 +4,17 @@ import MainInfo from "./SideDetailsMainInfo/SideDetailsMainInfo";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getCurrent } from "@/actions/getCurrent";
 import { CurrentWeatherDataT } from "@/lib/types";
-import { locationNames } from "@/lib/locationNames";
-import { days, months } from "@/lib/dateTranslations";
+import { cities, locationNames } from "@/lib/locationNames";
 import { conditionTranslations } from "@/lib/conditionTranslations";
 import { getIcon } from "@/utils/getIcon";
 import Search from "../Search/Search";
 import { formatDate } from "@/utils/formatDate";
+import useWeatherStore from "@/store/store";
+import { getSearchCity } from "@/actions/getSearchCity";
+
+const isObjectEmpty = (obj: any) => {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+};
 
 export const SideDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
@@ -18,8 +23,8 @@ export const SideDetails = () => {
   >();
   const [loading, setLoading] = useState<boolean>(true);
   const [logoUrl, setLogoUrl] = useState<string>("");
-  const [permission, setPermission] = useState<boolean>(false);
-  
+  const searchCity = useWeatherStore((state) => state.coordinates);
+
   // Fetch location from navigator or use default
   useEffect(() => {
     const getLocation = () => {
@@ -32,16 +37,33 @@ export const SideDetails = () => {
           console.error("Error getting location", error);
           setLocation(DEFAULT_LOCATION); // Use default location on error
         },
-        { timeout: 10000 } // Set a timeout to handle the case where geolocation takes too long
+        { timeout: 10000 }
       );
     };
 
     getLocation();
   }, []);
 
-  // Fetch weather data when location is updated
+  // Fetch weather data based on location or selected city
   useEffect(() => {
-    if (location !== DEFAULT_LOCATION || loading) {
+    if (searchCity.lat != null && searchCity.lon !== null) {
+      console.log("hey");
+      setLoading(true);
+      getSearchCity({ lat: searchCity.lat, lon: searchCity.lon })
+        .then((data) => {
+          setWeatherData(data);
+          setLoading(false);
+          if (data && data.current && data.current.condition.icon) {
+            const localIconPath = getIcon(data.current.condition.icon);
+            setLogoUrl(localIconPath);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching weather data for selected city", error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
       getCurrent(location)
         .then((data) => {
           setWeatherData(data);
@@ -49,22 +71,27 @@ export const SideDetails = () => {
           if (data && data.current && data.current.condition.icon) {
             const localIconPath = getIcon(data.current.condition.icon);
             setLogoUrl(localIconPath);
-            console.log(localIconPath);
           }
         })
-        .catch((error) => console.error("Error fetching weather data", error));
+        .catch((error) => {
+          console.error(
+            "Error fetching weather data for current location",
+            error
+          );
+          setLoading(false);
+        });
     }
-  }, [location]);
+  }, [location, searchCity]);
 
   const formattedDate = weatherData
     ? formatDate(weatherData.location.localtime)
     : "";
 
   const localCityName =
-    (weatherData && locationNames[weatherData.location?.region]) ||
-    weatherData?.location?.region;
+    (weatherData && cities[weatherData.location?.name]) ||
+    weatherData?.location?.name;
   const localCountryName =
-    (weatherData && locationNames[weatherData.location?.country]) ||
+    (weatherData && cities[weatherData.location?.country]) ||
     weatherData?.location?.country;
 
   const conditionText = weatherData?.current?.condition.text;

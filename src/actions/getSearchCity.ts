@@ -1,12 +1,8 @@
-export const getCurrent = async ({
-  lat,
-  lon,
-}: {
-  lat: number;
-  lon: number;
-}) => {
+import { Coordinates } from "@/lib/types";
+import useWeatherStore from "@/store/store";
+
+export const getSearchCity = async ({ lat, lon }: Coordinates) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  console.log(lat,lon)
   const data = await fetch(
     `${baseUrl}/api/weather/current?lat=${lat}&lon=${lon}`
   );

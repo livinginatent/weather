@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { CiSearch } from "react-icons/ci";
-
 import {
   Command,
   CommandEmpty,
@@ -17,19 +16,32 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { locationNames } from "@/lib/locationNames";
 import { ScrollArea } from "../ui/scroll-area";
+import useWeatherStore from "@/store/store";
+import { Coordinates } from "@/lib/types";
 
 type Props = {};
 
 const Search = (props: Props) => {
   const searchIcon = <CiSearch size={22} />;
 
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
-  const cityArray = Object.entries(locationNames).slice(1).map(([key, value]) => ({
-    value: key,
-    label: value,
-  }));
+  const setCoordinates = useWeatherStore((state) => state.setCoordinates);
+  const test = useWeatherStore((state) => state.coordinates);
+
+  const cityArray = Object.entries(locationNames)
+    .slice(1)
+    .map(([key, value]) => ({
+      name: key,
+      coordinates: value,
+    }));
+
+  const handleSelect = (cityName: string, cityCoordinates: Coordinates) => {
+    setValue(cityName);
+    setCoordinates(cityCoordinates);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -41,7 +53,7 @@ const Search = (props: Props) => {
           className="w-[200px] justify-between"
         >
           {value
-            ? cityArray.find((city) => city.value === value)?.label
+            ? cityArray.find((city) => city.name === value)?.name
             : "Şəhər seçin..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -54,14 +66,11 @@ const Search = (props: Props) => {
             <ScrollArea className="h-24">
               {cityArray.map((city) => (
                 <CommandItem
-                  key={city.value}
-                  value={city.label}
-                  onSelect={() => {
-                    setValue(city.value);
-                    setOpen(false);
-                  }}
+                  key={city.name}
+                  value={city.name}
+                  onSelect={() => handleSelect(city.name, city.coordinates)}
                 >
-                  {city.label}
+                  {city.name}
                 </CommandItem>
               ))}
             </ScrollArea>

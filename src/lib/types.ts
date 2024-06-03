@@ -101,8 +101,8 @@ type Forecast = {
 };
 
 export type Coordinates = {
-  lon: number;
-  lat: number;
+  lon: number | null;
+  lat: number | null;
 };
 
 export type Location = {
