@@ -12,7 +12,7 @@ import {
 import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
 import { getIcon } from "@/utils/getIcon";
 
-const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
+const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const getCurrentWeather = () => ({
     time: "İndi",
     windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph ?? 0)}kmh`,

@@ -1,24 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { BarChart } from "@mui/x-charts";
 import HourlyForecast from "./HourlyForecast/HourlyForecast";
 import { HourlyWeatherDataT } from "@/lib/types";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
-import { getIcon } from "@/utils/getIcon";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, ClipLoader } from "react-spinners";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import useWeatherStore from "@/store/store";
+import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 
 type Props = {};
 
@@ -28,54 +26,63 @@ const MainDetails = (props: Props) => {
     useState<HourlyWeatherDataT>();
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const handleGeolocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setLocation({ lat: latitude, lon: longitude });
-        setIsOpen(false);
-      },
-      (error) => {
-        console.error("Error getting location", error);
-        setIsOpen(true);
-      },
-      { timeout: 5000 }
-    );
-  };
+  const searchCity = useWeatherStore((state) => state.coordinates);
 
   useEffect(() => {
-    handleGeolocation();
+    const getLocation = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lon: longitude });
+        },
+        (error) => {
+          console.error("Error getting location", error);
+          setLocation(DEFAULT_LOCATION); // Use default location on error
+        },
+        { timeout: 10000 }
+      );
+    };
+
+    getLocation();
   }, []);
 
-  // Fetch weather data when location is updated
   useEffect(() => {
-    if (location !== DEFAULT_LOCATION || loading) {
-      getHourly(location)
-        .then((data) => {
-          setHourlyWeatherData(data);
-          setLoading(false);
-        })
-        .catch((error) => console.error("Error fetching weather data", error));
-    }
-  }, [location, loading]);
+    const fetchWeatherData = async () => {
+      setLoading(true);
+      try {
+        let data;
+        if (searchCity.lat != null && searchCity.lon !== null) {
+          data = await getSearchCityHourly({
+            lat: searchCity.lat,
+            lon: searchCity.lon,
+          });
+        } else if (location) {
+          data = await getHourly(location);
+        }
 
+        setHourlyWeatherData(data);
+      } catch (error) {
+        console.error("Error fetching weather data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchWeatherData();
+  }, [location, searchCity]);
 
   if (loading) {
     return (
-      <div className="flex mt-20">
-        <BeatLoader color="#98E4FF" />
+      <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-75">
+        <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
   }
 
   return (
     <section className="bg-[#e4f1ff] flex flex-col justify-center items-center w-full h-full lg:h-screen rounded-l-[30px] pl-8">
-      <HourlyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
-      <SecondaryDetails
-        loading={loading}
-        hourlyWeatherData={hourlyWeatherData}
-      />
+      <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
+      <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
       <AlertDialog open={isOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -91,7 +98,7 @@ const MainDetails = (props: Props) => {
             <AlertDialogCancel onClick={() => setIsOpen(false)}>
               Bağla
             </AlertDialogCancel>
-           {/*  <AlertDialogAction
+            {/*  <AlertDialogAction
               style={{ backgroundColor: "#5c9ce5" }}
               onClick={requestGeolocationPermission}
             >

@@ -1,8 +1,6 @@
 import { Coordinates } from "@/lib/types";
 import { create } from "zustand";
 
-
-
 type WeatherState = {
   coordinates: Coordinates;
   setCoordinates: (newCoordinates: Coordinates) => void;
