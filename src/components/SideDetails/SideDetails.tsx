@@ -88,8 +88,8 @@ export const SideDetails = () => {
     : "";
 
   const localCityName =
-    (weatherData && cities[weatherData.location?.name]) ||
-    weatherData?.location?.name;
+    (weatherData && cities[weatherData.location?.region]) ||
+    weatherData?.location?.region;
   const localCountryName =
     (weatherData && cities[weatherData.location?.country]) ||
     weatherData?.location?.country;

@@ -22,16 +22,13 @@ import { Coordinates } from "@/lib/types";
 type Props = {};
 
 const Search = (props: Props) => {
-  const searchIcon = <CiSearch size={22} />;
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
   const setCoordinates = useWeatherStore((state) => state.setCoordinates);
-  const test = useWeatherStore((state) => state.coordinates);
 
   const cityArray = Object.entries(locationNames)
-    .slice(1)
     .map(([key, value]) => ({
       name: key,
       coordinates: value,
