@@ -6,24 +6,13 @@ import { DEFAULT_LOCATION } from "@/lib/config";
 import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
 import { ClipLoader } from "react-spinners";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import useWeatherStore from "@/store/store";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 
 const MainDetails = () => {
-  const [location, setLocation] = useState(DEFAULT_LOCATION);
   const [hourlyWeatherData, setHourlyWeatherData] =
     useState<HourlyWeatherDataT | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
   const searchCity = useWeatherStore((state) => state.coordinates);
   /* 
   useEffect(() => {
@@ -68,7 +57,7 @@ const MainDetails = () => {
     };
 
     fetchWeatherData();
-  }, [location, searchCity]);
+  }, [searchCity]);
 
   if (loading || !hourlyWeatherData) {
     return (
@@ -82,7 +71,7 @@ const MainDetails = () => {
     <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
       <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
-{/*       <AlertDialog open={isOpen}>
+      {/*       <AlertDialog open={isOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Lokasiya icazəsi</AlertDialogTitle>
