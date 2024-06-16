@@ -85,7 +85,8 @@ const SideDetails = () => {
 
   const formattedDate = formatDate(weatherData.location.localtime);
   const localCityName =
-    cities[weatherData.location?.name] || weatherData.location?.name;
+    (weatherData && cities[weatherData.location?.region]) ||
+    weatherData?.location?.region;
   const localCountryName =
     cities[weatherData.location?.country] || weatherData.location?.country;
   const conditionText = weatherData.current.condition.text;
