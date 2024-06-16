@@ -23,7 +23,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
   };
 
   return (
-    <Card className="h-[195px] w-80 rounded-2xl">
+    <Card className="h-[195px]  rounded-2xl">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
           Hava Keyfiyyəti

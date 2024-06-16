@@ -11,16 +11,15 @@ import Search from "../Search/Search";
 import { formatDate } from "@/utils/formatDate";
 import useWeatherStore from "@/store/store";
 import { getSearchCity } from "@/actions/getSearchCity";
-
 import { ClipLoader } from "react-spinners";
 
-export const SideDetails = () => {
+const SideDetails = () => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
     null
   );
-  const [weatherData, setWeatherData] = useState<
-    CurrentWeatherDataT | undefined
-  >();
+  const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
+    null
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [logoUrl, setLogoUrl] = useState<string>("");
   const searchCity = useWeatherStore((state) => state.coordinates);
@@ -34,7 +33,7 @@ export const SideDetails = () => {
         },
         (error) => {
           console.error("Error getting location", error);
-          setLocation(DEFAULT_LOCATION); // Use default location on error
+          setLocation(DEFAULT_LOCATION);
         },
         { timeout: 10000 }
       );
@@ -57,10 +56,12 @@ export const SideDetails = () => {
           data = await getCurrent(location);
         }
 
-        setWeatherData(data);
-        if (data && data.current && data.current.condition.icon) {
-          const localIconPath = getIcon(data.current.condition.icon);
-          setLogoUrl(localIconPath);
+        if (data) {
+          setWeatherData(data);
+          if (data.current && data.current.condition.icon) {
+            const localIconPath = getIcon(data.current.condition.icon);
+            setLogoUrl(localIconPath);
+          }
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -69,48 +70,42 @@ export const SideDetails = () => {
       }
     };
 
-    fetchWeatherData();
+    if (location || (searchCity.lat != null && searchCity.lon !== null)) {
+      fetchWeatherData();
+    }
   }, [location, searchCity]);
 
-  const formattedDate = weatherData
-    ? formatDate(weatherData.location.localtime)
-    : "";
+  if (loading || !weatherData) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <ClipLoader color="#36d7b7" size={50} />
+      </div>
+    );
+  }
 
+  const formattedDate = formatDate(weatherData.location.localtime);
   const localCityName =
-    (weatherData && cities[weatherData.location?.name]) ||
-    weatherData?.location?.name;
+    cities[weatherData.location?.name] || weatherData.location?.name;
   const localCountryName =
-    (weatherData && cities[weatherData.location?.country]) ||
-    weatherData?.location?.country;
+    cities[weatherData.location?.country] || weatherData.location?.country;
+  const conditionText = weatherData.current.condition.text;
+  const condition =
+    conditionTranslations[conditionText] || "Condition not available";
 
-  const conditionText = weatherData?.current?.condition.text;
-  const condition = conditionText
-    ? conditionTranslations[conditionText]
-    : "Not available";
-if (loading) {
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-75">
-      <ClipLoader color="#36d7b7" size={50} />
-    </div>
-  );
-};
-  return (
-    <>
-      <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col items-center bg-[#5c9ce5]">
-        <SideDetailsMainInfo
-          date={formattedDate}
-          condition={condition}
-          country={localCountryName}
-          city={localCityName}
-          temp={`${weatherData?.current?.temp_c || "N/A"}°C`}
-          logo={logoUrl}
-          
-        />
-        <div className="flex w-4/5 mt-4 max-w-sm items-center justify-center space-x-2">
-          <Search />
-        </div>
-      </aside>
-    </>
+    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-[#5c9ce5]">
+      <SideDetailsMainInfo
+        date={formattedDate}
+        condition={condition}
+        country={localCountryName}
+        city={localCityName}
+        temp={`${weatherData.current.temp_c}°C`}
+        logo={logoUrl}
+      />
+      <div className="flex w-4/5 mt-4 max-w-sm self-center mb-2 items-center justify-center space-x-2">
+        <Search />
+      </div>
+    </aside>
   );
 };
 

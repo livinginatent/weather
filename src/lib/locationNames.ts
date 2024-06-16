@@ -139,7 +139,8 @@ export const locationNames: { [key: string]: { lat: number | null; lon: number |
 
 export const cities: { [key: string]: string } = {
   Azerbaijan: "Azərbaycan",
-  Baki:"Bakı",
+  Baku: "Bakı",
+  Aran:"Mingəçevir",
   Agdam: "Ağdam",
   Agdash: "Ağdaş",
   Agjabadi: "Ağcabədi",
@@ -154,6 +155,7 @@ export const cities: { [key: string]: string } = {
   Dashkasan: "Daşkəsən",
   Davachi: "Dəvəçi",
   Fuzuli: "Füzuli",
+  Lokbatan:'Qaradağ',
   Gedebey: "Gədəbəy",
   Ganja: "Gəncə",
   Goranboy: "Goranboy",
@@ -193,7 +195,8 @@ export const cities: { [key: string]: string } = {
   Sharur: "Şərur",
   Shirvan: "Şirvan",
   Siazan: "Siyəzən",
-  Sumqayit: "Sumqayıt",
+  Sumgayit: "Sumqayıt",
+  Ceyranbatan: "Sumqayıt",
   Terter: "Tərtər",
   Tovuz: "Tovuz",
   Ujar: "Ucar",

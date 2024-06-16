@@ -5,7 +5,7 @@ import { HourlyWeatherDataT } from "@/lib/types";
 import { DEFAULT_LOCATION } from "@/lib/config";
 import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
-import { BeatLoader, ClipLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -18,12 +18,10 @@ import {
 import useWeatherStore from "@/store/store";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 
-type Props = {};
-
-const MainDetails = (props: Props) => {
+const MainDetails = () => {
   const [location, setLocation] = useState(DEFAULT_LOCATION);
   const [hourlyWeatherData, setHourlyWeatherData] =
-    useState<HourlyWeatherDataT>();
+    useState<HourlyWeatherDataT | null>(null);
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const searchCity = useWeatherStore((state) => state.coordinates);
@@ -38,6 +36,7 @@ const MainDetails = (props: Props) => {
         (error) => {
           console.error("Error getting location", error);
           setLocation(DEFAULT_LOCATION); // Use default location on error
+          setIsOpen(true); // Open alert dialog if location permission is denied
         },
         { timeout: 10000 }
       );
@@ -56,7 +55,7 @@ const MainDetails = (props: Props) => {
             lat: searchCity.lat,
             lon: searchCity.lon,
           });
-        } else if (location) {
+        } else {
           data = await getHourly(location);
         }
 
@@ -68,19 +67,21 @@ const MainDetails = (props: Props) => {
       }
     };
 
-    fetchWeatherData();
+    if (location || (searchCity.lat != null && searchCity.lon !== null)) {
+      fetchWeatherData();
+    }
   }, [location, searchCity]);
 
-  if (loading) {
+  if (loading || !hourlyWeatherData) {
     return (
-      <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-75">
+      <div className="fixed inset-0 flex justify-center items-center">
         <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
   }
 
   return (
-    <section className="bg-[#e4f1ff] flex flex-col justify-center items-center w-full h-full lg:h-screen rounded-l-[30px] pl-8">
+    <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
       <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
       <AlertDialog open={isOpen}>
@@ -98,12 +99,6 @@ const MainDetails = (props: Props) => {
             <AlertDialogCancel onClick={() => setIsOpen(false)}>
               Bağla
             </AlertDialogCancel>
-            {/*  <AlertDialogAction
-              style={{ backgroundColor: "#5c9ce5" }}
-              onClick={requestGeolocationPermission}
-            >
-              İcazə ver
-            </AlertDialogAction> */}
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

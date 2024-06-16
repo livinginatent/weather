@@ -30,7 +30,7 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
    const current = hourlyWeatherData?.current
 
   return (
-    <div className="container mt-4 w-full h-full pb-1 px-1 grid grid-cols-1 md:grid-cols-3 gap-2">
+    <div className="container mt-4 w-full pb-1 justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2">
       <HumidityCard humidity={humidity} />
       <WindCard wind={wind} />
       <UVIndexCard UVindex={UVIndex} />
