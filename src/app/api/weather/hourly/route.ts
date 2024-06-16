@@ -1,18 +1,21 @@
-export async function GET(request: Request) {
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
   const API_KEY = process.env.API_KEY;
-  const { searchParams } = new URL(request.url);
-  const lat = searchParams.get("lat");
-  const lon = searchParams.get("lon");
-  /*  if (!lat || !lon) {
-   return Response.json({ message: "Missing parameters" }, { status: 400 });
- } */
+
+  // Extracting the IP address
+  const forwarded = request.headers.get("x-forwarded-for");
+  const ip = forwarded ? forwarded.split(/, /)[0] : request.ip;
+  const testIp = "103.167.234.0";
+
   try {
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=1&aqi=yes&alerts=no`;
-    const res = await fetch(url, { cache: "no-store" });
+    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=1&aqi=yes&alerts=no`;
+    const res = await fetch(url);
     const data = await res.json();
-    return new Response(JSON.stringify(data), { status: 200 });
+
+    return new NextResponse(JSON.stringify(data), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Failed to fetch data" }), {
+    return new NextResponse(JSON.stringify({ error: "Failed to fetch data" }), {
       status: 500,
     });
   }

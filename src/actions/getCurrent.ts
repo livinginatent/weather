@@ -6,7 +6,6 @@ export const getCurrent = async ({
   lon: number;
 }) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  console.log(lat,lon)
   const data = await fetch(
     `${baseUrl}/api/weather/current?lat=${lat}&lon=${lon}`
   );

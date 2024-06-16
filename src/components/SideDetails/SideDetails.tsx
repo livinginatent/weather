@@ -12,6 +12,7 @@ import { formatDate } from "@/utils/formatDate";
 import useWeatherStore from "@/store/store";
 import { getSearchCity } from "@/actions/getSearchCity";
 import { ClipLoader } from "react-spinners";
+import { getHourly } from "@/actions/getHourly";
 
 const SideDetails = () => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
@@ -24,7 +25,7 @@ const SideDetails = () => {
   const [logoUrl, setLogoUrl] = useState<string>("");
   const searchCity = useWeatherStore((state) => state.coordinates);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const getLocation = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -40,7 +41,7 @@ const SideDetails = () => {
     };
 
     getLocation();
-  }, []);
+  }, []); */
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -52,8 +53,8 @@ const SideDetails = () => {
             lat: searchCity.lat,
             lon: searchCity.lon,
           });
-        } else if (location) {
-          data = await getCurrent(location);
+        } else {
+          data = await getHourly();
         }
 
         if (data) {
@@ -70,9 +71,7 @@ const SideDetails = () => {
       }
     };
 
-    if (location || (searchCity.lat != null && searchCity.lon !== null)) {
-      fetchWeatherData();
-    }
+    fetchWeatherData();
   }, [location, searchCity]);
 
   if (loading || !weatherData) {

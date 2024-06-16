@@ -25,7 +25,7 @@ const MainDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const searchCity = useWeatherStore((state) => state.coordinates);
-
+  /* 
   useEffect(() => {
     const getLocation = () => {
       navigator.geolocation.getCurrentPosition(
@@ -43,7 +43,7 @@ const MainDetails = () => {
     };
 
     getLocation();
-  }, []);
+  }, []); */
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -56,7 +56,7 @@ const MainDetails = () => {
             lon: searchCity.lon,
           });
         } else {
-          data = await getHourly(location);
+          data = await getHourly();
         }
 
         setHourlyWeatherData(data);
@@ -67,9 +67,7 @@ const MainDetails = () => {
       }
     };
 
-    if (location || (searchCity.lat != null && searchCity.lon !== null)) {
-      fetchWeatherData();
-    }
+    fetchWeatherData();
   }, [location, searchCity]);
 
   if (loading || !hourlyWeatherData) {
@@ -84,7 +82,7 @@ const MainDetails = () => {
     <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
       <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
-      <AlertDialog open={isOpen}>
+{/*       <AlertDialog open={isOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Lokasiya icazəsi</AlertDialogTitle>
@@ -101,7 +99,7 @@ const MainDetails = () => {
             </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
+      </AlertDialog> */}
     </section>
   );
 };
