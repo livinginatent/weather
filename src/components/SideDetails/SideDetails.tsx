@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import SideDetailsMainInfo from "./SideDetailsMainInfo/SideDetailsMainInfo";
 import { DEFAULT_LOCATION } from "@/lib/config";
-import { getCurrent } from "@/actions/getCurrent";
 import { CurrentWeatherDataT } from "@/lib/types";
 import { cities } from "@/lib/locationNames";
 import { conditionTranslations } from "@/lib/conditionTranslations";
@@ -23,23 +22,6 @@ const SideDetails = () => {
   const [logoUrl, setLogoUrl] = useState<string>("");
   const searchCity = useWeatherStore((state) => state.coordinates);
 
-  /*   useEffect(() => {
-    const getLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ lat: latitude, lon: longitude });
-        },
-        (error) => {
-          console.error("Error getting location", error);
-          setLocation(DEFAULT_LOCATION);
-        },
-        { timeout: 10000 }
-      );
-    };
-
-    getLocation();
-  }, []); */
 
   useEffect(() => {
     const fetchWeatherData = async () => {

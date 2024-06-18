@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
 import { getIcon } from "@/utils/getIcon";
+import { ForecastToggle } from "../ForecastToggle/ForecastToggle";
 
 const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const [hoursToShow, setHoursToShow] = useState(10);
@@ -77,7 +78,7 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   };
 
   const data = getHourlyData();
-
+ const [checked, setIsChecked] = useState<boolean>(false);
   return (
     <div className="bg-white xl:w-full w-screen h-70 mt-5 rounded-2xl flex flex-col justify-between">
       <div className="px-4 py-2"></div>
@@ -109,6 +110,7 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
             </Bar>
           </ComposedChart>
         </ResponsiveContainer>
+     {/*  <ForecastToggle onChange={setIsChecked} checked={checked} /> */}
       </div>
     </div>
   );

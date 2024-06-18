@@ -5,12 +5,11 @@ export async function GET(request: Request) {
   const lon = searchParams.get("lon");
   const city = searchParams.get("city");
 
-  const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&aqi=no`;
+  const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&aqi=yes`;
 
   try {
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
-    console.log(data,'jello')
     return new Response(JSON.stringify(data), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ error: "Failed to fetch data" }), {

@@ -6,8 +6,8 @@ import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
 import { ClipLoader } from "react-spinners";
 import useWeatherStore from "@/store/store";
-import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import { getSearchCity } from "@/actions/getSearchCity";
+import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
@@ -16,26 +16,21 @@ const MainDetails = () => {
   const searchCity = useWeatherStore((state) => state.coordinates);
 
   useEffect(() => {
-    console.log("Search city coordinates:", searchCity);
-
     const fetchWeatherData = async () => {
       setLoading(true);
       try {
         let data;
         if (searchCity.lat != null && searchCity.lon != null) {
-          console.log("Fetching data for searchCity:", searchCity);
           data = await getSearchCityHourly({
             lat: searchCity.lat,
             lon: searchCity.lon,
           });
         } else {
-          console.log("Fetching hourly data based on IP address");
           data = await getHourly();
         }
 
         if (data) {
           setHourlyWeatherData(data);
-          console.log("Fetched data:", data);
         }
       } catch (error) {
         console.error("Error fetching weather data", error);

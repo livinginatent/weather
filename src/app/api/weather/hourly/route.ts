@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const testIp = "103.167.234.0";
 
   try {
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${testIp}&days=1&aqi=yes&alerts=no`;
+    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=1&aqi=yes&alerts=no`;
     const res = await fetch(url);
     const data = await res.json();
 
