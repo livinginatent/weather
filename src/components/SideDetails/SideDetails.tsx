@@ -15,9 +15,7 @@ import { ClipLoader } from "react-spinners";
 import { getHourly } from "@/actions/getHourly";
 
 const SideDetails = () => {
-  const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
-    null
-  );
+
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
@@ -59,6 +57,7 @@ const SideDetails = () => {
 
         if (data) {
           setWeatherData(data);
+       
           if (data.current && data.current.condition.icon) {
             const localIconPath = getIcon(data.current.condition.icon);
             setLogoUrl(localIconPath);
@@ -72,7 +71,7 @@ const SideDetails = () => {
     };
 
     fetchWeatherData();
-  }, [location, searchCity]);
+  }, [searchCity]);
 
   if (loading || !weatherData) {
     return (
@@ -82,7 +81,7 @@ const SideDetails = () => {
     );
   }
 
-  const formattedDate = formatDate(weatherData.location.localtime);
+  const formattedDate = formatDate(weatherData?.location.localtime);
   const localCityName =
     (weatherData && cities[weatherData.location?.region]) ||
     weatherData?.location?.region;
