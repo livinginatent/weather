@@ -1,5 +1,5 @@
 import useWeatherStore from "@/store/store";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Area,
   CartesianGrid,
@@ -10,6 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import Day from "./Day";
+import { getWeekly } from "@/actions/getWeekly";
 
 const WeeklyForecast = () => {
   const data = [
@@ -21,6 +22,38 @@ const WeeklyForecast = () => {
     { date: "28 Jun", temp: 23 },
     { date: "29 Jun", temp: 26 },
   ];
+
+  const [weeklyWeatherData, setWeeklyWeatherData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const searchCity = useWeatherStore((state) => state.coordinates);
+  const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
+
+  const handleClick = (showHourly: boolean) => {
+    setShowHourlyForecast(showHourly);
+  };
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      setLoading(true);
+      try {
+        const data = await getWeekly({
+          lat: searchCity.lat,
+          lon: searchCity.lon,
+        });
+
+        if (data) {
+          setWeeklyWeatherData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching weather data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWeatherData();
+  }, [searchCity]);
+  console.log(weeklyWeatherData, "hello");
   return (
     <div className="w-3/4 h-96 flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
       <ResponsiveContainer width="100%" height={195}>
@@ -45,7 +78,15 @@ const WeeklyForecast = () => {
           />
         </ComposedChart>
       </ResponsiveContainer>
-      <Day/>
+      <div className="flex">
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+      </div>
     </div>
   );
 };
