@@ -8,12 +8,19 @@ import { ClipLoader } from "react-spinners";
 import useWeatherStore from "@/store/store";
 import { getSearchCity } from "@/actions/getSearchCity";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
+import { Button } from "../ui/button";
+import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
     useState<HourlyWeatherDataT | null>(null);
   const [loading, setLoading] = useState(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
+  const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
+
+  const handleClick = (showHourly: boolean) => {
+    setShowHourlyForecast(showHourly);
+  };
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -38,7 +45,7 @@ const MainDetails = () => {
         setLoading(false);
       }
     };
-
+  
     fetchWeatherData();
   }, [searchCity]);
 
@@ -52,8 +59,35 @@ const MainDetails = () => {
 
   return (
     <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
-      <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
-      <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
+      {showHourlyForecast && (
+        <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
+      )}
+      <div className="flex gap-2 ml-2 self-start">
+        <Button
+          onClick={() => handleClick(true)}
+          className={`${
+            showHourlyForecast
+              ? "bg-zinc-800 text-white"
+              : "bg-gray-300 text-black"
+          }`}
+        >
+          Saatlıq
+        </Button>
+        <Button
+          className={`${
+            !showHourlyForecast
+              ? "bg-zinc-800 text-white"
+              : "bg-gray-300 text-black"
+          }`}
+          onClick={() => handleClick(false)}
+        >
+          Həftəlik
+        </Button>
+      </div>
+      {showHourlyForecast && (
+        <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
+      )}
+      {!showHourlyForecast && <WeeklyForecast/>}
     </section>
   );
 };

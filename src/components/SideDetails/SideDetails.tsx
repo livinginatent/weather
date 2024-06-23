@@ -12,6 +12,7 @@ import useWeatherStore from "@/store/store";
 import { getSearchCity } from "@/actions/getSearchCity";
 import { ClipLoader } from "react-spinners";
 import { getHourly } from "@/actions/getHourly";
+import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 
 const SideDetails = () => {
 
@@ -29,7 +30,7 @@ const SideDetails = () => {
       try {
         let data;
         if (searchCity.lat != null && searchCity.lon !== null) {
-          data = await getSearchCity({
+          data = await getSearchCityHourly({
             lat: searchCity.lat,
             lon: searchCity.lon,
           });
