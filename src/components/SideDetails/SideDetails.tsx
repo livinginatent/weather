@@ -13,6 +13,7 @@ import { getSearchCity } from "@/actions/getSearchCity";
 import { ClipLoader } from "react-spinners";
 import { getHourly } from "@/actions/getHourly";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
+import ForecastToggle from "@/utils/ForecastToggle";
 
 const SideDetails = () => {
 
@@ -86,6 +87,7 @@ const SideDetails = () => {
       />
       <div className="flex w-4/5 mt-4 max-w-sm self-center mb-2 items-center justify-center space-x-2">
         <Search />
+        <ForecastToggle />
       </div>
     </aside>
   );

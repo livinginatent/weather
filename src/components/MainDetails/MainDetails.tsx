@@ -45,7 +45,7 @@ const MainDetails = () => {
         setLoading(false);
       }
     };
-  
+
     fetchWeatherData();
   }, [searchCity]);
 
@@ -58,37 +58,17 @@ const MainDetails = () => {
   }
 
   return (
-    <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
+    <>
       {showHourlyForecast && (
-        <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
+        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
+          <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
+          <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
+        </section>
       )}
-      <div className="flex gap-2 ml-2 self-start">
-        <Button
-          onClick={() => handleClick(true)}
-          className={`${
-            showHourlyForecast
-              ? "bg-zinc-800 text-white"
-              : "bg-gray-300 text-black"
-          }`}
-        >
-          Saatlıq
-        </Button>
-        <Button
-          className={`${
-            !showHourlyForecast
-              ? "bg-zinc-800 text-white"
-              : "bg-gray-300 text-black"
-          }`}
-          onClick={() => handleClick(false)}
-        >
-          Həftəlik
-        </Button>
-      </div>
-      {showHourlyForecast && (
-        <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
-      )}
-      {!showHourlyForecast && <WeeklyForecast/>}
-    </section>
+
+      {!showHourlyForecast && <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
+        <WeeklyForecast/></section>}
+    </>
   );
 };
 
