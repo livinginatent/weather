@@ -15,23 +15,12 @@ import { DailyForecastT } from "@/lib/types";
 import { getIcon } from "@/utils/getIcon";
 
 const WeeklyForecast = () => {
-  const data = [
-    { date: "23 Jun", temp: 22 },
-    { date: "24 Jun", temp: 25 },
-    { date: "25 Jun", temp: 20 },
-
-  ];
-
   const [weeklyWeatherData, setWeeklyWeatherData] =
     useState<DailyForecastT | null>(null);
   const [loading, setLoading] = useState(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
   const [logoUrl, setLogoUrl] = useState<string>("");
-
-  const handleClick = (showHourly: boolean) => {
-    setShowHourlyForecast(showHourly);
-  };
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -44,8 +33,8 @@ const WeeklyForecast = () => {
 
         if (data) {
           setWeeklyWeatherData(data);
-           const localIconPath = getIcon(data.current.condition.icon);
-           setLogoUrl(localIconPath);
+          const localIconPath = getIcon(data.current.condition.icon);
+          setLogoUrl(localIconPath);
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -56,9 +45,18 @@ const WeeklyForecast = () => {
 
     fetchWeatherData();
   }, [searchCity]);
+  const data = weeklyWeatherData?.forecast.forecastday.map((day) => {
+    const date = new Date(day.date).toLocaleDateString("az-AZ", {
+      day: "2-digit",
+      month: "short",
+      
+    });
+    const temp = day.day.maxtemp_c; // or use day.day.maxtemp_c / day.day.mintemp_c based on your requirement
+    const wind = day.day.maxwind_kph
+    return { date, temp,wind };
+  });
 
-console.log(logoUrl)
-
+  console.log(weeklyWeatherData)
   return (
     <div className="w-3/4  flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
       <ResponsiveContainer width="100%" height={195}>
@@ -70,9 +68,11 @@ console.log(logoUrl)
           <XAxis
             padding={{ left: 25, right: 25 }}
             interval={0}
-            dataKey={"date"}
+            type="category"
             tickLine={false}
             axisLine={false}
+            unit='km/s'
+            dataKey="wind"
           />
           <Area
             type="monotone"
@@ -83,7 +83,7 @@ console.log(logoUrl)
           />
         </ComposedChart>
       </ResponsiveContainer>
-      <div className="flex">
+      <div className="flex justify-around">
         {weeklyWeatherData &&
           weeklyWeatherData.forecast.forecastday.map((day, index) => (
             <Day logo={logoUrl} key={index} day={day} />
