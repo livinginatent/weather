@@ -11,19 +11,18 @@ import {
 } from "recharts";
 import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
+import { DailyForecastT } from "@/lib/types";
 
 const WeeklyForecast = () => {
   const data = [
     { date: "23 Jun", temp: 22 },
     { date: "24 Jun", temp: 25 },
     { date: "25 Jun", temp: 20 },
-    { date: "26 Jun", temp: 27 },
-    { date: "27 Jun", temp: 24 },
-    { date: "28 Jun", temp: 23 },
-    { date: "29 Jun", temp: 26 },
+
   ];
 
-  const [weeklyWeatherData, setWeeklyWeatherData] = useState(null);
+  const [weeklyWeatherData, setWeeklyWeatherData] =
+    useState<DailyForecastT | null>(null);
   const [loading, setLoading] = useState(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
@@ -53,7 +52,9 @@ const WeeklyForecast = () => {
 
     fetchWeatherData();
   }, [searchCity]);
-  console.log(weeklyWeatherData, "hello");
+
+console.log(weeklyWeatherData)
+
   return (
     <div className="w-3/4 h-96 flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
       <ResponsiveContainer width="100%" height={195}>
@@ -79,13 +80,10 @@ const WeeklyForecast = () => {
         </ComposedChart>
       </ResponsiveContainer>
       <div className="flex">
-        <Day />
-        <Day />
-        <Day />
-        <Day />
-        <Day />
-        <Day />
-        <Day />
+        {weeklyWeatherData &&
+          weeklyWeatherData.forecast.forecastday.map((day, index) => (
+            <Day key={index} day={day} />
+          ))}
       </div>
     </div>
   );
