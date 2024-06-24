@@ -49,4 +49,5 @@ export const conditionTranslations:{[key:string]:string} = {
   "Moderate or heavy rain with thunder": "Şimşək ilə orta və ya güclü yağış",
   "Patchy light snow with thunder": "Şimşək ilə yüngül qar",
   "Moderate or heavy snow with thunder": "Şimşək ilə orta və ya güclü qar",
+  "Patchy rain nearby":"Leysan yağış ehtimalı"
 };

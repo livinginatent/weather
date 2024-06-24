@@ -12,6 +12,7 @@ import {
 import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
+import { getIcon } from "@/utils/getIcon";
 
 const WeeklyForecast = () => {
   const data = [
@@ -26,6 +27,7 @@ const WeeklyForecast = () => {
   const [loading, setLoading] = useState(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
+  const [logoUrl, setLogoUrl] = useState<string>("");
 
   const handleClick = (showHourly: boolean) => {
     setShowHourlyForecast(showHourly);
@@ -42,6 +44,8 @@ const WeeklyForecast = () => {
 
         if (data) {
           setWeeklyWeatherData(data);
+           const localIconPath = getIcon(data.current.condition.icon);
+           setLogoUrl(localIconPath);
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -53,10 +57,10 @@ const WeeklyForecast = () => {
     fetchWeatherData();
   }, [searchCity]);
 
-console.log(weeklyWeatherData)
+console.log(logoUrl)
 
   return (
-    <div className="w-3/4 h-96 flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
+    <div className="w-3/4  flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
       <ResponsiveContainer width="100%" height={195}>
         <ComposedChart
           data={data}
@@ -82,7 +86,7 @@ console.log(weeklyWeatherData)
       <div className="flex">
         {weeklyWeatherData &&
           weeklyWeatherData.forecast.forecastday.map((day, index) => (
-            <Day key={index} day={day} />
+            <Day logo={logoUrl} key={index} day={day} />
           ))}
       </div>
     </div>
