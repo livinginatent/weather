@@ -56,7 +56,6 @@ const WeeklyForecast = () => {
     return { date, temp,wind };
   });
 
-  console.log(weeklyWeatherData)
   return (
     <div className="w-3/4  flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
   {/*     <ResponsiveContainer width="100%" height={195}>

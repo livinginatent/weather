@@ -64,7 +64,7 @@ const SideDetails = () => {
       </div>
     );
   }
-
+console.log(weatherData?.location.localtime);
   const formattedDate = formatDate(weatherData?.location.localtime);
   const localCityName =
     (weatherData && cities[weatherData.location?.region]) ||

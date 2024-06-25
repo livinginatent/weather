@@ -24,8 +24,7 @@ const Day = ({ day, logo }: any) => {
   const weekDay = getWeekday(day.date);
   const conditionText = day.day.condition.text.trim();
   const condition = conditionTranslations[conditionText] || conditionText;
-  console.log(conditionText);
-  console.log(condition);
+
   const date = new Date(day.date).toLocaleDateString("az-AZ", {
     day: "2-digit",
     month: "long",
