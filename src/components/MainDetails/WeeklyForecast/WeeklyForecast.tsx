@@ -13,6 +13,7 @@ import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
 import { getIcon } from "@/utils/getIcon";
+import { ClipLoader } from "react-spinners";
 
 const WeeklyForecast = () => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
@@ -33,8 +34,7 @@ const WeeklyForecast = () => {
 
         if (data) {
           setWeeklyWeatherData(data);
-          const localIconPath = getIcon(data.current.condition.icon);
-          setLogoUrl(localIconPath);
+          
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -55,7 +55,13 @@ const WeeklyForecast = () => {
     const wind = day.day.maxwind_kph
     return { date, temp,wind };
   });
-
+if (loading) {
+  return (
+    <div className="fixed inset-0 self-center flex justify-center items-center">
+      <ClipLoader color="#36d7b7" size={50} />
+    </div>
+  );
+}
   return (
     <div className="w-3/4  flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
   {/*     <ResponsiveContainer width="100%" height={195}>
@@ -85,7 +91,7 @@ const WeeklyForecast = () => {
       <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center lg:justify-around">
         {weeklyWeatherData &&
           weeklyWeatherData.forecast.forecastday.map((day, index) => (
-            <Day logo={logoUrl} key={index} day={day} />
+            <Day  key={index} day={day} />
           ))}
       </div>
     </div>

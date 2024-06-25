@@ -113,7 +113,7 @@ export const locationNames: {
   Sabirabad: { lat: 40.0081, lon: 48.4784 },
   Salyan: { lat: 39.5967, lon: 48.9794 },
   Samux: { lat: 40.8191, lon: 46.4037 },
-  Sədərək: { lat: 39.7012, lon: 45.0906 },
+  /* Sədərək: { lat: 39.7012, lon: 45.0906 }, */
   Siyəzən: { lat: 41.077, lon: 49.1122 },
   Sumqayıt: { lat: 40.5914, lon: 49.6304 },
   Şabran: { lat: 41.2086, lon: 48.9367 },
@@ -176,7 +176,7 @@ export const cities: { [key: string]: string } = {
   Lerik: "Lerik",
   Masally: "Masallı",
   Mingacevir: "Mingəçevir",
-  Nakhichevan: "Naxçıvan",
+  Naxcivan: "Naxçıvan",
   Naftalan: "Naftalan",
   Neftchala: "Neftçala",
   Oguz: "Oğuz",

@@ -49,20 +49,20 @@ const MainDetails = () => {
     fetchWeatherData();
   }, [searchCity]);
 
-  if (loading || !hourlyWeatherData) {
+/*   if (loading || !hourlyWeatherData) {
     return (
       <div className="fixed inset-0 flex justify-center items-center">
         <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
-  }
+  } */
 
   return (
     <>
       {showHourlyForecast && (
-        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
-          <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
-          <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
+        <section className="bg-[#e4f1ff]  justify-center items-center flex flex-col w-full xl:justify-center xl:items-center rounded-l-[30px]">
+          <HourlyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
+          <SecondaryDetails loading={loading} hourlyWeatherData={hourlyWeatherData} />
         </section>
       )}
 

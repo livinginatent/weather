@@ -64,17 +64,23 @@ const SideDetails = () => {
       </div>
     );
   }
-console.log(weatherData?.location.localtime);
+
   const formattedDate = formatDate(weatherData?.location.localtime);
   const localCityName =
     (weatherData && cities[weatherData.location?.region]) ||
     weatherData?.location?.region;
   const localCountryName =
     cities[weatherData.location?.country] || weatherData.location?.country;
-  const conditionText = weatherData.current.condition.text;
+  const conditionText = weatherData.current.condition.text.trim();
   const condition =
-    conditionTranslations[conditionText] || "Condition not available";
-
+    conditionTranslations[conditionText] || conditionText;
+if (loading) {
+  return (
+    <div className="fixed inset-0 flex justify-center items-center">
+      <ClipLoader color="#36d7b7" size={50} />
+    </div>
+  );
+}
   return (
     <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-[#5c9ce5]">
       <SideDetailsMainInfo
@@ -82,8 +88,9 @@ console.log(weatherData?.location.localtime);
         condition={condition}
         country={localCountryName}
         city={localCityName}
-        temp={`${weatherData.current.temp_c}°C`}
+        temp={`${Math.round(weatherData.current.temp_c)}°C`}
         logo={logoUrl}
+        loading={loading}
       />
       <div className="flex w-4/5 mt-4 max-w-sm self-center mb-2 items-center justify-center space-x-2">
         <Search />

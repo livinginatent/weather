@@ -22,25 +22,37 @@ import { Coordinates } from "@/lib/types";
 type Props = {};
 
 const Search = (props: Props) => {
-
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [city, setCity] = useState("");
 
   const setCoordinates = useWeatherStore((state) => state.setCoordinates);
-  const coordinates = useWeatherStore((state)=>state.coordinates)
+  const coordinates = useWeatherStore((state) => state.coordinates);
 
-  const cityArray = Object.entries(locationNames)
-    .map(([key, value]) => ({
-      name: key,
-      coordinates: value,
-    }));
-
+  const cityArray = Object.entries(locationNames).map(([key, value]) => ({
+    name: key,
+    coordinates: value,
+  }));
   const handleSelect = (cityName: string, cityCoordinates: Coordinates) => {
     setValue(cityName);
     setCoordinates(cityCoordinates);
     setOpen(false);
   };
+  const getLocationName = (lat: any, lon: any) => {
+    // Loop through each location in the locationNames object
+    for (const cityName in locationNames) {
+      const location = locationNames[cityName];
 
+      // Check if the provided lat and lon match the location's lat and lon
+      if (location.lat === lat && location.lon === lon) {
+        return cityName;
+      }
+    }
+
+    // If no match is found, return null
+    return null;
+  };
+  const currentCity = getLocationName(coordinates.lat, coordinates.lon);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -50,9 +62,7 @@ const Search = (props: Props) => {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? cityArray.find((city) => city.name === value)?.name
-            : "Şəhər seçin..."}
+          {currentCity ? currentCity : "Şəhər seçin"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

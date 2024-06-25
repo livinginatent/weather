@@ -53,19 +53,19 @@
   "Partly Cloudy": "Qismən buludlu",
 }; */
 export const conditionTranslations: { [key: string]: string } = {
-  "Sunny": "Günəşli",
+  Sunny: "Günəşli",
   "Partly Cloudy": "Qismən buludlu",
-  "Cloudy": "Buludlu",
-  "Overcast": "Tutqun",
-  "Mist": "Duman",
+  Cloudy: "Buludlu",
+  Overcast: "Tutqun",
+  Mist: "Duman",
   "Patchy rain possible": "Yağış ehtimalı",
   "Patchy snow possible": "Qar ehtimalı",
   "Patchy sleet possible": "Sulusep ehtimalı",
   "Patchy freezing drizzle possible": "Buzla tutan çiskin ehtimalı",
   "Thundery outbreaks possible": "İldırım və gurultu ehtimalı",
   "Blowing snow": "Çevikli qar",
-  "Blizzard": "Çovğun",
-  "Fog": "Duman",
+  Blizzard: "Çovğun",
+  Fog: "Duman",
   "Freezing fog": "Buzla tutan duman",
   "Patchy light drizzle": "Yüngül çiskin ehtimalı",
   "Light drizzle": "Yüngül çiskin",
@@ -106,5 +106,8 @@ export const conditionTranslations: { [key: string]: string } = {
     "İldırım və gurultu ilə yüngül qar ehtimalı",
   "Moderate or heavy snow with thunder":
     "İldırım və gurultu ilə orta və ya şiddətli qar",
-    "Patchy rain nearby":"Yağış ehtimalı"
+  "Patchy rain nearby": "Yağış ehtimalı",
+  "Thundery outbreaks in nearby": "Yaxınlıqda ildırım çaxır",
+  "Patchy light rain in area with thunder":
+    "Şimşək çaxacaq, arabir yağış yağacaq",
 };
