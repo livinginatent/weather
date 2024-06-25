@@ -16,7 +16,7 @@ const testIp = "103.167.234.0";
     const ip = forwarded
       ? forwarded.split(/, /)[0]
       : request.ip || "103.167.234.0"; // Using testIp as a fallback
-    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${testIp}&days=7&aqi=no&alerts=no`;
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=7&aqi=no&alerts=no`;
   }
 
   try {
