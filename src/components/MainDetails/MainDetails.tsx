@@ -49,13 +49,13 @@ const MainDetails = () => {
     fetchWeatherData();
   }, [searchCity]);
 
-/*   if (loading || !hourlyWeatherData) {
+  if (loading || !hourlyWeatherData) {
     return (
       <div className="fixed inset-0 flex justify-center items-center">
         <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
-  } */
+  }
 
   return (
     <>
