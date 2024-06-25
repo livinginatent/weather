@@ -22,18 +22,20 @@ const Day = ({ day, logo }: any) => {
   };
 
   const weekDay = getWeekday(day.date);
-  const conditionText = day.day.condition.text;
+  const conditionText = day.day.condition.text.trim();
   const condition = conditionTranslations[conditionText] || conditionText;
- const date = new Date(day.date).toLocaleDateString("az-AZ", {
-   day: "2-digit",
-   month: "long",
- });
+  console.log(conditionText);
+  console.log(condition);
+  const date = new Date(day.date).toLocaleDateString("az-AZ", {
+    day: "2-digit",
+    month: "long",
+  });
   return (
-    <div className="border-r-2 border-[#eceeff] gap-2 flex flex-col w-32 border-indigo-500 items-center justify-center py-4">
+    <div className="flex flex-col items-center justify-center w-32 py-4 border-b-2 border-[#eceeff] lg:border-b-0 lg:border-r-2 xl:border-r-2 gap-2">
       <p className="h-8 text-center font-medium">{date}</p>
       <p className="h-8 text-center font-light text-slate-400">{weekDay}</p>
       <Image alt={`${logo}`} src={logo} width={48} height={48} />
-      <p>{`${day.day.maxtemp_c}C`}</p>
+      <p>{`${day.day.maxtemp_c}°C`}</p>
       <p className="font-light text-slate-400 text-center h-8 flex ">
         {condition}
       </p>

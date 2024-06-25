@@ -59,7 +59,7 @@ const WeeklyForecast = () => {
   console.log(weeklyWeatherData)
   return (
     <div className="w-3/4  flex flex-col border border-[#F7F9F2] rounded-xl bg-red  bg-white">
-      <ResponsiveContainer width="100%" height={195}>
+  {/*     <ResponsiveContainer width="100%" height={195}>
         <ComposedChart
           data={data}
           margin={{ top: 20, right: 10, bottom: 10, left: 10 }}
@@ -82,8 +82,8 @@ const WeeklyForecast = () => {
             label={{ position: "top", fill: "#333" }}
           />
         </ComposedChart>
-      </ResponsiveContainer>
-      <div className="flex justify-around">
+      </ResponsiveContainer> */}
+      <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center lg:justify-around">
         {weeklyWeatherData &&
           weeklyWeatherData.forecast.forecastday.map((day, index) => (
             <Day logo={logoUrl} key={index} day={day} />

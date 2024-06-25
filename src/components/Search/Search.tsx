@@ -27,6 +27,7 @@ const Search = (props: Props) => {
   const [value, setValue] = useState("");
 
   const setCoordinates = useWeatherStore((state) => state.setCoordinates);
+  const coordinates = useWeatherStore((state)=>state.coordinates)
 
   const cityArray = Object.entries(locationNames)
     .map(([key, value]) => ({
