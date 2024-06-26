@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=1&aqi=yes&alerts=no`;
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
 
     const headers = {
