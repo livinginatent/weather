@@ -140,7 +140,7 @@ export const locationNames: {
 
 export const cities: { [key: string]: string } = {
   Azerbaijan: "Azərbaycan",
-  Baku: "Bakı",
+  Baki: "Bakı",
   Aran:"Mingəçevir",
   Agdam: "Ağdam",
   Agdas: "Ağdaş",
