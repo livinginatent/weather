@@ -60,7 +60,7 @@ const MainDetails = () => {
   return (
     <>
       {showHourlyForecast && (
-        <section className="bg-[#e4f1ff]  justify-center items-center flex flex-col w-full xl:justify-center xl:items-center rounded-l-[30px]">
+        <section className="bg-[#e4f1ff]  justify-center items-center flex flex-col w-full lg:h-screen xl:justify-center xl:items-center rounded-l-[30px]">
           <HourlyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
           <SecondaryDetails loading={loading} hourlyWeatherData={hourlyWeatherData} />
         </section>
