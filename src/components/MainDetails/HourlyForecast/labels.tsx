@@ -21,6 +21,6 @@ export const TimeLabel = ({ x, y, value }: any) => (
 
 export const TempLabel = ({ x, y, value }: any) => (
   <g transform={`translate(${x - 8},${y - 15})`}>
-    <text fontSize={12}>{`${value}C`}</text>
+    <text fontSize={12}>{`${Math.round(value)}C°`}</text>
   </g>
 );
