@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import useWeatherStore from '@/store/store';
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import useWeatherStore from "@/store/store";
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const ForecastToggle = (props: Props) => {
-    const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
+  const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
 
-    const handleClick = (showHourly: boolean) => {
-      setShowHourlyForecast(showHourly);
-    };
+  const handleClick = (showHourly: boolean) => {
+    setShowHourlyForecast(showHourly);
+  };
   return (
     <div className="flex gap-2 ml-2 self-start">
       <Button
         onClick={() => handleClick(true)}
         className={`${
           showHourlyForecast
-            ? "bg-zinc-800 text-white"
-            : "bg-gray-300 text-black"
+            ? "bg-zinc-800 hover:bg-zinc-400 text-white"
+            : "bg-gray-300 hover:bg-zinc-400  text-black"
         }`}
       >
         Saatlıq
@@ -25,8 +25,8 @@ const ForecastToggle = (props: Props) => {
       <Button
         className={`${
           !showHourlyForecast
-            ? "bg-zinc-800 text-white"
-            : "bg-gray-300 text-black"
+            ? "bg-zinc-800 hover:bg-zinc-400 text-white"
+            : "bg-gray-300 hover:bg-zinc-400 text-black"
         }`}
         onClick={() => handleClick(false)}
       >
@@ -34,6 +34,6 @@ const ForecastToggle = (props: Props) => {
       </Button>
     </div>
   );
-}
+};
 
-export default ForecastToggle
+export default ForecastToggle;

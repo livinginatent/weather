@@ -14,6 +14,7 @@ import { ClipLoader } from "react-spinners";
 import { getHourly } from "@/actions/getHourly";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import ForecastToggle from "@/utils/ForecastToggle";
+import FeaturedCities from "../FeaturedCities/FeaturedCities";
 
 const SideDetails = () => {
 
@@ -96,6 +97,7 @@ if (loading) {
         <Search />
         <ForecastToggle />
       </div>
+      <FeaturedCities/>
     </aside>
   );
 };

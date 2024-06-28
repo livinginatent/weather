@@ -127,6 +127,7 @@ export const locationNames: {
   Tovuz: { lat: 40.9921, lon: 45.6283 },
   Ucar: { lat: 40.5191, lon: 47.6546 },
   Xaçmaz: { lat: 41.4687, lon: 48.8048 },
+  Xankəndi: { lat: 39.8265, lon: 46.7656 },
   Xocalı: { lat: 39.931, lon: 46.7903 },
   Xocavənd: { lat: 39.7953, lon: 47.1126 },
   Xızı: { lat: 40.9058, lon: 49.0897 },
