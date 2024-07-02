@@ -23,21 +23,15 @@ type Props = {};
 
 const Search = (props: Props) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-  const [city, setCity] = useState("");
 
   const setCoordinates = useWeatherStore((state) => state.setCoordinates);
+  const setCity = useWeatherStore((state) => state.setCity);
   const coordinates = useWeatherStore((state) => state.coordinates);
 
   const cityArray = Object.entries(locationNames).map(([key, value]) => ({
     name: key,
     coordinates: value,
   }));
-  const handleSelect = (cityName: string, cityCoordinates: Coordinates) => {
-    setValue(cityName);
-    setCoordinates(cityCoordinates);
-    setOpen(false);
-  };
   const getLocationName = (lat: any, lon: any) => {
     // Loop through each location in the locationNames object
     for (const cityName in locationNames) {
@@ -45,6 +39,7 @@ const Search = (props: Props) => {
 
       // Check if the provided lat and lon match the location's lat and lon
       if (location.lat === lat && location.lon === lon) {
+        setCity(cityName)
         return cityName;
       }
     }
@@ -52,7 +47,13 @@ const Search = (props: Props) => {
     // If no match is found, return null
     return null;
   };
+  const handleSelect = (cityCoordinates: Coordinates) => {
+    setCoordinates(cityCoordinates);
+    setOpen(false);
+    
+  };
   const currentCity = getLocationName(coordinates.lat, coordinates.lon);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -76,7 +77,7 @@ const Search = (props: Props) => {
                 <CommandItem
                   key={city.name}
                   value={city.name}
-                  onSelect={() => handleSelect(city.name, city.coordinates)}
+                  onSelect={() => handleSelect(city.coordinates)}
                 >
                   {city.name}
                 </CommandItem>

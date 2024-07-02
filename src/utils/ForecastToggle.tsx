@@ -20,7 +20,7 @@ const ForecastToggle = (props: Props) => {
             : "bg-gray-300 hover:bg-zinc-400  text-black"
         }`}
       >
-        Saatlıq
+        Günlük
       </Button>
       <Button
         className={`${
