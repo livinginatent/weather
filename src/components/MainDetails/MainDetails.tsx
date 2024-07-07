@@ -18,12 +18,11 @@ const MainDetails = () => {
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
 
-  const handleClick = (showHourly: boolean) => {
-    setShowHourlyForecast(showHourly);
-  };
+
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+    
       setLoading(true);
       try {
         let data;

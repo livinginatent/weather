@@ -69,7 +69,7 @@ const Search = (props: Props) => {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Şəhər axtarın..." />
-          <CommandEmpty>No city found.</CommandEmpty>
+          <CommandEmpty>Şəhər tapılmadı.</CommandEmpty>
           <CommandGroup>
             <ScrollArea className="h-24">
               {cityArray.map((city) => (
