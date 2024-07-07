@@ -24,6 +24,7 @@ const SideDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [logoUrl, setLogoUrl] = useState<string>("");
   const searchCity = useWeatherStore((state) => state.coordinates);
+  const coordinates = useWeatherStore((state) => state.coordinates);
 
 
   useEffect(() => {
@@ -68,8 +69,8 @@ const SideDetails = () => {
 
   const formattedDate = formatDate(weatherData?.location.localtime);
   const localCityName =
-    (weatherData && cities[weatherData.location?.region]) ||
-    weatherData?.location?.region;
+    (weatherData && cities[weatherData.location?.name]) ||
+    weatherData?.location?.name;
   const localCountryName =
     cities[weatherData.location?.country] || weatherData.location?.country;
   const conditionText = weatherData.current.condition.text.trim();

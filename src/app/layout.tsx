@@ -27,7 +27,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "noto-sans m-0 p-0 h-full w-full overflow-x-hidden bg-[#5c9ce5] antialiased"
+          "noto-sans m-0 p-0 h-screen w-full overflow-x-hidden bg-gradient-to-tr from-sky-500 to-indigo-600 antialiased"
         )}
       >
         <main className={mulish.className}>{children}</main>

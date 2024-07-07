@@ -37,15 +37,15 @@ const SideDetailsMainInfo = ({
           <div className="text-8xl text-slate-50">{temp}</div>
         </div>
         <div className="flex flex-col justify-center lg:gap-2 xl:gap-2 gap-4">
-          <div className="flex justify-center items-center lg:gap-1 xl:gap-1 sm:gap-4 md:gap-4">
+          <div className="flex justify-center items-center self-center lg:gap-1 xl:gap-1 sm:gap-4 md:gap-4">
             <Image alt={`${condition}`} src={logo} width={64} height={64} />
             <p className="text-slate-50 text-lg md:text-lg lg:text-xl xl:text-xl font-light">
               {condition}
             </p>
           </div>
-          <div className="flex gap-2 lg:pt-5 xl:pt-5">
+          <div className="flex self-center gap-2 lg:pt-5 xl:pt-5">
             <CiCalendar color="white" size={24} />
-            <p className="text-slate-50 text-lg md:text-lg lg:text-xl xl:text-xl">
+            <p className="text-slate-50 s text-lg md:text-lg lg:text-xl xl:text-xl">
               {date}
             </p>
           </div>
