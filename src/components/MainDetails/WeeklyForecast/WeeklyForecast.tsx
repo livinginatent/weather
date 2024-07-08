@@ -14,6 +14,7 @@ import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
 import { getIcon } from "@/utils/getIcon";
 import { ClipLoader } from "react-spinners";
+import { DayCarousel } from "./DayCarousel";
 
 const WeeklyForecast = () => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
@@ -94,6 +95,7 @@ if (loading) {
             <Day  key={index} day={day} />
           ))}
       </div>
+         {/*  <DayCarousel/> */}
     </div>
   );
 };
