@@ -24,7 +24,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
       "#e0582e", // Red
       "#FF0000", // Dark Red
     ];
-    console.log(colors[index - 1]);
+  
     return colors[index - 1];
   };
   const chartData = [
