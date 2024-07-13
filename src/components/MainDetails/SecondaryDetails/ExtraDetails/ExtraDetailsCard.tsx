@@ -29,16 +29,16 @@ const getAzeriWindDirection = (direction: string): any => {
         <div className="flex flex-col gap-1 ">
           <div className="flex gap-1 justify-between items-center">
             <p className="text-base font-normal m-2">Atmosfer təzyiqi</p>
-            <p className="text-base font-normal m-2">{`${current.pressure_mb} mm.c.s`}</p>
+            <p className="text-base font-normal m-2">{`${current?.pressure_mb} mm.c.s`}</p>
           </div>
           <div className="flex gap-2 justify-between items-center">
             <p className="text-base font-normal m-2">Görüş məsafəsi</p>
-            <p className="text-base font-normal m-2">{`${current.vis_km} km`}</p>
+            <p className="text-base font-normal m-2">{`${current?.vis_km} km`}</p>
           </div>
           <div className="flex gap-2 justify-between items-center">
             <p className="text-base font-normal m-2">Külək istiqaməti</p>
             <p className="text-base font-normal m-2">{`${getAzeriWindDirection(
-              current.wind_dir
+              current?.wind_dir
             )}`}</p>
           </div>
         </div>

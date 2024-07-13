@@ -8,12 +8,12 @@ import AirQualityCard from "./AirQuality/AirQualityCard";
 import SunTimes from "./SunTimes/SunTimesCard";
 import ExtraDetailsCard from "./ExtraDetails/ExtraDetailsCard";
 
-const SecondaryDetails = ({ hourlyWeatherData ,loading}: HourlyForecastT) => {
+const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
 
-  const humidity = hourlyWeatherData?.current.humidity ?? 0;
-  const wind = hourlyWeatherData?.current.wind_kph ?? 0;
-  const UVIndex = hourlyWeatherData?.current.uv ?? 0;
-  const airQuality = hourlyWeatherData?.current.air_quality ?? {
+  const humidity = hourlyWeatherData?.current?.humidity ?? 0;
+  const wind = hourlyWeatherData?.current?.wind_kph ?? 0;
+  const UVIndex = hourlyWeatherData?.current?.uv ?? 0;
+  const airQuality = hourlyWeatherData?.current?.air_quality ?? {
     co: 0,
     no2: 0,
     o3: 0,
@@ -25,8 +25,8 @@ const SecondaryDetails = ({ hourlyWeatherData ,loading}: HourlyForecastT) => {
   };
 
   const sunrise =
-    hourlyWeatherData?.forecast.forecastday[0].astro.sunrise ?? "";
-  const sunset = hourlyWeatherData?.forecast.forecastday[0].astro.sunset ?? "";
+    hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunrise ?? "";
+  const sunset = hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunset ?? "";
    const current = hourlyWeatherData?.current
 /* if (loading) {
   return (

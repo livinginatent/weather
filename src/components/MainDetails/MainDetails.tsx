@@ -4,27 +4,22 @@ import HourlyForecast from "./HourlyForecast/HourlyForecast";
 import { HourlyWeatherDataT } from "@/lib/types";
 import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
-import { ClipLoader } from "react-spinners";
 import useWeatherStore from "@/store/store";
-import { getSearchCity } from "@/actions/getSearchCity";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
-import { Button } from "../ui/button";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
+import { ClipLoader } from "react-spinners";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
     useState<HourlyWeatherDataT | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
 
-
-
   useEffect(() => {
     const fetchWeatherData = async () => {
-    
-      setLoading(true);
       try {
+        setLoading(true);
         let data;
         if (searchCity.lat != null && searchCity.lon != null) {
           data = await getSearchCityHourly({
@@ -48,25 +43,22 @@ const MainDetails = () => {
     fetchWeatherData();
   }, [searchCity]);
 
-  if (loading || !hourlyWeatherData) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center">
-        <ClipLoader color="#36d7b7" size={50} />
-      </div>
-    );
-  }
-
   return (
     <>
-      {showHourlyForecast && (
-        <section className="bg-[#e4f1ff]  justify-center items-center flex flex-col w-full  xl:justify-center xl:items-center ">
-          <HourlyForecast loading={loading} hourlyWeatherData={hourlyWeatherData} />
-          <SecondaryDetails loading={loading} hourlyWeatherData={hourlyWeatherData} />
+      {loading ? (
+        <div className=" justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+          <ClipLoader size={48} color={"#123abc"} loading={loading} />
+        </div>
+      ) : showHourlyForecast && hourlyWeatherData ? (
+        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+          <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
+          <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
+        </section>
+      ) : (
+        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+          <WeeklyForecast />
         </section>
       )}
-
-      {!showHourlyForecast && <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full  xl:justify-center xl:items-center ">
-        <WeeklyForecast/></section>}
     </>
   );
 };

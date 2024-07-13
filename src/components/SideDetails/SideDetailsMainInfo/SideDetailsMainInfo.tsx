@@ -14,13 +14,7 @@ const SideDetailsMainInfo = ({
   logo,
   loading
 }: MainDetailsT) => {
-  if (loading) {
-  return (
-    <div className="fixed inset-0 flex justify-center items-center">
-      <ClipLoader color="#36d7b7" size={50} />
-    </div>
-  );
-  }
+ 
   return (
     <div className="flex flex-col w-full gap-2 justify-center items-center mt-10">
       <>

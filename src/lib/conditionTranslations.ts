@@ -58,6 +58,7 @@ export const conditionTranslations: { [key: string]: string } = {
   Cloudy: "Buludlu",
   Overcast: "Tutqun",
   Mist: "Duman",
+  Clear: "Açıq",
   "Patchy rain possible": "Yağış ehtimalı",
   "Patchy snow possible": "Sulu qar ehtimalı",
   "Patchy sleet possible": "Sulu qar ehtimalı",
@@ -66,6 +67,7 @@ export const conditionTranslations: { [key: string]: string } = {
   "Blowing snow": "Küləkli qar",
   Blizzard: "Çovğun",
   Fog: "Duman",
+  "Partly cloudy":"Qismən buludlu",
   "Freezing fog": "Buzlu duman",
   "Patchy light drizzle": "Aralıqlı çiskin ehtimalı",
   "Light drizzle": "Yüngül çiskin",
@@ -96,8 +98,7 @@ export const conditionTranslations: { [key: string]: string } = {
   "Light snow showers": "Yüngül qar",
   "Moderate or heavy snow showers": "Orta və ya şiddətli qar",
   "Light showers of ice pellets": "Yüngül dolu",
-  "Moderate or heavy showers of ice pellets":
-    "Orta və ya şiddətli dolu",
+  "Moderate or heavy showers of ice pellets": "Orta və ya şiddətli dolu",
   "Patchy light rain with thunder":
     "İldırım və göy gurultusu ilə yüngül yağış ehtimalı",
   "Moderate or heavy rain with thunder":

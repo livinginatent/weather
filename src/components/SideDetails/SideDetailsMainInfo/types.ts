@@ -7,5 +7,5 @@ export type MainDetailsT = {
   condition: string | undefined;
   date: string | undefined;
   logo: any;
-  loading:boolean
+  loading?:boolean
 };

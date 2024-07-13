@@ -10,8 +10,7 @@ import {
 } from "recharts";
 import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
 import { getIcon } from "@/utils/getIcon";
-import { ClipLoader } from "react-spinners";
-const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
+const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const [hoursToShow, setHoursToShow] = useState<number>(10);
 
   const updateHoursToShow = () => {
@@ -33,10 +32,12 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
 
   const getCurrentWeather = () => ({
     time: "İndi",
-    windSpeed: `${Math.round(hourlyWeatherData?.current.wind_kph ?? 0)}km/saat`,
+    windSpeed: `${Math.round(
+      hourlyWeatherData?.current?.wind_kph ?? 0
+    )}km/saat`,
     bar: 20,
-    temp: hourlyWeatherData?.current.temp_c ?? 0,
-    icon: getIcon(hourlyWeatherData?.current.condition.icon ?? ""),
+    temp: hourlyWeatherData?.current?.temp_c ?? 0,
+    icon: getIcon(hourlyWeatherData?.current?.condition?.icon ?? ""),
   });
 
   const getHourlyData = () => {
@@ -48,11 +49,12 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
       const newHour = new Date(nextHour.getTime() + i * 60 * 60 * 1000);
       const hourIndex = newHour.getHours();
       const temp = Math.round(
-        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.temp_c ?? 0
+        hourlyWeatherData?.forecast?.forecastday[0]?.hour[hourIndex]?.temp_c ??
+          0
       );
       const windSpeed = Math.round(
-        hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.wind_kph ??
-          0
+        hourlyWeatherData?.forecast?.forecastday[0]?.hour[hourIndex]
+          ?.wind_kph ?? 0
       );
 
       hours.push({
@@ -67,8 +69,8 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
         bar: 20,
         temp: temp,
         icon: getIcon(
-          hourlyWeatherData?.forecast.forecastday[0].hour[hourIndex]?.condition
-            .icon ?? ""
+          hourlyWeatherData?.forecast?.forecastday[0]?.hour[hourIndex]
+            ?.condition?.icon ?? ""
         ),
       });
     }
@@ -77,13 +79,7 @@ const HourlyForecast = ({ hourlyWeatherData, loading }: HourlyForecastT) => {
   };
 
   const data = getHourlyData();
-  if (loading) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center">
-        <ClipLoader color="#36d7b7" size={50} />
-      </div>
-    );
-  }
+
   return (
     <div className="bg-white xl:w-full w-screen h-70 mt-5 rounded-2xl flex flex-col justify-between">
       <div className="px-4 py-2"></div>
