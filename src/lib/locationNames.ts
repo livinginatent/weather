@@ -177,6 +177,7 @@ export const cities: { [key: string]: string } = {
   Goranboy: "Goranboy",
   Goycay: "Göyçay",
   Goygol: "Göygöl (əvvəlki Xanlar)",
+  Xanlar:"Göygöl",
   Hajigabul: "Hacıqabul",
   Mugan: "Hacıqabul",
   Imisli: "İmişli",

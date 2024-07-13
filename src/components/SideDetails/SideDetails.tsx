@@ -73,7 +73,7 @@ const SideDetails = () => {
     weatherData?.location?.name;
   const localCountryName =
     cities[weatherData.location?.country] || weatherData.location?.country;
-  const conditionText = weatherData.current.condition.text.trim();
+  const conditionText = weatherData?.current.condition.text.trim();
   const condition =
     conditionTranslations[conditionText] || conditionText;
 if (loading) {
