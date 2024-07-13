@@ -22,8 +22,8 @@ const SideDetailsMainInfo = ({
         <div className="flex justify-center items-center gap-1 flex-col ">
           <CiLocationOn color="white" size={32} />
           <div>
-            <p className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-base xl:text-lg">
-              {city}, {country}
+            <p className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
+              {city}
             </p>
           </div>
         </div>

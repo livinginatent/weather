@@ -81,7 +81,6 @@ const SideDetails = () => {
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}
-        country={localCountryName}
         city={localCityName}
         temp={`${Math.round(weatherData.current?.temp_c)}°C`}
         logo={logoUrl}
