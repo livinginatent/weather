@@ -1,7 +1,7 @@
 import "@/app/styles/globals.css";
 
 import { Mulish } from "next/font/google";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
 
 
@@ -22,7 +22,7 @@ export default function RootLayout({
           "noto-sans m-0 p-0 h-screen w-full overflow-x-hidden bg-gradient-to-tr from-sky-500 to-indigo-600 antialiased"
         )}
       >
-        <GoogleTagManager gtmId="G-64H88GM53T" />
+        <GoogleAnalytics gaId="G-64H88GM53T" />
         <main className={mulish.className}>{children}</main>
       </body>
     </html>
