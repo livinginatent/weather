@@ -25,11 +25,7 @@ const Day = ({ day, logo, loading }: any) => {
   const windIcon = <FaWind color="#686D76" />;
 
   const localIconPath = getIcon(day.day.condition.icon);
-  if (loading) {
-    <div className="fixed inset-0 flex justify-center items-center">
-      <ClipLoader color="#36d7b7" size={50} />
-    </div>;
-  }
+
   return (
     <div className="flex flex-col items-center justify-center w-32 py-4 border-b-2 border-[#eceeff] lg:border-b-0 lg:border-r-2 xl:border-r-2 gap-2">
       <p className="h-8 text-center font-medium">{date}</p>

@@ -4,7 +4,6 @@ import { CiLocationOn, CiCalendar } from "react-icons/ci";
 import { MainDetailsT } from "./types";
 import Image from "next/image";
 import "react-loading-skeleton/dist/skeleton.css";
-import { ClipLoader } from "react-spinners";
 const SideDetailsMainInfo = ({
   country,
   city,

@@ -35,21 +35,22 @@ const WeeklyForecast = () => {
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
-      } finally {
       }
     };
 
     fetchWeatherData();
   }, [searchCity]);
 
+  if (!weeklyWeatherData) {
+    return <ClipLoader color="#36d7b7" />;
+  }
+
   return (
-    
     <div className="w-3/4 flex flex-col border border-[#F7F9F2] rounded-xl bg-red bg-white">
       <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center lg:justify-around">
-        {weeklyWeatherData &&
-          weeklyWeatherData?.forecast?.forecastday?.map((day, index) => (
-            <Day key={index} day={day} />
-          ))}
+        {weeklyWeatherData?.forecast?.forecastday?.map((day, index) => (
+          <Day key={index} day={day} />
+        ))}
       </div>
       {/* <DayCarousel/> */}
     </div>

@@ -47,7 +47,7 @@ const MainDetails = () => {
     <>
       {loading ? (
         <div className=" justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
-          <ClipLoader size={48} color={"#123abc"} loading={loading} />
+          <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
         <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
