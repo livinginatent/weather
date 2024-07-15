@@ -43,6 +43,7 @@ const WeeklyForecast = () => {
   }, [searchCity]);
 
   return (
+    
     <div className="w-3/4 flex flex-col border border-[#F7F9F2] rounded-xl bg-red bg-white">
       <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center lg:justify-around">
         {weeklyWeatherData &&

@@ -19,7 +19,7 @@ export default function RootLayout({
 
       <body
         className={cn(
-          "noto-sans m-0 p-0 h-screen w-full overflow-x-hidden bg-gradient-to-tr from-sky-500 to-indigo-600 antialiased"
+          "noto-sans m-0 p-0 h-screen w-full overflow-x-hidden bg-[#e4f1ff] antialiased"
         )}
       >
         <GoogleAnalytics gaId="G-64H88GM53T" />
