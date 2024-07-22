@@ -2,8 +2,8 @@ import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Havam.az | Hava Durumu",
-  description: "Ən dəqiq və müasir hava proqnozu - Hava Durumu",
+  title: "Havam.az | Hava Proqnozu",
+  description: "Ən dəqiq və müasir hava proqnozu - Havam.az",
 };
 export default function Home() {
   return (
