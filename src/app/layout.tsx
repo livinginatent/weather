@@ -3,8 +3,7 @@ import "@/app/styles/globals.css";
 import { Mulish } from "next/font/google";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
-
-
+import Nav from "@/components/Nav/Nav";
 
 const mulish = Mulish({ subsets: ["latin"] });
 
@@ -28,7 +27,10 @@ export default function RootLayout({
         )}
       >
         <GoogleAnalytics gaId="G-64H88GM53T" />
-        <main className={mulish.className}>{children}</main>
+        <main className={mulish.className}>
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );

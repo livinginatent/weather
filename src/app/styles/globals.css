@@ -25,7 +25,10 @@
     --ring: 240 5% 64.9%;
     --radius: 0.5rem;
   }
-
+.body{
+  align-items: center;
+  justify-content: center;
+}
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;

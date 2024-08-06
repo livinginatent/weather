@@ -15,14 +15,12 @@ import ForecastToggle from "@/utils/ForecastToggle";
 import FeaturedCities from "../FeaturedCities/FeaturedCities";
 
 const SideDetails = () => {
-
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
   const [loading, setLoading] = useState<boolean>(true);
   const [logoUrl, setLogoUrl] = useState<string>("");
   const searchCity = useWeatherStore((state) => state.coordinates);
-
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -40,7 +38,7 @@ const SideDetails = () => {
 
         if (data) {
           setWeatherData(data);
-       
+
           if (data.current && data.current.condition.icon) {
             const localIconPath = getIcon(data.current.condition.icon);
             setLogoUrl(localIconPath);
@@ -56,41 +54,37 @@ const SideDetails = () => {
     fetchWeatherData();
   }, [searchCity]);
 
- if (!weatherData) {
-   return (
-     <div className="fixed inset-0 flex justify-center items-center">
-       <ClipLoader color="#36d7b7" size={50} />
-     </div>
-   );
- }
-
-
+  if (!weatherData) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <ClipLoader color="#36d7b7" size={50} />
+      </div>
+    );
+  }
 
   const formattedDate = formatDate(weatherData?.location?.localtime);
   const localCityName =
     (weatherData && cities[weatherData.location?.name]) ||
     weatherData?.location?.name;
-  const localCountryName =
-    cities[weatherData.location?.country] || weatherData.location?.country;
   const conditionText = weatherData?.current?.condition?.text.trim();
-  const condition =
-    conditionTranslations[conditionText] || conditionText;
+  const condition = conditionTranslations[conditionText] || conditionText;
 
   return (
-    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600">
+    <aside className="relative md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600">
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}
         city={localCityName}
         temp={`${Math.round(weatherData.current?.temp_c)}°C`}
         logo={logoUrl}
-       
       />
       <div className="flex w-4/5 mt-4 max-w-sm self-center mb-2 items-center justify-center space-x-2">
         <Search />
         <ForecastToggle />
       </div>
       <FeaturedCities />
+
+      
     </aside>
   );
 };
