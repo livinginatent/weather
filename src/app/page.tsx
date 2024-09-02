@@ -3,7 +3,7 @@ import SideDetails from "@/components/SideDetails/SideDetails";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Havam.az | Hava Proqnozu",
-  description: "Ən dəqiq və müasir hava proqnozu - Havam.az",
+  description: "Ən dəqiq və müasir günlük və həftəlik hava proqnozu - Havam.az",
 };
 export default function Home() {
   return (
