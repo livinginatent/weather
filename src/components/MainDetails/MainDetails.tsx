@@ -21,6 +21,7 @@ const MainDetails = () => {
       try {
         setLoading(true);
         let data;
+        console.log(data)
         if (searchCity.lat != null && searchCity.lon != null) {
           data = await getSearchCityHourly({
             lat: searchCity.lat,
