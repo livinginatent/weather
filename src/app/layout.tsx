@@ -1,7 +1,7 @@
 import "@/app/styles/globals.css";
 
 import { Mulish } from "next/font/google";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
 import Nav from "@/components/Nav/Nav";
 
@@ -23,7 +23,7 @@ export default function RootLayout({
 
       <body
         className={cn(
-          "noto-sans m-0 p-0 h-screen w-full overflow-x-hidden bg-[#e4f1ff] antialiased"
+          "noto-sans m-0 p-0  w-full overflow-x-hidden bg-[#e4f1ff] antialiased"
         )}
       >
         <GoogleAnalytics gaId="G-64H88GM53T" />
