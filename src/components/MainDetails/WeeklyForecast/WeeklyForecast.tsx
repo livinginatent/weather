@@ -46,9 +46,9 @@ const WeeklyForecast = () => {
   }
 
   return (
-    <>
-      <h2 className="text-2xl self-center">Həftəlik Hava Proqnozu</h2>
-      <div className="w-3/4 flex flex-col border border-[#F7F9F2] rounded-2xl bg-red bg-white">
+    <div className="w-3/4 flex flex-col items-center justify-around">
+      
+      <div className=" border border-[#F7F9F2] rounded-2xl bg-white">
         <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center lg:justify-around">
           {weeklyWeatherData?.forecast?.forecastday?.map((day, index) => (
             <Day key={index} day={day} />
@@ -56,7 +56,7 @@ const WeeklyForecast = () => {
         </div>
         {/* <DayCarousel/> */}
       </div>
-    </>
+    </div>
   );
 };
 

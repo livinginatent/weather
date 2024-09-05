@@ -10,8 +10,9 @@ const Day = ({ day, logo, loading }: any) => {
   const condition = conditionTranslations[conditionText] || conditionText;
 
   const date = new Date(day.date).toLocaleDateString("az-AZ", {
-    day: "2-digit",
+    day: "numeric",
     month: "long",
+    
   });
 
   const dayOfTheWeek = new Date(day.date).toLocaleDateString("az-AZ", {

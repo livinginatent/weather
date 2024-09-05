@@ -55,7 +55,8 @@ const MainDetails = () => {
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
         </section>
       ) : (
-        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full">
+          <h2 className="text-2xl self-center">Həftəlik Hava Proqnozu</h2>
           <WeeklyForecast />
         </section>
       )}
