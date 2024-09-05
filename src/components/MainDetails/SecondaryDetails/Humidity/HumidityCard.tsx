@@ -10,7 +10,7 @@ const HumidityCard = ({ humidity }: Humidity) => {
   return (
     <Card className="h-[195px]  rounded-2xl">
       <CardHeader className="p-0 m-4">
-        <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
+        <CardTitle className="text-base p-0  font-semibold flex justify-between">
           Nəmişlik
           {
             <MdOutlineWaterDrop
@@ -24,7 +24,7 @@ const HumidityCard = ({ humidity }: Humidity) => {
       <CardContent className="flex flex-col justify-center gap-8 p-0 text-xl font-bold items-center">
         <div className="flex gap-1 justify-center items-center">
           <p className="text-xl">{`${humidity}%`}</p>
-          <p className="text-base text-center font-normal">{humidityLevel}</p>
+          <p className="text-lg lg:text-base xl:text-base text-center font-normal">{humidityLevel}</p>
         </div>
         <ProgressBar width="40%" value={humidity} color="#77bae8" />
       </CardContent>

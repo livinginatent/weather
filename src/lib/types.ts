@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export type AirQuality = {
   co: number;
   no2: number;
@@ -214,7 +216,18 @@ export type FeelsLike = {
   feelsLike: number;
 };
 
+export type MainContainerT={
+  title:string;
+  icon:ReactElement;
+  value:number;
+  unit:string
+}
 
+export type WarningT = {
+  text:string;
+  location:string
+  pm2_5:number
+}
 
 export type DailyForecastT = {
   location: {

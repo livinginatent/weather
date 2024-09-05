@@ -13,7 +13,7 @@ const SunTimes = ({sunrise,sunset}:Astro) => {
   return (
     <Card className="h-[195px]   rounded-2xl">
       <CardHeader className="p-0 m-4">
-        <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
+        <CardTitle className="text-base p-0  font-semibold flex justify-between">
           Gün doğumu və batımı
           {
             <PiSunDuotone
@@ -24,7 +24,7 @@ const SunTimes = ({sunrise,sunset}:Astro) => {
           }
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col  gap-8 p-0 text-xl font-bold">
+      <CardContent className="flex mt-[-10px] flex-col  gap-8 p-0 text-xl font-bold">
         <div className="flex flex-col gap-2 ">
           <div className="flex gap-2 justify-between items-center">
             <GoSun color="#FFDA78" style={{ marginLeft: 10 }} size={30} />

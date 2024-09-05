@@ -56,7 +56,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
   return (
     <Card className="h-[195px] rounded-2xl">
       <CardHeader className="p-0 m-4">
-        <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
+        <CardTitle className="text-base p-0  font-semibold flex justify-between">
           <div className="flex justify-center items-center gap-2 ">
             <p>Hava Keyfiyyəti</p>
              {/*  <HoverInfo title="test" info="test" /> */}
@@ -64,7 +64,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
           {<LuCross style={{ marginBottom: 2 }} color="#77bae8" size={30} />}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex h-[150px]">
+      <CardContent className="flex h-[150px] mt-[-10px]">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square w-full self-center "

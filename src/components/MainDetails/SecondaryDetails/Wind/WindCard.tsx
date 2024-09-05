@@ -11,12 +11,12 @@ const WindCard = ({ wind }: Wind) => {
   return (
     <Card className="h-[195px]  rounded-2xl">
       <CardHeader className="p-0 m-4">
-        <CardTitle className="text-base p-0 mt-[-10px] font-semibold flex justify-between">
+        <CardTitle className="text-base p-0 font-semibold flex justify-between">
           Külək
           {<BsWind style={{ marginBottom: 2 }} color="#77bae8" size={30} />}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col justify-center p-0 text-xl font-bold items-center">
+      <CardContent className="flex mt-[-10px] flex-col justify-center p-0 text-xl font-bold items-center">
         <GaugeComponent
           type="semicircle"
           arc={{
@@ -50,8 +50,10 @@ const WindCard = ({ wind }: Wind) => {
             valueLabel: {
               formatTextValue: (value) => value + "km/saat",
               style: {
-                fontSize: "32px",
-                fill: "#454545",
+                fontSize: "36px",
+                textShadow:"none",
+                fill:'black'
+                
               },
             },
             tickLabels: {
