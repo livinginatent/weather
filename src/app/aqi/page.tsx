@@ -58,19 +58,19 @@ const AqiPage = (props: Props) => {
           <div className="flex flex-col w-full gap-4 lg:flex-row xl:flex-row">
             <MainContainer
               title="PM2.5 (Çirkli partikullar)"
-              value={weeklyWeatherData.current.air_quality.pm2_5}
+              value= {Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
               unit="µg/m³"
               icon={fineParticle}
             />
             <MainContainer
               title="Karbon Monoksid (CO)"
-              value={weeklyWeatherData.current.air_quality.co}
+              value={Math.round(weeklyWeatherData.current.air_quality.co)}
               unit="µg/m³"
               icon={co}
             />
             <MainContainer
               title="Azot Dioksid (NO₂)"
-              value={weeklyWeatherData.current.air_quality.no2}
+              value={Math.round(weeklyWeatherData.current.air_quality.no2)}
               unit="µg/m³"
               icon={no2}
             />
