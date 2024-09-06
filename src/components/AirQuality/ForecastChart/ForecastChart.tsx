@@ -29,8 +29,9 @@ const getDayLabel = (index: number) => {
   date.setDate(date.getDate() + index + 1);
   if(window.innerWidth < 768) {
     return date.toLocaleDateString("az-AZ", {
-      weekday: "short",
-    })
+      month: "short",
+      day: "numeric",
+    });
   }else{
     return date.toLocaleDateString("az-AZ", {
       weekday: "short",
