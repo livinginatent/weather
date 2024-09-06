@@ -1,12 +1,11 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, Rectangle, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,55 +13,74 @@ import {
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { ForecastChartT } from "@/lib/types";
+import { formatTextValue } from "@/utils/formatTextValue";
 
 export const description = "A bar chart with an active bar";
 
-const chartData = [
-  { browser: "chrome", visitors: 187, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 275, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
-];
-const getAQIColor = (aqi: number) => {
-  if (aqi <= 50) return "#00e400"; // Good (Green)
-  if (aqi <= 100) return "#FCDE70"; // Moderate (Yellow)
-  if (aqi <= 150) return "#ff7e00"; // Unhealthy for Sensitive Groups (Orange)
-  if (aqi <= 200) return "#ff0000"; // Unhealthy (Red)
-  if (aqi <= 300) return "#8f3f97"; // Very Unhealthy (Purple)
-  return "#7e0023"; // Hazardous (Maroon)
+const getDayLabel = (index: number) => {
+  if (index === 0) return "Sabah";
+  const date = new Date();
+  date.setDate(date.getDate() + index + 1);
+  if(window.innerWidth < 768) {
+    return date.toLocaleDateString("az-AZ", {
+      weekday: "short",
+    })
+  }else{
+    return date.toLocaleDateString("az-AZ", {
+      weekday: "short",
+      month:'long',
+      day:'numeric'
+    });
+  }
+   
+
 };
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: getAQIColor(32),
-  },
-  safari: {
-    label: "Safari",
-    color: getAQIColor(45),
-  },
-  firefox: {
-    label: "Firefox",
-    color: getAQIColor(65),
-  },
-  edge: {
-    label: "Edge",
-    color: getAQIColor(85),
-  },
-  other: {
-    label: "Other",
-    color: getAQIColor(105),
-  },
-} satisfies ChartConfig;
+// Get the color based on AQI value
+const getAQIColor = (aqi: number) => {
+  if (aqi === 1) return "#24ce11";
+  if (aqi === 2) return "#FFCC00";
+  if (aqi === 3) return "#FF9900";
+  if (aqi === 4) return "#ff3700";
+  if (aqi === 5) return "#ff2200";
+  return "#FF0000";
+};
 
-export function ForecastChart() {
+export function ForecastChart({ forecastData }: ForecastChartT) {
+  const days = forecastData.forecast.forecastday;
+
+  const getAQIHeight = (aqi: number) => {
+    if (aqi === 1) return 6;
+    if (aqi === 2) return 5;
+    if (aqi === 3) return 4;
+    if (aqi === 4) return 3;
+    if (aqi === 5) return 2;
+    return 1;
+  };
+
+  const chartData = days.slice(0, 4).map((day, index) => {
+    const aqi =
+      forecastData.forecast.forecastday[index].day.air_quality["us-epa-index"];
+    return {
+      day: getDayLabel(index),
+      air_quality: aqi,
+      inverted_aqi: getAQIHeight(aqi),
+      fill: getAQIColor(aqi),
+    };
+  });
+
+  const chartConfig = {
+    inverted_aqi: {
+      label: "Hava keyfiyyəti: ",
+    },
+  } satisfies ChartConfig;
+
   return (
     <Card className=" bg-transparent border-none lg:w-3/4 xl:w-2/3">
       <CardHeader>
@@ -75,47 +93,42 @@ export function ForecastChart() {
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="browser"
+              dataKey="day"
               tickLine={false}
               tickMargin={10}
               axisLine={true}
-              tickFormatter={(value) =>
-                chartConfig[value as keyof typeof chartConfig]?.label
-              }
+              tickFormatter={(value) => value}
+              interval={0} // Show all labels, no skipping
+              height={50} // Adjust height to fit rotated labels
+              style={{
+                fontSize: window.innerWidth < 768 ? "12px" : "14px",
+              }}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<CustomTooltip />} />
             <Bar
-              dataKey="visitors"
+              dataKey="inverted_aqi"
               strokeWidth={2}
               radius={8}
-              activeIndex={2}
               barSize={120}
-              activeBar={({ ...props }) => {
-                return (
-                  <Rectangle
-                    {...props}
-                    fillOpacity={0.8}
-                    stroke={props.payload.fill}
-                    strokeDasharray={4}
-                    strokeDashoffset={4}
-                  />
-                );
-              }}
             />
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
 }
+
+// Custom tooltip component
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">
+        <p>{`Hava keyfiyyəti: ${formatTextValue(
+          payload[0].payload.air_quality
+        )}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};

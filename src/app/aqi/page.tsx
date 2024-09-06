@@ -11,6 +11,7 @@ import { DailyForecastT } from "@/lib/types";
 import useWeatherStore from "@/store/store";
 import { getWeekly } from "@/actions/getWeekly";
 import { ClipLoader } from "react-spinners";
+import { formatTextValue } from "@/utils/formatTextValue";
 
 type Props = {};
 
@@ -38,7 +39,6 @@ const AqiPage = (props: Props) => {
 
     fetchWeatherData();
   }, [searchCity]);
-  console.log(weeklyWeatherData);
   if (!weeklyWeatherData) {
     return <ClipLoader color="#36d7b7" />;
   }
@@ -84,7 +84,7 @@ const AqiPage = (props: Props) => {
         />
       </div>
 
-      <ForecastChart />
+      <ForecastChart forecastData={weeklyWeatherData} />
     </main>
   );
 };

@@ -13,6 +13,6 @@ export  const airQualityExplanations = {
     },
     us_epa_index: {
       name: `US-EPA Hava Keyfiyyəti İndeksi`,
-      description: `ABŞ-ın EPA (Ətraf Mühitin Mühafizəsi Agentliyi) tərəfindən işlənib hazırlanmış hava keyfiyyəti indeksi, havanın sağlamlıq üçün təhlükəsiz və ya təhlükəli olduğunu göstərir. İndeks dəyərləri 'Yaxşı'dan 'Çox Təhlükəli'yə qədər dəyişir. `,
+      description: `ABŞ-ın EPA (Ətraf Mühitin Mühafizəsi Agentliyi) tərəfindən işlənib hazırlanmış hava keyfiyyəti indeksi, havanın sağlamlıq üçün təhlükəsiz və ya təhlükəli olduğunu göstərir. İndeks dəyərləri 'Yaxşı'dan 'Təhlükəli'yə qədər dəyişir. `,
     },
   };

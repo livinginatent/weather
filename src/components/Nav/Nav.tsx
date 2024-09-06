@@ -31,6 +31,14 @@ const Nav = (props: Props) => {
               Təqvim
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              className="text-white text-xl font-600 underline decoration-solid p-2 rounded-sm"
+              href="/aqi"
+            >
+              Hava Keyfiyyəti
+            </NavigationMenuLink>
+          </NavigationMenuItem>
           {/* <NavigationMenuItem>
             <NavigationMenuLink
               className="bg-white p-2 border-2 rounded-sm"

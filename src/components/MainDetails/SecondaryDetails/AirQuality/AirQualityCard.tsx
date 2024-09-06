@@ -13,6 +13,7 @@ import { ChartConfig } from "@/components/ui/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
 import { HoverInfo } from "@/components/HoverInfo/HoverInfo";
+import { formatTextValue } from "@/utils/formatTextValue";
 
 const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
   const getGradientColor = (index: number) => {
@@ -41,17 +42,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
     },
   } satisfies ChartConfig;
 
-  const formatTextValue = (value: number): string => {
-    const valueTextMap: { [key: number]: string } = {
-      1: "Yaxşı",
-      2: "Orta",
-      3: "Həssas Qruplar üçün Zərərli",
-      4: "Zərərli",
-      5: "Çox Zərərli",
-      6: "Təhlükəli",
-    };
-    return valueTextMap[value] || value.toString();
-  };
+
 
   return (
     <Card className="h-[195px] rounded-2xl">

@@ -219,7 +219,7 @@ export type FeelsLike = {
 export type MainContainerT = {
   title: string;
   icon: ReactElement;
-  value: number;
+  value: any;
   unit: string;
 };
 
@@ -227,7 +227,9 @@ export type WarningT = {
   location: string;
   pm2_5: number;
 };
-
+export type ForecastChartT ={
+  forecastData:DailyForecastT
+}
 export type DailyForecastT = {
   location: {
     name: string;
@@ -313,6 +315,16 @@ export type DailyForecastT = {
           code: number;
         };
         uv: number;
+        air_quality: {
+          pm2_5: number;
+          co: number;
+          no2: number;
+          pm10: number;
+          o3: number;
+          so2: number;
+          "gb-defra-index": number;
+          "us-epa-index": number;
+        };
       };
       astro: {
         sunrise: string;
