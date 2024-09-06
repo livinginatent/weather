@@ -122,7 +122,7 @@ export function ForecastChart({ forecastData }: ForecastChartT) {
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip">
+      <div className="custom-tooltip bg-zinc-50 p-2 rounded-sm">
         <p>{`Hava keyfiyyəti: ${formatTextValue(
           payload[0].payload.air_quality
         )}`}</p>
