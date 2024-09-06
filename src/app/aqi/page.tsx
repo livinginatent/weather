@@ -21,7 +21,6 @@ const AqiPage = (props: Props) => {
     useState<DailyForecastT | null>(null);
 
   const searchCity = useWeatherStore((state) => state.coordinates);
-  console.log(searchCity)
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {

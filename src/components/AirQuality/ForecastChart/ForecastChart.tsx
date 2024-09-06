@@ -27,20 +27,18 @@ const getDayLabel = (index: number) => {
   if (index === 0) return "Sabah";
   const date = new Date();
   date.setDate(date.getDate() + index + 1);
-  if(window.innerWidth < 768) {
+  if (window.innerWidth < 768) {
     return date.toLocaleDateString("az-AZ", {
       month: "short",
       day: "numeric",
     });
-  }else{
+  } else {
     return date.toLocaleDateString("az-AZ", {
       weekday: "short",
-      month:'long',
-      day:'numeric'
+      month: "long",
+      day: "numeric",
     });
   }
-   
-
 };
 
 // Get the color based on AQI value
@@ -109,7 +107,7 @@ export function ForecastChart({ forecastData }: ForecastChartT) {
             <Bar
               dataKey="inverted_aqi"
               strokeWidth={2}
-              radius={8}
+              radius={[10,10,0,0]}
               barSize={120}
             />
           </BarChart>
