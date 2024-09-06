@@ -27,7 +27,7 @@ const Warning = ({ location, pm2_5 }: WarningT) => {
   };
   return (
     <div
-      className={`border-2 p-6 rounded-md mt-8 w-64 lg:w-full ${getBorderColor()}`}
+      className={`border-2 p-6 rounded-md mt-8 w-full  ${getBorderColor()}`}
     >
       <p>{`${cities[location]} ${getText()}`}</p>
     </div>

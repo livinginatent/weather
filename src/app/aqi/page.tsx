@@ -12,6 +12,7 @@ import useWeatherStore from "@/store/store";
 import { getWeekly } from "@/actions/getWeekly";
 import { ClipLoader } from "react-spinners";
 import { formatTextValue } from "@/utils/formatTextValue";
+import { cities } from "@/lib/locationNames";
 
 type Props = {};
 
@@ -20,7 +21,7 @@ const AqiPage = (props: Props) => {
     useState<DailyForecastT | null>(null);
 
   const searchCity = useWeatherStore((state) => state.coordinates);
-
+  console.log(searchCity)
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -48,40 +49,43 @@ const AqiPage = (props: Props) => {
   const index = <AiOutlineNumber size={24} color="white" />;
   return (
     <main className="flex flex-col w-full justify-center items-center">
-      <div className="flex p-1 flex-col justify-center items-center">
+      <div className="flex p-1  flex-col justify-center items-center">
         <h1 className="text-2xl text-center mt-8 font-bold">
-          Hava Keyfiyyəti Haqqında Məlumat
+          Hava Keyfiyyəti Haqqında Məlumat -{" "}
+          {`${cities[weeklyWeatherData?.location.name]}`}
         </h1>
-        <div className="flex p-2 flex-col lg:flex-row xl:flex-row gap-2">
-          <MainContainer
-            title="PM2.5 (Çirkli partikullar)"
-            value={weeklyWeatherData.current.air_quality.pm2_5}
-            unit="µg/m³"
-            icon={fineParticle}
-          />
-          <MainContainer
-            title="Karbon Monoksid (CO)"
-            value={weeklyWeatherData.current.air_quality.co}
-            unit="µg/m³"
-            icon={co}
-          />
-          <MainContainer
-            title="Azot Dioksid (NO₂)"
-            value={weeklyWeatherData.current.air_quality.no2}
-            unit="µg/m³"
-            icon={no2}
-          />
-          <MainContainer
-            title="Hava Keyfiyyəti İndeksi"
-            value={weeklyWeatherData.current.air_quality["us-epa-index"]}
-            unit=""
-            icon={index}
+        <div className="flex p-2 flex-col justify-center items-center  gap-2">
+          <div className="flex flex-col w-full gap-4 lg:flex-row xl:flex-row">
+            <MainContainer
+              title="PM2.5 (Çirkli partikullar)"
+              value={weeklyWeatherData.current.air_quality.pm2_5}
+              unit="µg/m³"
+              icon={fineParticle}
+            />
+            <MainContainer
+              title="Karbon Monoksid (CO)"
+              value={weeklyWeatherData.current.air_quality.co}
+              unit="µg/m³"
+              icon={co}
+            />
+            <MainContainer
+              title="Azot Dioksid (NO₂)"
+              value={weeklyWeatherData.current.air_quality.no2}
+              unit="µg/m³"
+              icon={no2}
+            />
+            <MainContainer
+              title="Hava Keyfiyyəti İndeksi"
+              value={weeklyWeatherData.current.air_quality["us-epa-index"]}
+              unit=""
+              icon={index}
+            />
+          </div>
+          <Warning
+            pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
+            location={weeklyWeatherData.location.name}
           />
         </div>
-        <Warning
-          pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
-          location={weeklyWeatherData.location.name}
-        />
       </div>
 
       <ForecastChart forecastData={weeklyWeatherData} />
