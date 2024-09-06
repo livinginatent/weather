@@ -195,12 +195,12 @@ export type HourlyWeatherDataT = {
 
 export type HourlyForecastT = {
   hourlyWeatherData: HourlyWeatherDataT | null;
-  loading?:boolean
+  loading?: boolean;
 };
 
 export type DailyForecastData = {
-  weeklyWeatherData: DailyForecastT | null
-}
+  weeklyWeatherData: DailyForecastT | null;
+};
 
 export type Humidity = {
   humidity: number;
@@ -216,18 +216,17 @@ export type FeelsLike = {
   feelsLike: number;
 };
 
-export type MainContainerT={
-  title:string;
-  icon:ReactElement;
-  value:number;
-  unit:string
-}
+export type MainContainerT = {
+  title: string;
+  icon: ReactElement;
+  value: number;
+  unit: string;
+};
 
 export type WarningT = {
-  text:string;
-  location:string
-  pm2_5:number
-}
+  location: string;
+  pm2_5: number;
+};
 
 export type DailyForecastT = {
   location: {
@@ -274,6 +273,16 @@ export type DailyForecastT = {
     uv: number;
     gust_mph: number;
     gust_kph: number;
+    air_quality: {
+      pm2_5: number;
+      co: number;
+      no2: number;
+      pm10: number;
+      o3: number;
+      so2: number;
+      "gb-defra-index": number;
+      "us-epa-index": number;
+    };
   };
   forecast: {
     forecastday: Array<{

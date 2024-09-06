@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import MainContainer from "@/components/AirQuality/MainContainer/MainContainer";
 import Warning from "@/components/AirQuality/Warning/Warning";
 import React, { useEffect, useState } from "react";
@@ -38,11 +38,10 @@ const AqiPage = (props: Props) => {
 
     fetchWeatherData();
   }, [searchCity]);
-console.log(weeklyWeatherData)
+  console.log(weeklyWeatherData);
   if (!weeklyWeatherData) {
     return <ClipLoader color="#36d7b7" />;
   }
-
   const fineParticle = <PiVirusFill size={24} color="white" />;
   const co = <GiGasMask size={24} color="white" />;
   const no2 = <LuBiohazard size={24} color="white" />;
@@ -56,34 +55,32 @@ console.log(weeklyWeatherData)
         <div className="flex p-2 flex-col lg:flex-row xl:flex-row gap-2">
           <MainContainer
             title="PM2.5 (Çirkli partikullar)"
-            value={12}
+            value={weeklyWeatherData.current.air_quality.pm2_5}
             unit="µg/m³"
             icon={fineParticle}
           />
           <MainContainer
             title="Karbon Monoksid (CO)"
-            value={12}
+            value={weeklyWeatherData.current.air_quality.co}
             unit="µg/m³"
             icon={co}
           />
           <MainContainer
             title="Azot Dioksid (NO₂)"
-            value={12}
+            value={weeklyWeatherData.current.air_quality.no2}
             unit="µg/m³"
             icon={no2}
           />
           <MainContainer
             title="Hava Keyfiyyəti İndeksi"
-            value={12}
+            value={weeklyWeatherData.current.air_quality["us-epa-index"]}
             unit=""
             icon={index}
           />
         </div>
         <Warning
-          pm2_5={24}
-          location="Bakı"
-          text="üçün PM2.5 konsentrasiyası hazırda Ümumdünya Səhiyyə Təşkilatının
-        illik hava keyfiyyəti istiqamət göstərici dəyərindən 3.6 dəfə çoxdur"
+          pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
+          location={weeklyWeatherData.location.name}
         />
       </div>
 

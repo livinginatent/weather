@@ -14,9 +14,9 @@ export async function GET(request: NextRequest) {
   let url;
 
   if (lat && lon) {
-    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=7&aqi=no&alerts=no`;
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=7&aqi=yes&alerts=no`;
   } else {
-    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=7&aqi=no&alerts=no`;
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=7&aqi=yes&alerts=no`;
   }
 
   try {

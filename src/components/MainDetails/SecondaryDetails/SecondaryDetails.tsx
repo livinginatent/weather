@@ -9,7 +9,6 @@ import SunTimes from "./SunTimes/SunTimesCard";
 import ExtraDetailsCard from "./ExtraDetails/ExtraDetailsCard";
 
 const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
-
   const humidity = hourlyWeatherData?.current?.humidity ?? 0;
   const wind = hourlyWeatherData?.current?.wind_kph ?? 0;
   const UVIndex = hourlyWeatherData?.current?.uv ?? 0;

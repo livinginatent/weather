@@ -35,7 +35,7 @@ const MainContainer = ({ title, icon, value, unit }: MainContainerT) => {
 
       {/* Value and unit section */}
       <div className="flex p-2 w-2/3 h-12 justify-center items-center bg-[#93cc4b] rounded-3xl">
-        <p className="text-lg">{`${value}${unit}`}</p>
+        <p className="text-lg">{`${value} ${unit}`}</p>
       </div>
 
       <Popover >
