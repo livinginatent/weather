@@ -17,7 +17,7 @@ const Nav = (props: Props) => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink
-              className="text-white text-xl font-600 underline decoration-solid p-2 rounded-sm"
+              className="text-white text-xl font-600  p-2 rounded-sm"
               href="/"
             >
               Əsas
@@ -25,7 +25,7 @@ const Nav = (props: Props) => {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
-              className="text-white text-xl font-600 underline decoration-solid p-2 rounded-sm"
+              className="text-white text-xl font-600  p-2 rounded-sm"
               href="/calendar"
             >
               Təqvim
@@ -33,7 +33,7 @@ const Nav = (props: Props) => {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
-              className="text-white text-xl font-600 underline decoration-solid p-2 rounded-sm"
+              className="text-white text-xl font-600  p-2 rounded-sm"
               href="/aqi"
             >
               Hava Keyfiyyəti

@@ -1,3 +1,4 @@
+import { cities } from "@/lib/locationNames";
 import { WarningT } from "@/lib/types";
 import React from "react";
 
@@ -25,8 +26,10 @@ const Warning = ({ location, pm2_5 }: WarningT) => {
     }
   };
   return (
-    <div className={`border-2 p-6 rounded-md mt-8 w-64 lg:w-full ${getBorderColor()}`}>
-      <p>{`${location} ${getText()}`}</p>
+    <div
+      className={`border-2 p-6 rounded-md mt-8 w-64 lg:w-full ${getBorderColor()}`}
+    >
+      <p>{`${cities[location]} ${getText()}`}</p>
     </div>
   );
 };
