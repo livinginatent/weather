@@ -48,23 +48,22 @@ const MainContainer = ({ title, icon, value, unit }: MainContainerT) => {
         return "#FF0000";
 
       case "Hava Keyfiyyəti İndeksi":
-        if (value === 1) return "#24ce11"; // Good
-        if (value === 2) return "#FFCC00"; // Moderate
-        if (value === 3) return "#FF9900"; // Unhealthy for Sensitive Groups
-        if (value === 4) return "#ff3700"; // Unhealthy
-        if (value === 5) return "#ff2200"; // Very Unhealthy
-        return "#FF0000"; // Hazardous
-
+        if (value === 1) return "#24ce11";
+        if (value === 2) return "#FFCC00";
+        if (value === 3) return "#FF9900";
+        if (value === 4) return "#ff3700";
+        if (value === 5) return "#ff2200";
+        return "#FF0000";
       default:
         return "#24ce11";
     }
   };
 
   return (
-    <div className="flex flex-col mt-6 items-center gap-4 h-36 bg-[#2e312e] rounded-xl relative">
+    <div className="flex flex-col mt-6 items-center gap-4 h-36 bg-[#ffffff] rounded-xl relative">
       <div className="flex p-2 mt-2 self-start items-center justify-center gap-2">
         {icon}
-        <p className="text-xl text-white">{`${title}`}</p>
+        <p className="text-xl text-black">{`${title}`}</p>
       </div>
 
       <div

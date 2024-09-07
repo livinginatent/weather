@@ -379,3 +379,19 @@ export type DailyForecastT = {
     }>;
   };
 };
+
+export type RecommendationsT = {
+  recommendations: Array<{
+    icon: React.ReactNode;
+    recommendation: string;
+    
+    actionText: string;
+  }>;
+};
+
+export type RecommendationsCardT = {
+  icon: React.ReactNode;
+  recommendation: string;
+  
+  actionText: string;
+};

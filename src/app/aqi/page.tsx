@@ -1,4 +1,5 @@
 "use client";
+
 import MainContainer from "@/components/AirQuality/MainContainer/MainContainer";
 import Warning from "@/components/AirQuality/Warning/Warning";
 import React, { useEffect, useState } from "react";
@@ -11,8 +12,9 @@ import { DailyForecastT } from "@/lib/types";
 import useWeatherStore from "@/store/store";
 import { getWeekly } from "@/actions/getWeekly";
 import { ClipLoader } from "react-spinners";
-import { formatTextValue } from "@/utils/formatTextValue";
 import { cities } from "@/lib/locationNames";
+import Recommendations from "@/components/AirQuality/Recommendations/Recommendations";
+import { getEPARecommendations } from "@/utils/getRecommendations";
 
 type Props = {};
 
@@ -20,7 +22,10 @@ const AqiPage = (props: Props) => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
     useState<DailyForecastT | null>(null);
 
+  const [recommendations, setRecommendations] = useState<any>([]); // Store recommendations
+
   const searchCity = useWeatherStore((state) => state.coordinates);
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -31,6 +36,11 @@ const AqiPage = (props: Props) => {
 
         if (data) {
           setWeeklyWeatherData(data);
+
+          const aqiIndex = data.current.air_quality["us-epa-index"];
+          const generatedRecommendations = getEPARecommendations(6);
+          setRecommendations(generatedRecommendations); // Set recommendations
+          console.log(recommendations)
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -42,10 +52,12 @@ const AqiPage = (props: Props) => {
   if (!weeklyWeatherData) {
     return <ClipLoader color="#36d7b7" />;
   }
+
   const fineParticle = <PiVirusFill size={24} color="white" />;
   const co = <GiGasMask size={24} color="white" />;
   const no2 = <LuBiohazard size={24} color="white" />;
   const index = <AiOutlineNumber size={24} color="white" />;
+
   return (
     <main className="flex flex-col w-full justify-center items-center">
       <div className="flex p-1  flex-col justify-center items-center">
@@ -57,7 +69,7 @@ const AqiPage = (props: Props) => {
           <div className="flex flex-col w-full gap-4 lg:flex-row xl:flex-row">
             <MainContainer
               title="PM2.5 (Çirkli partikullar)"
-              value= {Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
+              value={Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
               unit="µg/m³"
               icon={fineParticle}
             />
@@ -84,9 +96,10 @@ const AqiPage = (props: Props) => {
             pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
             location={weeklyWeatherData.location.name}
           />
-        </div>
-      </div>
 
+        </div>
+          <Recommendations recommendations={recommendations} />
+      </div>
       <ForecastChart forecastData={weeklyWeatherData} />
     </main>
   );
