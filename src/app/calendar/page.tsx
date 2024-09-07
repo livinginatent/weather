@@ -9,7 +9,7 @@ type Props = {}
 const CalendarPage = (props: Props) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <div className="flex flex-col justify-center p-4  items-center">
+    <div className="flex flex-col justify-center p-4 bg-white  items-center">
       <h1 className="text-4xl p-4 self-center">2024 İstehsalat Təqvimi</h1>
       <div className="flex flex-col lg:flex-row md:flex-row xl:flex-row gap-4">
         <Calendar

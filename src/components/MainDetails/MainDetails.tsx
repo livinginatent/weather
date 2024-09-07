@@ -52,7 +52,7 @@ const MainDetails = () => {
           <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
-        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+        <section className="bg-[#e4f1ff] justify-center items-center p-4 flex flex-col w-full xl:9/12 xl:justify-center xl:items-center">
           <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
         </section>

@@ -35,7 +35,7 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
   );
 } */
   return (
-    <div className="container mt-4 w-full justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2">
+    <div className="mt-4 w-full justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2 xl:gap-4">
       <HumidityCard humidity={humidity} />
       <WindCard wind={wind} />
       <UVIndexCard UVindex={UVIndex} />

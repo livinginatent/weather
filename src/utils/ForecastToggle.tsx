@@ -16,8 +16,8 @@ const ForecastToggle = (props: Props) => {
         onClick={() => handleClick(true)}
         className={`${
           showHourlyForecast
-            ? "bg-zinc-800 hover:bg-zinc-400 text-white"
-            : "bg-gray-300 hover:bg-zinc-400  text-black"
+            ? "bg-white hover:bg-[#EAEEF5] text-black"
+            : "bg-[#EAEEF5] hover:bg-[#EAEEF5] text-black"
         }`}
       >
         Günlük
@@ -25,8 +25,8 @@ const ForecastToggle = (props: Props) => {
       <Button
         className={`${
           !showHourlyForecast
-            ? "bg-zinc-800 hover:bg-zinc-400 text-white"
-            : "bg-gray-300 hover:bg-zinc-400 text-black"
+            ? "bg-white hover:bg-[#EAEEF5] text-black"
+            : "bg-[#EAEEF5] hover:bg-[#EAEEF5] text-black"
         }`}
         onClick={() => handleClick(false)}
       >

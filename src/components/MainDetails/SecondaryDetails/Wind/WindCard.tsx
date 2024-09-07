@@ -21,7 +21,7 @@ const WindCard = ({ wind }: Wind) => {
           type="semicircle"
           arc={{
             width: 0.2,
-            padding: 0.005,
+            padding: 0.004,
             cornerRadius: 4,
             nbSubArcs: 5,
             subArcs: [
