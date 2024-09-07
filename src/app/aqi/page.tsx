@@ -38,7 +38,7 @@ const AqiPage = (props: Props) => {
           setWeeklyWeatherData(data);
 
           const aqiIndex = data.current.air_quality["us-epa-index"];
-          const generatedRecommendations = getEPARecommendations(6);
+          const generatedRecommendations = getEPARecommendations(aqiIndex);
           setRecommendations(generatedRecommendations); // Set recommendations
           console.log(recommendations)
         }
