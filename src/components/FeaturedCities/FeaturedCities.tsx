@@ -25,7 +25,7 @@ const FeaturedCities = (props: Props) => {
   };
   return (
     <div>
-      <div className="grid grid-cols-2 gap-2 self-center grid-rows-3 m-4 ">
+      <div className="grid  grid-cols-2 gap-2 self-center grid-rows-3  ">
         {cityArray.map((city) => (
           <Button
             onClick={() => handleClick(city.coordinates)}

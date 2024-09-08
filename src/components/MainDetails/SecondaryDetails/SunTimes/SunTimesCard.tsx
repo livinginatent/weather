@@ -26,15 +26,15 @@ const SunTimes = ({sunrise,sunset}:Astro) => {
       </CardHeader>
       <CardContent className="flex mt-[-10px] flex-col  gap-8 p-0 text-xl font-bold">
         <div className="flex flex-col gap-2 ">
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex gap-2 justify-between px-2 items-center">
             <GoSun color="#FFDA78" style={{ marginLeft: 10 }} size={30} />
             <p className="text-base font-normal m-2">{dayLength}</p>
           </div>
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex gap-2 justify-between px-2 items-center">
             <FiSunrise color="#FFDA78" style={{ marginLeft: 10 }} size={30} />
             <p className="text-base font-normal m-2">{sunrise}</p>
           </div>
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex gap-2 justify-between px-2 items-center">
             <FiSunset color="#535C91" style={{ marginLeft: 10 }} size={30} />
             <p className="text-base font-normal m-2">{sunset}</p>
           </div>

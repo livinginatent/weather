@@ -21,7 +21,7 @@ const MainDetails = () => {
       try {
         setLoading(true);
         let data;
-        
+
         if (searchCity.lat != null && searchCity.lon != null) {
           data = await getSearchCityHourly({
             lat: searchCity.lat,
@@ -33,7 +33,6 @@ const MainDetails = () => {
 
         if (data) {
           setHourlyWeatherData(data);
-          
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -48,7 +47,7 @@ const MainDetails = () => {
   return (
     <>
       {loading ? (
-        <div className=" justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+        <div className="justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
           <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
@@ -57,9 +56,14 @@ const MainDetails = () => {
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
         </section>
       ) : (
-        <section className="bg-[#e4f1ff] justify-center items-center flex flex-col w-full">
-          <h2 className="text-2xl self-center">Həftəlik Hava Proqnozu</h2>
-          <WeeklyForecast />
+        <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
+          {/* H2 tag near the top */}
+          <h2 className="text-2xl mt-6 self-center">Həftəlik Hava Proqnozu</h2>
+
+          {/* Center the WeeklyForecast */}
+          <div className="flex-grow flex items-center justify-center w-full">
+            <WeeklyForecast />
+          </div>
         </section>
       )}
     </>

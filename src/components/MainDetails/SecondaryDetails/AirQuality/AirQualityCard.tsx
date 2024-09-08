@@ -55,7 +55,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
           {<LuCross style={{ marginBottom: 2 }} color="#77bae8" size={30} />}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex h-[150px] mt-[-10px]">
+      <CardContent className="flex h-[150px] mt-[-14px]">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square w-full self-center "

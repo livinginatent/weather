@@ -27,15 +27,15 @@ const getAzeriWindDirection = (direction: string): any => {
       </CardHeader>
       <CardContent className="flex flex-col  gap-8 p-0 text-xl font-bold">
         <div className="flex flex-col gap-1 ">
-          <div className="flex gap-1 justify-between items-center">
+          <div className="flex gap-1 justify-between px-2 items-center">
             <p className="text-base font-normal m-2">Atmosfer təzyiqi</p>
             <p className="text-base font-normal m-2">{`${current?.pressure_mb} mm.c.s`}</p>
           </div>
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex gap-2 justify-between px-2 items-center">
             <p className="text-base font-normal m-2">Görüş məsafəsi</p>
             <p className="text-base font-normal m-2">{`${current?.vis_km} km`}</p>
           </div>
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex gap-2 justify-between px-2 items-center">
             <p className="text-base font-normal m-2">Külək istiqaməti</p>
             <p className="text-base font-normal m-2">{`${getAzeriWindDirection(
               current?.wind_dir

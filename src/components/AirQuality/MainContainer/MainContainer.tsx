@@ -10,7 +10,7 @@ import { airQualityExplanations } from "@/utils/airQualityExplanations";
 import { formatTextValue } from "@/utils/formatTextValue";
 
 const MainContainer = ({ title, icon, value, unit }: MainContainerT) => {
-  const info = <IoInformationCircleOutline size={16} color="white" />;
+  const info = <IoInformationCircleOutline size={16} color="black" />;
 
   const getDescription = (title: string) => {
     switch (title) {
