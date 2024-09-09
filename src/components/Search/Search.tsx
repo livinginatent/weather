@@ -26,6 +26,7 @@ const Search = () => {
   const setCoordinates = useWeatherStore((state) => state.setCoordinates);
   const setCity = useWeatherStore((state) => state.setCity);
   const coordinates = useWeatherStore((state) => state.coordinates);
+  const searchCity = useWeatherStore((state) => state.coordinates);
 
   const cityArray = Object.entries(locationNames).map(([key, value]) => ({
     name: key,
@@ -35,6 +36,7 @@ const Search = () => {
   useEffect(() => {
     const currentCity = getLocationName(coordinates.lat, coordinates.lon);
     setSelectedCity(currentCity);
+    console.log(searchCity,'test')
   }, [coordinates]);
 
   const getLocationName = (lat: any, lon: any) => {

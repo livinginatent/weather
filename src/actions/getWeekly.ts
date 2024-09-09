@@ -1,6 +1,6 @@
 import { Coordinates } from "@/lib/types";
 
-export const getWeekly = async ({ lat, lon }: Coordinates) => {
+export const getWeekly = async ({ lat, lon }: Coordinates = {}) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const url =
     lat && lon

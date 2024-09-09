@@ -192,7 +192,13 @@ export type HourlyWeatherDataT = {
     air_quality: AirQuality;
   };
 };
-
+export type AQILevelT = {
+  label: string;
+  color: string;
+  description: string;
+  icon: string;
+  range: string;
+};
 export type HourlyForecastT = {
   hourlyWeatherData: HourlyWeatherDataT | null;
   loading?: boolean;

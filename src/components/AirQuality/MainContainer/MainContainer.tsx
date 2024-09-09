@@ -30,45 +30,47 @@ const MainContainer = ({ title, icon, value, unit }: MainContainerT) => {
   const getBackgroundColor = (title: string, value: number) => {
     switch (title) {
       case "PM2.5 (Çirkli partikullar)":
-        if (value <= 12) return "#24ce11";
-        if (value <= 35) return "#FFCC00";
-        if (value <= 55) return "#FF9900";
-        return "#FF0000";
+        if (value <= 12) return "bg-good";
+        if (value <= 35) return "bg-moderate";
+        if (value <= 55) return "bg-unhealthy";
+        return "bg-hazardous";
 
       case "Karbon Monoksid (CO)":
-        if (value <= 4.4) return "#24ce11";
-        if (value <= 9.4) return "#FFCC00";
-        if (value <= 12.4) return "#FF9900";
-        return "#FF0000";
+        if (value <= 4.4) return "bg-good";
+        if (value <= 9.4) return "bg-moderate";
+        if (value <= 12.4) return "bg-unhealthy";
+        return "bg-hazardous";
 
       case "Azot Dioksid (NO₂)":
-        if (value <= 53) return "#24ce11";
-        if (value <= 100) return "#FFCC00";
-        if (value <= 360) return "#FF9900";
-        return "#FF0000";
+        if (value <= 53) return "bg-good";
+        if (value <= 100) return "bg-moderate";
+        if (value <= 360) return "bg-unhealthy";
+        return "bg-hazardous";
 
       case "Hava Keyfiyyəti İndeksi":
-        if (value === 1) return "#24ce11";
-        if (value === 2) return "#FFCC00";
-        if (value === 3) return "#FF9900";
-        if (value === 4) return "#ff3700";
-        if (value === 5) return "#ff2200";
-        return "#FF0000";
+        if (value === 1) return "bg-good";
+        if (value === 2) return "bg-moderate";
+        if (value === 3) return "bg-unhealthy";
+        if (value === 4) return "bg-veryUnhealthy";
+        if (value === 5) return "bg-dangerous";
+        return "bg-hazardous";
       default:
-        return "#24ce11";
+        return "bg-good";
     }
   };
 
   return (
-    <div className="flex flex-col mt-6 items-center gap-4 h-36 bg-[#ffffff] rounded-xl relative">
-      <div className="flex p-2 mt-2 self-start items-center justify-center gap-2">
+    <div className="flex w-full flex-col mt-6 items-center gap-4 h-36 bg-[#ffffff] rounded-xl relative">
+      <div className="flex p-2 mt-2 self-start items-center justify-center gap-2 w-full">
         {icon}
-        <p className="text-xl text-black">{`${title}`}</p>
+        <p className="text-xl text-black truncate">{title}</p>
       </div>
 
       <div
-        className="flex p-2 w-2/3 h-14 justify-center items-center rounded-3xl"
-        style={{ backgroundColor: getBackgroundColor(title, value) }}
+        className={`flex p-2 w-2/3 h-14 justify-center items-center rounded-3xl ${getBackgroundColor(
+          title,
+          value
+        )}`}
       >
         <p className="text-lg flex justify-center items-center gap-2">
           {`${title === "Hava Keyfiyyəti İndeksi" ? ` ${value} ` : value} `}

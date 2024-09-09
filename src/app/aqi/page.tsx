@@ -1,5 +1,4 @@
 "use client";
-
 import MainContainer from "@/components/AirQuality/MainContainer/MainContainer";
 import Warning from "@/components/AirQuality/Warning/Warning";
 import React, { useEffect, useState } from "react";
@@ -9,13 +8,14 @@ import { LuBiohazard } from "react-icons/lu";
 import { AiOutlineNumber } from "react-icons/ai";
 import { ForecastChart } from "@/components/AirQuality/ForecastChart/ForecastChart";
 import { DailyForecastT } from "@/lib/types";
-import useWeatherStore from "@/store/store";
 import { getWeekly } from "@/actions/getWeekly";
 import { ClipLoader } from "react-spinners";
 import { cities } from "@/lib/locationNames";
 import Recommendations from "@/components/AirQuality/Recommendations/Recommendations";
 import { getEPARecommendations } from "@/utils/getRecommendations";
-import DataScale from "@/components/AirQuality/DataScale/DataScale";
+import AQILevel from "@/components/AirQuality/AQILevel/AQILevel";
+import useWeatherStore from "@/store/store";
+import Search from "@/components/Search/Search";
 
 type Props = {};
 
@@ -23,7 +23,7 @@ const AqiPage = (props: Props) => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
     useState<DailyForecastT | null>(null);
 
-  const [recommendations, setRecommendations] = useState<any>([]); // Store recommendations
+  const [recommendations, setRecommendations] = useState<any>([]);
 
   const searchCity = useWeatherStore((state) => state.coordinates);
 
@@ -40,8 +40,7 @@ const AqiPage = (props: Props) => {
 
           const aqiIndex = data.current.air_quality["us-epa-index"];
           const generatedRecommendations = getEPARecommendations(aqiIndex);
-          setRecommendations(generatedRecommendations); // Set recommendations
-          console.log(recommendations);
+          setRecommendations(generatedRecommendations);
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
@@ -66,14 +65,14 @@ const AqiPage = (props: Props) => {
   return (
     <main className="flex flex-col w-full justify-center items-center">
       <div className="flex p-1 flex-col justify-center items-center">
-        <h1 className="text-2xl text-center mt-8 font-bold">
+        <h1 className="text-2xl text-center mt-8 font-bold mb-6">
           Hava Keyfiyyəti Haqqında Məlumat -{" "}
           {`${cities[weeklyWeatherData?.location.name]}`}
         </h1>
-          {/* <DataScale/> */}
+       
+       
         <div className="flex p-2 flex-col justify-center items-center gap-2">
-          <div className="flex flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
-      
+          <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
             <MainContainer
               title="PM2.5 (Çirkli partikullar)"
               value={Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
@@ -99,6 +98,7 @@ const AqiPage = (props: Props) => {
               icon={index}
             />
           </div>
+          <AQILevel />
           <Warning
             pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
             location={weeklyWeatherData.location.name}
