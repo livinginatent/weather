@@ -48,23 +48,18 @@
 
 @layer base {
   html, body {
-  height: 100vh; /* Ensure full height is set for the entire page */
-  margin: 0; /* Remove any margins */
-  padding: 0; /* Remove any padding */
+  height: 100vh; 
+  margin: 0; 
+  padding: 0; 
 }
 
 #__next, main {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure that the content doesn't exceed viewport height */
-  overflow: hidden; /* Prevent any overflow */
+  min-height: 100vh; 
 }
 
-  #__next, main {
-    min-height: 100vh; /* Ensure content takes full height */
-    display: flex; /* Flexbox for proper alignment */
-    flex-direction: column;
-  }
+
 }
 
 
