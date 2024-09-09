@@ -1,7 +1,7 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 import {
   Card,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/chart";
 import { ForecastChartT } from "@/lib/types";
 import { formatTextValue } from "@/utils/formatTextValue";
+import config from "../../../../tailwind.config";
 
 export const description = "A bar chart with an active bar";
 
@@ -40,15 +41,15 @@ const getDayLabel = (index: number) => {
     });
   }
 };
-
+const colors = config.theme.extend.colors
 // Get the color based on AQI value
 const getAQIColor = (aqi: number) => {
-  if (aqi === 1) return "#24ce11";
-  if (aqi === 2) return "#FFCC00";
-  if (aqi === 3) return "#FF9900";
-  if (aqi === 4) return "#ff3700";
-  if (aqi === 5) return "#ff2200";
-  return "#FF0000";
+  if (aqi === 1) return colors.good;
+  if (aqi === 2) return colors.moderate;
+  if (aqi === 3) return colors.unhealthy;
+  if (aqi === 4) return colors.veryUnhealthy;
+  if (aqi === 5) return colors.dangerous;
+  return colors.hazardous;
 };
 
 export function ForecastChart({ forecastData }: ForecastChartT) {
@@ -107,9 +108,11 @@ export function ForecastChart({ forecastData }: ForecastChartT) {
             <Bar
               dataKey="inverted_aqi"
               strokeWidth={2}
-              radius={[10,10,0,0]}
+              radius={[10, 10, 0, 0]}
               barSize={120}
-            />
+            >
+             
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>
