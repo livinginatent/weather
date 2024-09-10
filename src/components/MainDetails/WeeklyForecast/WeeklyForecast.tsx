@@ -46,15 +46,13 @@ const WeeklyForecast = () => {
   }
 
   return (
-    <div className="w-3/4 flex flex-col items-center justify-around">
-      
-      <div className=" border border-[#F7F9F2] rounded-2xl bg-white">
-        <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center lg:justify-around">
+    <div className="w-full flex items-center justify-center mt-4">
+      <div className="border border-[#F7F9F2] rounded-2xl bg-white">
+        <div className="flex flex-col justify-center items-center w-full">
           {weeklyWeatherData?.forecast?.forecastday?.map((day, index) => (
             <Day key={index} day={day} />
           ))}
         </div>
-        {/* <DayCarousel/> */}
       </div>
     </div>
   );

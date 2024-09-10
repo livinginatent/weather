@@ -17,7 +17,7 @@ const SideDetailsMainInfo = ({
   return (
     <div className="flex flex-col w-full gap-2 justify-center items-center mt-10">
       <>
-        {" "}
+       
         <div className="flex justify-center items-center gap-1 flex-col ">
           <CiLocationOn color="white" size={32} />
           <div>
@@ -29,7 +29,7 @@ const SideDetailsMainInfo = ({
         <div className="flex justify-center items-center mt-10">
           <div className="text-8xl text-slate-50">{temp}</div>
         </div>
-        <div className="flex flex-col justify-center lg:gap-2 xl:gap-2 gap-4">
+        <div className="flex flex-col justify-center items-center lg:gap-2 xl:gap-2 gap-4">
           <div className="flex justify-center items-center self-center lg:gap-1 xl:gap-1 sm:gap-4 md:gap-4">
             <Image alt={`${condition}`} src={logo} width={64} height={64} />
             <p className="text-slate-50 text-lg md:text-lg lg:text-xl xl:text-xl font-light">

@@ -57,11 +57,9 @@ const MainDetails = () => {
         </section>
       ) : (
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
-          {/* H2 tag near the top */}
-          <h2 className="text-2xl mt-6 self-center">Həftəlik Hava Proqnozu</h2>
+          <h2 className="text-2xl mt-4 self-center">Həftəlik Hava Proqnozu</h2>
 
-          {/* Center the WeeklyForecast */}
-          <div className="flex-grow flex items-center justify-center w-full">
+          <div className="h-screen flex flex-col items-center justify-start w-full">
             <WeeklyForecast />
           </div>
         </section>
