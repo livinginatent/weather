@@ -16,6 +16,7 @@ import { getEPARecommendations } from "@/utils/getRecommendations";
 import AQILevel from "@/components/AirQuality/AQILevel/AQILevel";
 import useWeatherStore from "@/store/store";
 import Search from "@/components/Search/Search";
+import AQIWeekly from "@/components/AirQuality/AQIWeekly/AQIWeekly";
 
 type Props = {};
 
@@ -62,15 +63,16 @@ const AqiPage = (props: Props) => {
   const no2 = <LuBiohazard size={24} color="white" />;
   const index = <AiOutlineNumber size={24} color="white" />;
 
+  const city = cities[weeklyWeatherData?.location.name]
+    ? cities[weeklyWeatherData?.location.name]
+    : [weeklyWeatherData?.location.name];
   return (
     <main className="flex flex-col w-full justify-center items-center">
       <div className="flex p-1 flex-col justify-center items-center">
         <h1 className="text-2xl text-center mt-8 font-bold mb-6">
-          Hava Keyfiyyəti Haqqında Məlumat -{" "}
-          {`${cities[weeklyWeatherData?.location.name]}`}
+          Hava Keyfiyyəti Haqqında Məlumat - {`${city}`}
         </h1>
-       
-       
+
         <div className="flex p-2 flex-col justify-center items-center gap-2">
           <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
             <MainContainer
@@ -105,8 +107,8 @@ const AqiPage = (props: Props) => {
           />
         </div>
         <Recommendations recommendations={recommendations} />
+      <AQIWeekly forecastData={weeklyWeatherData}/>
       </div>
-      <ForecastChart forecastData={weeklyWeatherData} />
     </main>
   );
 };

@@ -21,6 +21,7 @@ import {
 import { ForecastChartT } from "@/lib/types";
 import { formatTextValue } from "@/utils/formatTextValue";
 import config from "../../../../tailwind.config";
+import { getAQIColor } from "@/utils/getAQIColor";
 
 export const description = "A bar chart with an active bar";
 
@@ -41,16 +42,7 @@ const getDayLabel = (index: number) => {
     });
   }
 };
-const colors = config.theme.extend.colors
 // Get the color based on AQI value
-const getAQIColor = (aqi: number) => {
-  if (aqi === 1) return colors.good;
-  if (aqi === 2) return colors.moderate;
-  if (aqi === 3) return colors.unhealthy;
-  if (aqi === 4) return colors.veryUnhealthy;
-  if (aqi === 5) return colors.dangerous;
-  return colors.hazardous;
-};
 
 export function ForecastChart({ forecastData }: ForecastChartT) {
   const days = forecastData.forecast.forecastday;

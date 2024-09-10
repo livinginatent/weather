@@ -236,6 +236,10 @@ export type WarningT = {
 export type ForecastChartT ={
   forecastData:DailyForecastT
 }
+
+export type AQIWeeklyT = {
+  forecastData:DailyForecastT
+}
 export type DailyForecastT = {
   location: {
     name: string;
