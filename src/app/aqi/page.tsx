@@ -72,7 +72,7 @@ const AqiPage = (props: Props) => {
         <h1 className="text-2xl text-center mt-8 font-bold mb-6">
           Hava Keyfiyyəti Haqqında Məlumat - {`${city}`}
         </h1>
-
+        <Search />
         <div className="flex p-2 flex-col justify-center items-center gap-2">
           <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
             <MainContainer
@@ -107,7 +107,7 @@ const AqiPage = (props: Props) => {
           />
         </div>
         <Recommendations recommendations={recommendations} />
-      <AQIWeekly forecastData={weeklyWeatherData}/>
+        <AQIWeekly forecastData={weeklyWeatherData} />
       </div>
     </main>
   );

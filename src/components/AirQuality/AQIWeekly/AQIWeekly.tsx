@@ -52,11 +52,11 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
         <p className="py-2">Külək</p>
       </div>
 
-      <div className="grid rounded-md  bg-[#ffffff]    h-full">
+      <div className="grid rounded-md   bg-[#ffffff]    h-full">
         {formattedData.slice(0, 5).map((day, index) => (
           <div
             key={index}
-            className="grid grid-cols-5 text-center justify-center items-center"
+            className="grid grid-cols-5 text-center border-b-2 border-slate-200 justify-center items-center"
           >
             <p className="py-2">{day.date}</p>
 
