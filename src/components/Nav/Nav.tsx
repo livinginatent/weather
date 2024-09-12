@@ -23,14 +23,14 @@ const Nav = (props: Props) => {
               Əsas
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+   {/*        <NavigationMenuItem>
             <NavigationMenuLink
               className="text-white text-xl font-600  p-2 rounded-sm"
               href="/calendar"
             >
               Təqvim
             </NavigationMenuLink>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
           <NavigationMenuItem>
             <NavigationMenuLink
               className="text-white text-xl font-600  p-2 rounded-sm"

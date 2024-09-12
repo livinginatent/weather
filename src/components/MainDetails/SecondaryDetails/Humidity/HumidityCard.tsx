@@ -11,7 +11,7 @@ const HumidityCard = ({ humidity }: Humidity) => {
     <Card className="h-[195px]  rounded-2xl">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0  font-semibold flex justify-between">
-          Nəmişlik
+          Rütubət
           {
             <MdOutlineWaterDrop
               style={{ marginBottom: 2 }}
