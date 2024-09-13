@@ -38,7 +38,15 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
       windSpeed
     };
   });
-
+  const aqiData = {
+    aqi_data:'null'
+  }
+  const numOfDays =
+    forecastData.forecast.forecastday.length >= 5 &&
+    forecastData.forecast.forecastday[4].day.air_quality?.["us-epa-index"] !==
+      undefined
+      ? 5
+      : 4;
   return (
     <div className="w-full h-full lg:p-6 xl:p-6 mb-6">
       <h2 className="font-bold text-center text-xl">
@@ -53,7 +61,7 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
       </div>
 
       <div className="grid rounded-md   bg-[#ffffff]    h-full">
-        {formattedData.slice(0, 5).map((day, index) => (
+        {formattedData.slice(0, numOfDays).map((day, index) => (
           <div
             key={index}
             className="grid grid-cols-5 text-center border-b-2 border-slate-200 justify-center items-center"

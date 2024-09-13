@@ -233,13 +233,13 @@ export type WarningT = {
   location: string;
   pm2_5: number;
 };
-export type ForecastChartT ={
-  forecastData:DailyForecastT
-}
+export type ForecastChartT = {
+  forecastData: DailyForecastT;
+};
 
 export type AQIWeeklyT = {
-  forecastData:DailyForecastT
-}
+  forecastData: DailyForecastT;
+};
 export type DailyForecastT = {
   location: {
     name: string;
@@ -286,6 +286,7 @@ export type DailyForecastT = {
     gust_mph: number;
     gust_kph: number;
     air_quality: {
+      aqi_data: null;
       pm2_5: number;
       co: number;
       no2: number;
@@ -394,7 +395,7 @@ export type RecommendationsT = {
   recommendations: Array<{
     icon: React.ReactNode;
     recommendation: string;
-    
+
     actionText: string;
   }>;
 };
@@ -402,6 +403,6 @@ export type RecommendationsT = {
 export type RecommendationsCardT = {
   icon: React.ReactNode;
   recommendation: string;
-  
+
   actionText: string;
 };
