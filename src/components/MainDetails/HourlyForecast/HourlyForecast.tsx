@@ -82,7 +82,7 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
 
   return (
     <div className="bg-white xl:w-full w-screen h-70 rounded-2xl flex flex-col p-4 justify-between">
-      <h1 className="text-2xl mt-4 self-center">Gün Ərzində Hava Proqnozu</h1>
+      
       <div className="px-4 py-2"></div>
       
       <div className="pb-4">

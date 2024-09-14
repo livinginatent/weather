@@ -8,6 +8,7 @@ import useWeatherStore from "@/store/store";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ClipLoader } from "react-spinners";
+import { cities } from "@/lib/locationNames";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
@@ -43,7 +44,9 @@ const MainDetails = () => {
 
     fetchWeatherData();
   }, [searchCity]);
-
+const localCityName =
+  (hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
+  hourlyWeatherData?.location?.name;
   return (
     <>
       {loading ? (
@@ -52,13 +55,18 @@ const MainDetails = () => {
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
         <section className="bg-[#e4f1ff] justify-center items-center p-4 flex flex-col w-full xl:9/12 xl:justify-center xl:items-center">
+          <h1 className="text-2xl mt-4 self-center">
+            {`${localCityName} Hava Proqnozu`}
+          </h1>
           <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
         </section>
       ) : (
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
-          <h2 className="text-2xl mt-4 self-center">Həftəlik Hava Proqnozu</h2>
-
+          <h1 className="text-2xl mt-4 self-center">
+            {" "}
+            {`${localCityName} Həftəlik Hava Proqnozu`}
+          </h1>{" "}
           <div className="h-screen flex flex-col items-center justify-start w-full">
             <WeeklyForecast />
           </div>

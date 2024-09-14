@@ -154,6 +154,16 @@ export type CurrentWeatherDataT = {
 
 export type HourlyWeatherDataT = {
   forecast: Forecast;
+  location: {
+    name: string;
+    region: string;
+    country: string;
+    lat: number;
+    lon: number;
+    tz_id: string;
+    localtime: string;
+    localtime_epoch: number;
+  };
   current: {
     time_epoch: number | undefined;
     time: string;
