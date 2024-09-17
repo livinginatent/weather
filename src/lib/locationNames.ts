@@ -217,6 +217,7 @@ export const cities: { [key: string]: string } = {
   Shamakhy: "Şamaxı",
   Shamkir: "Şəmkir",
   Sharur: "Şərur",
+  Gamzali:"Şərur",
   Shirvan: "Şirvan",
   Qaracala: "Şirvan",
   Qarayeri: "Samux",
