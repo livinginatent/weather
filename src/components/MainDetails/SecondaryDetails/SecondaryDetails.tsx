@@ -1,6 +1,5 @@
 import React from "react";
 import HumidityCard from "./Humidity/HumidityCard";
-import { BeatLoader, ClipLoader } from "react-spinners";
 import WindCard from "./Wind/WindCard";
 import UVIndexCard from "./UVIndex/UVIndexCard";
 import { HourlyForecastT } from "@/lib/types";
@@ -27,13 +26,7 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
     hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunrise ?? "";
   const sunset = hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunset ?? "";
    const current = hourlyWeatherData?.current
-/* if (loading) {
-  return (
-    <div className="fixed inset-0 flex justify-center items-center">
-      <ClipLoader color="#36d7b7" size={50} />
-    </div>
-  );
-} */
+
   return (
     <div className="mt-4 w-full justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2 xl:gap-4">
       <HumidityCard humidity={humidity} />

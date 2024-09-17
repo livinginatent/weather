@@ -1,20 +1,10 @@
 import useWeatherStore from "@/store/store";
 import React, { useEffect, useState } from "react";
-import {
-  Area,
-  CartesianGrid,
-  ComposedChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+
 import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
-import { getIcon } from "@/utils/getIcon";
-import { ClipLoader } from "react-spinners";
-import { DayCarousel } from "./DayCarousel";
+
 
 const WeeklyForecast = () => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
@@ -41,9 +31,6 @@ const WeeklyForecast = () => {
     fetchWeatherData();
   }, [searchCity]);
 
-  if (!weeklyWeatherData) {
-    return <ClipLoader color="#36d7b7" />;
-  }
 
   return (
     <div className="w-full flex items-center justify-center mt-4">
