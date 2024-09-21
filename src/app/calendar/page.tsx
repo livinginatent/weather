@@ -10,9 +10,9 @@ type Props = {};
 export const metadata: Metadata = {
   title: "Havam.az | 2024 İstehsalat Təqvimi",
   description: "2024 İstehsalat Təqvimi | Qeyri-iş günləri",
-  alternates: {
+ /*  alternates: {
     canonical: "https://havam.az/calendar",
-  },
+  }, */
 };
 
 const CalendarPage = (props: Props) => {

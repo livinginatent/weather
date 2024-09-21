@@ -4,9 +4,9 @@ import AQIMain from "@/components/AirQuality/AQIMain";
 export const metadata: Metadata = {
   title: "Havam.az | Hava Proqnozu - Hava Keyfiyyəti",
   description: "Detallı hava keyfiyyəti pronozu",
-  alternates: {
+/*   alternates: {
     canonical: "https://havam.az/aqi",
-  },
+  }, */
 };
 type Props = {};
 

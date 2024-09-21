@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Havam.az | Hava Proqnozu",
   description: "Ən dəqiq və müasir günlük və həftəlik hava proqnozu - Havam.az",
-  alternates: {
+/*   alternates: {
     canonical: "https://havam.az",
-  },
+  }, */
 };
 export default function Home() {
   return (
