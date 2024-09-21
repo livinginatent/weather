@@ -7,13 +7,7 @@ import { az } from "date-fns/locale";
 import { Metadata } from "next";
 
 type Props = {};
-export const metadata: Metadata = {
-  title: "Havam.az | 2024 İstehsalat Təqvimi",
-  description: "2024 İstehsalat Təqvimi | Qeyri-iş günləri",
- /*  alternates: {
-    canonical: "https://havam.az/calendar",
-  }, */
-};
+
 
 const CalendarPage = (props: Props) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
