@@ -58,7 +58,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
       <CardContent className="flex h-[150px] mt-[-14px]">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full self-center "
+          className="mx-auto aspect-square w-full max-h-[160px] self-center "
         >
           <RadialBarChart
             data={chartData}
