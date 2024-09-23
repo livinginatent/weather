@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+export const revalidate = 0;
 
 export async function GET(request: Request) {
   const API_KEY = process.env.API_KEY;
