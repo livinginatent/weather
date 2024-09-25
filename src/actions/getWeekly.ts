@@ -7,10 +7,15 @@ export const getWeekly = async ({ lat, lon }: Coordinates = {}) => {
       ? `${baseUrl}/api/weather/weekly?lat=${lat}&lon=${lon}`
       : `${baseUrl}/api/weather/weekly`;
 
-  const data = await fetch(url);
+  // Disable caching by adding cache: "no-store"
+  const data = await fetch(url, {
+    cache: "no-store", // Ensures the response is not cached
+  });
+
   if (!data.ok) {
     throw new Error("Failed to fetch data");
   }
+
   const res = await data.json();
   return res;
 };

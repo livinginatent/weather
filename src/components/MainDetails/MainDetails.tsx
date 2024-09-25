@@ -16,7 +16,6 @@ const MainDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
-
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
