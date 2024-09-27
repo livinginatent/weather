@@ -27,6 +27,8 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
   const sunset = hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunset ?? "";
    const current = hourlyWeatherData?.current
 
+   console.log(current)
+
   return (
     <div className="mt-4 w-full justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2 xl:gap-4">
       <HumidityCard humidity={humidity} />

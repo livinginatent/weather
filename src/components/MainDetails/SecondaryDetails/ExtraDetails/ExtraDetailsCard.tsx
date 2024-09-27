@@ -5,12 +5,15 @@ import React from "react";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 import { GoSun } from "react-icons/go";
 import { CgDetailsMore } from "react-icons/cg";
-import { WindDirection, windDirectionTranslations } from "@/utils/windDirections";
+import {
+  WindDirection,
+  windDirectionTranslations,
+} from "@/utils/windDirections";
 
 const ExtraDetailsCard = ({ current }: any) => {
-const getAzeriWindDirection = (direction: string): any => {
-  return windDirectionTranslations[direction];
-};
+  const getAzeriWindDirection = (direction: string): any => {
+    return windDirectionTranslations[direction];
+  };
   return (
     <Card className="h-[195px]  rounded-2xl">
       <CardHeader className="p-0 m-4">
@@ -31,6 +34,7 @@ const getAzeriWindDirection = (direction: string): any => {
             <p className="text-base font-normal m-2">Atmosfer təzyiqi</p>
             <p className="text-base font-normal m-2">{`${current?.pressure_mb} mm.c.s`}</p>
           </div>
+
           <div className="flex gap-2 justify-between px-2 items-center">
             <p className="text-base font-normal m-2">Görüş məsafəsi</p>
             <p className="text-base font-normal m-2">{`${current?.vis_km} km`}</p>
