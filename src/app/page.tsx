@@ -3,8 +3,9 @@ import SideDetails from "@/components/SideDetails/SideDetails";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Havam.az | Hava Proqnozu",
-  description: "Ən dəqiq və müasir günlük və həftəlik hava proqnozu - Havam.az",
-/*   alternates: {
+  description:
+    "Havam.az ilə ən dəqiq günlük və həftəlik hava proqnozunu öyrənin. Temperatur, külək, yağıntı və hava şəraiti barədə ətraflı məlumat üçün bizə qoşulun.",
+  /*   alternates: {
     canonical: "https://havam.az",
   }, */
 };
