@@ -41,13 +41,13 @@ const Day = ({ day, logo, loading }:any) => {
       <p className="col-span-2 md:col-span-1 text-center">
         {dayOfTheWeekCapitalized}
       </p>
-      <div className="col-span-1 md:col-span-1 flex justify-center">
-        <Image  alt={`${logo}`} src={localIconPath} width={48} height={48} />
+      <div className="col-span-2 md:col-span-1 flex justify-center items-center text-center">
+        <Image alt={`${logo}`} src={localIconPath} width={48} height={48} />
       </div>
       <p className="col-span-2 md:col-span-1 text-center">{condition}</p>
       <p className="col-span-2 md:col-span-1 text-center">{`${maxTemp}° / ${minTemp}°`}</p>
       <p className="col-span-2 md:col-span-1 flex justify-center items-center text-center">
-       {windIcon} {wind} <span className="ml-1">km/saat</span>
+        {windIcon} {wind} <span className="ml-1">km/saat</span>
       </p>
     </div>
   );

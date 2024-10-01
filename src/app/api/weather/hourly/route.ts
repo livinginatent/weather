@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// Add this line to prevent caching
+export const revalidate = 0;
+
 export async function GET(request: NextRequest) {
     const API_KEY = process.env.API_KEY;
   const environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const forwarded = request.headers.get("x-forwarded-for");
   const userIp = forwarded ? forwarded.split(/, /)[0] : request.ip;
-  const testIp = "103.167.234.0";
+  const testIp = "91.160.93.4";
+
   const ip = environment === "development" ? testIp : userIp;
 
   try {
@@ -34,9 +38,9 @@ export async function GET(request: NextRequest) {
       Pragma: "no-cache",
       Expires: "0",
       "Surrogate-Control": "no-store",
-      "Access-Control-Allow-Origin": "*", // Allow all origins
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", // Allow specific methods
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow specific headers
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     return new NextResponse(JSON.stringify(data), { status: 200, headers });
@@ -47,9 +51,9 @@ export async function GET(request: NextRequest) {
       Pragma: "no-cache",
       Expires: "0",
       "Surrogate-Control": "no-store",
-      "Access-Control-Allow-Origin": "*", // Allow all origins
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", // Allow specific methods
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow specific headers
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     return new NextResponse(JSON.stringify({ error: error.message }), {

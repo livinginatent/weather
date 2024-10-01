@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+export const revalidate = 0;
 
 export async function GET(request: NextRequest) {
   const API_KEY = process.env.API_KEY;
@@ -8,8 +9,9 @@ export async function GET(request: NextRequest) {
   const environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const forwarded = request.headers.get("x-forwarded-for");
   const userIp = forwarded ? forwarded.split(/, /)[0] : request.ip;
-  const testIp = "134.19.217.249";
+  const testIp = "91.160.93.4";
   const ip = environment === "development" ? testIp : userIp;
+  
 
   let url;
 

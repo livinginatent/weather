@@ -27,7 +27,7 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
 
     const aqi = day.day.air_quality["us-epa-index"];
     const localIconPath = getIcon(day.day.condition.icon);
-    const temp = Math.round(day.day.avgtemp_c);
+    const temp = Math.round(day.day.maxtemp_c);
     const windSpeed = Math.round(day.day.maxwind_kph)
 
     return {
