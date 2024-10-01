@@ -19,8 +19,8 @@ const MainDetails = () => {
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const meteo = await getMeteo()
-      console.log(meteo)
+      /* const meteo = await getMeteo()
+      console.log(meteo) */
       try {
         setLoading(true);
         let data;

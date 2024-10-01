@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Add this line to prevent caching
 export const revalidate = 0;
 
 export async function GET(request: NextRequest) {
