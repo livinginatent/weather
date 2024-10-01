@@ -9,6 +9,7 @@ import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ClipLoader } from "react-spinners";
 import { cities } from "@/lib/locationNames";
+import { getMeteo } from "@/actions/getMeteo";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
@@ -19,6 +20,8 @@ const MainDetails = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+      const meteo = await getMeteo()
+      console.log(meteo)
       try {
         setLoading(true);
         let data;

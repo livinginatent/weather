@@ -36,7 +36,6 @@ const Search = () => {
   useEffect(() => {
     const currentCity = getLocationName(coordinates.lat, coordinates.lon);
     setSelectedCity(currentCity);
-    console.log(searchCity,'test')
   }, [coordinates]);
 
   const getLocationName = (lat: any, lon: any) => {
