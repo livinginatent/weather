@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(weatherData);
-  } catch (error) {
+  } catch (error:any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
