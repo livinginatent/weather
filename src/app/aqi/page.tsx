@@ -16,6 +16,7 @@ const AqiPage = (props: Props) => {
     <>
       <main className="flex flex-col w-full justify-center items-center">
         <AQIMain />
+        <></>
       </main>
     </>
   );
