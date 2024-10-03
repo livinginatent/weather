@@ -56,8 +56,8 @@ const SideDetails = () => {
 
   if (!weatherData) {
     return (
-      <div className="fixed inset-0 flex justify-center items-center">
-        <ClipLoader color="#36d7b7" size={50} />
+      <div className="fixed md:w-1/4 lg:w-1/4 xl:w-1/4 inset-0 flex justify-center items-center">
+        {/* <ClipLoader color="#36d7b7" size={50} /> */}
       </div>
     );
   }
@@ -70,7 +70,7 @@ const SideDetails = () => {
   const condition = conditionTranslations[conditionText] || conditionText;
 
   return (
-    <aside className=" md:w-1/4 lg:w-1/4 xl:w-1/4  flex flex-col  bg-gradient-to-tr from-sky-500 to-indigo-600">
+    <aside className=" md:w-1/4 lg:w-1/4 xl:w-1/4  flex flex-col h-full bg-gradient-to-tr from-sky-500 to-indigo-600">
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}

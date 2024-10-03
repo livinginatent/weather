@@ -19,8 +19,6 @@ const MainDetails = () => {
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
   useEffect(() => {
     const fetchWeatherData = async () => {
-      /* const meteo = await getMeteo()
-      console.log(meteo) */
       try {
         setLoading(true);
         let data;
@@ -46,9 +44,9 @@ const MainDetails = () => {
 
     fetchWeatherData();
   }, [searchCity]);
-const localCityName =
-  (hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
-  hourlyWeatherData?.location?.name;
+  const localCityName =
+    (hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
+    hourlyWeatherData?.location?.name;
   return (
     <>
       {loading ? (
@@ -66,9 +64,8 @@ const localCityName =
       ) : (
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
           <h1 className="text-2xl mt-4 self-center">
-            {" "}
             {`${localCityName} Həftəlik Hava Proqnozu`}
-          </h1>{" "}
+          </h1>
           <div className="h-screen flex flex-col items-center justify-start w-full">
             <WeeklyForecast />
           </div>

@@ -23,7 +23,7 @@ export default function RootLayout({
 
       <body className={cn("noto-sans m-0 p-0  bg-[#e4f1ff] antialiased")}>
         <GoogleAnalytics gaId="G-64H88GM53T" />
-        <main className={`${mulish.className} `}>
+        <main className={`${mulish.className} h-full `}>
           <Nav />
           {children}
         </main>
