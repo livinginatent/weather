@@ -73,7 +73,7 @@ const AQIMain = (props: Props) => {
     ? cities[weeklyWeatherData?.location.name]
     : [weeklyWeatherData?.location.name];
   return (
-    <div className="flex p-1 flex-col justify-center items-center">
+    <div className="flex flex-col  justify-center items-center">
       <h1 className="text-2xl text-center mt-8 font-bold mb-6">
         Hava Keyfiyyəti Haqqında Məlumat - {`${city}`}
       </h1>
@@ -110,9 +110,9 @@ const AQIMain = (props: Props) => {
           pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
           location={weeklyWeatherData.location.name}
         />
-      </div>
       <Recommendations recommendations={recommendations} />
       <AQIWeekly forecastData={weeklyWeatherData} />
+      </div>
     </div>
   );
 };
