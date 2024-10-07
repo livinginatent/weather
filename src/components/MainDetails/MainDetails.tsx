@@ -55,7 +55,7 @@ const MainDetails = () => {
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
         <section className="bg-[#e4f1ff] justify-center items-center p-4 flex flex-col w-full xl:9/12 xl:justify-center xl:items-center">
-          <h1 className="text-2xl mt-4 self-center">
+          <h1 className="text-2xl mt-8 self-center">
             {`${localCityName} Hava Proqnozu`}
           </h1>
           <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
