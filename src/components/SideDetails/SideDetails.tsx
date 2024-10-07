@@ -63,9 +63,14 @@ const SideDetails = () => {
   }
 
   const formattedDate = formatDate(weatherData?.location?.localtime);
-  const localCityName =
-    (weatherData && cities[weatherData.location?.name]) ||
-    weatherData?.location?.name;
+  let localCityName:string | undefined = "";
+  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    localCityName = "Xankəndi";
+  } else {
+    localCityName=(weatherData && cities[weatherData.location?.name]) ||
+      weatherData?.location?.name;
+  }
+    
   const conditionText = weatherData?.current?.condition?.text.trim();
   const condition = conditionTranslations[conditionText] || conditionText;
 
