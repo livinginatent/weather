@@ -16,7 +16,7 @@ const MainDetails = () => {
     useState<HourlyWeatherDataT | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
-  const { showHourlyForecast} = useWeatherStore();
+  const { showHourlyForecast } = useWeatherStore();
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -45,20 +45,18 @@ const MainDetails = () => {
     fetchWeatherData();
   }, [searchCity]);
 
-  console.log(hourlyWeatherData?.location.name)
-let localCityName:string | undefined = ''
-  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656){
-    localCityName ="Xankəndi"
+  let localCityName: string | undefined = "";
+  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    localCityName = "Xankəndi";
   } else {
-localCityName=(hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
-  hourlyWeatherData?.location?.name;
+    localCityName =
+      (hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
+      hourlyWeatherData?.location?.name;
   }
-    
-      
 
-    const h1 = showHourlyForecast
-      ? `${localCityName} Hava Proqnozu`
-      : `${localCityName} Həftəlik Hava Proqnozu`;
+  const h1 = showHourlyForecast
+    ? `${localCityName} Hava Proqnozu`
+    : `${localCityName} Həftəlik Hava Proqnozu`;
   return (
     <>
       {loading ? (
@@ -67,17 +65,13 @@ localCityName=(hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
         <section className="bg-[#e4f1ff] justify-center items-center p-4 flex flex-col w-full xl:9/12 xl:justify-center xl:items-center">
-          <h1 className="text-2xl mt-8 self-center">
-            {h1}
-          </h1>
+          <h1 className="text-2xl mt-8 self-center">{h1}</h1>
           <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
         </section>
       ) : (
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
-          <h1 className="text-2xl mt-4 self-center">
-            {h1}
-          </h1>
+          <h1 className="text-2xl mt-4 self-center">{h1}</h1>
           <div className="h-screen flex flex-col items-center justify-start w-full">
             <WeeklyForecast />
           </div>

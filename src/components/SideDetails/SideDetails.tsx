@@ -57,7 +57,7 @@ const SideDetails = () => {
   if (!weatherData) {
     return (
       <div className="fixed md:w-1/4 lg:w-1/4 xl:w-1/4 inset-0 flex justify-center items-center">
-        {/* <ClipLoader color="#36d7b7" size={50} /> */}
+        <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
   }
