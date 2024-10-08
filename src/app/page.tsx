@@ -15,6 +15,7 @@ export default function Home() {
       <div className="flex flex-col w-screen h-full sm:flex-col md:flex-col lg:flex-row xl:flex-row">
         <SideDetails />
         <MainDetails />
+        <></>
       </div>
     </>
   );
