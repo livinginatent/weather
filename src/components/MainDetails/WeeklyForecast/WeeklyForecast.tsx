@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
-
+import { getSearchWeekly } from "@/actions/getSearchWeekly";
 
 const WeeklyForecast = () => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
@@ -14,11 +14,19 @@ const WeeklyForecast = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+      /* const meteo = await getMeteo()
+      console.log(meteo) */
       try {
-        const data = await getWeekly({
-          lat: searchCity.lat,
-          lon: searchCity.lon,
-        });
+        let data;
+
+        if (searchCity.lat != null && searchCity.lon != null) {
+          data = await getSearchWeekly({
+            lat: searchCity.lat,
+            lon: searchCity.lon,
+          });
+        } else {
+          data = await getWeekly();
+        }
 
         if (data) {
           setWeeklyWeatherData(data);
@@ -30,7 +38,6 @@ const WeeklyForecast = () => {
 
     fetchWeatherData();
   }, [searchCity]);
-
 
   return (
     <div className="w-full flex items-center justify-center mt-4">

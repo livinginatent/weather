@@ -17,54 +17,61 @@ import AQILevel from "@/components/AirQuality/AQILevel/AQILevel";
 import useWeatherStore from "@/store/store";
 import Search from "@/components/Search/Search";
 import AQIWeekly from "@/components/AirQuality/AQIWeekly/AQIWeekly";
+import { getSearchWeekly } from "@/actions/getSearchWeekly";
 type Props = {};
 
 const AQIMain = (props: Props) => {
-     const [weeklyWeatherData, setWeeklyWeatherData] =
-       useState<DailyForecastT | null>(null);
+  const [weeklyWeatherData, setWeeklyWeatherData] =
+    useState<DailyForecastT | null>(null);
 
-     const [recommendations, setRecommendations] = useState<any>([]);
+  const [recommendations, setRecommendations] = useState<any>([]);
 
-     const searchCity = useWeatherStore((state) => state.coordinates);
+  const searchCity = useWeatherStore((state) => state.coordinates);
 
-     useEffect(() => {
-       const fetchWeatherData = async () => {
-         try {
-           const data = await getWeekly({
-             lat: searchCity.lat,
-             lon: searchCity.lon,
-           });
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        let data;
 
-           if (data) {
-             setWeeklyWeatherData(data);
+        if (searchCity.lat != null && searchCity.lon != null) {
+          data = await getSearchWeekly({
+            lat: searchCity.lat,
+            lon: searchCity.lon,
+          });
+        } else {
+          data = await getWeekly();
+        }
 
-             const aqiIndex = data.current.air_quality["us-epa-index"];
-             const generatedRecommendations = getEPARecommendations(aqiIndex);
-             setRecommendations(generatedRecommendations);
-           }
-         } catch (error) {
-           console.error("Error fetching weather data", error);
-         }
-       };
+        if (data) {
+          setWeeklyWeatherData(data);
 
-       fetchWeatherData();
-     }, [searchCity]);
-     if (!weeklyWeatherData) {
-       return (
-         <div className="fixed inset-0 flex justify-center items-center">
-           <ClipLoader color="#36d7b7" size={50} />
-         </div>
-       );
-     }
+          const aqiIndex = data.current.air_quality["us-epa-index"];
+          const generatedRecommendations = getEPARecommendations(aqiIndex);
+          setRecommendations(generatedRecommendations);
+        }
+      } catch (error) {
+        console.error("Error fetching weather data", error);
+      }
+    };
 
-     const fineParticle = <PiVirusFill size={24} color="white" />;
-     const co = <GiGasMask size={24} color="white" />;
-     const no2 = <LuBiohazard size={24} color="white" />;
-     const index = <AiOutlineNumber size={24} color="white" />;
+    fetchWeatherData();
+  }, [searchCity]);
+  if (!weeklyWeatherData) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <ClipLoader color="#36d7b7" size={50} />
+      </div>
+    );
+  }
 
-     const city = cities[weeklyWeatherData?.location.name]
-       ? cities[weeklyWeatherData?.location.name]
-       : [weeklyWeatherData?.location.name];
+  const fineParticle = <PiVirusFill size={24} color="white" />;
+  const co = <GiGasMask size={24} color="white" />;
+  const no2 = <LuBiohazard size={24} color="white" />;
+  const index = <AiOutlineNumber size={24} color="white" />;
+
+  const city = cities[weeklyWeatherData?.location.name]
+    ? cities[weeklyWeatherData?.location.name]
+    : [weeklyWeatherData?.location.name];
   return (
     <div className="flex p-1 flex-col justify-center items-center">
       <h1 className="text-2xl text-center mt-8 font-bold mb-6">
