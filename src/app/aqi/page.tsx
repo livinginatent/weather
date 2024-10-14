@@ -12,13 +12,7 @@ export const metadata: Metadata = {
 type Props = {};
 
 const AqiPage = (props: Props) => {
-  return (
-   
-        <AQIMain />
-        
-  
-
-  );
+  return <AQIMain />;
 };
 
 export default AqiPage;

@@ -110,8 +110,8 @@ const AQIMain = (props: Props) => {
           pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
           location={weeklyWeatherData.location.name}
         />
-      <Recommendations recommendations={recommendations} />
-      <AQIWeekly forecastData={weeklyWeatherData} />
+        <Recommendations recommendations={recommendations} />
+        <AQIWeekly forecastData={weeklyWeatherData} />
       </div>
     </div>
   );

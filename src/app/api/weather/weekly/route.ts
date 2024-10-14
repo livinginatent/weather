@@ -12,24 +12,17 @@ export async function GET(request: NextRequest) {
   const testIp = "91.160.93.4";
   const ip = environment === "development" ? testIp : userIp;
 
+  let url;
+
+  if (lat && lon) {
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=7&aqi=yes&alerts=no`;
+  } else {
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=7&aqi=yes&alerts=no`;
+  }
+
   try {
-    const geoRes = await fetch(`http://ip-api.com/json/${ip}`, {
-      cache: "no-store",
-    });
-    const geoData = await geoRes.json();
-
-    if (geoData.status !== "success") {
-      throw new Error("Failed to retrieve geolocation data");
-    }
-
-    const lat = geoData.lat;
-    const lon = geoData.lon;
-
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=7&aqi=yes&alerts=no`;
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
-
-
 
     const headers = {
       "Content-Type": "application/json",

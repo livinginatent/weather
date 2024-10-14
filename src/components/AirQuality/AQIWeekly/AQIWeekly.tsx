@@ -7,7 +7,6 @@ import React from "react";
 
 const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
   const formattedData = forecastData.forecast.forecastday.map((day) => {
-   
     const dayOfTheWeek = new Date(day.date).toLocaleDateString("az-AZ", {
       weekday: "long",
     });
@@ -24,14 +23,14 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
     const aqi = day.day.air_quality["us-epa-index"];
     const localIconPath = getIcon(day.day.condition.icon);
     const temp = Math.round(day.day.maxtemp_c);
-    const windSpeed = Math.round(day.day.maxwind_kph)
+    const windSpeed = Math.round(day.day.maxwind_kph);
 
     return {
       date: dayOfTheWeekCapitalized,
       aqi,
       localIconPath,
       temp,
-      windSpeed
+      windSpeed,
     };
   });
 

@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html className="h-full" lang="en" suppressHydrationWarning>
       <head>
         <meta
           name="google-site-verification"
@@ -21,9 +21,11 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={cn("noto-sans m-0 p-0 h-screen  bg-[#e4f1ff] antialiased")}>
+      <body
+        className={cn("noto-sans m-0 p-0  h-screen   bg-[#e4f1ff] antialiased")}
+      >
         <GoogleAnalytics gaId="G-64H88GM53T" />
-        <main className={`${mulish.className} h-full `}>
+        <main className={`${mulish.className} h-full`}>
           <Nav />
           {children}
         </main>
