@@ -57,20 +57,25 @@ const SideDetails = () => {
   if (!weatherData) {
     return (
       <div className="fixed md:w-1/4 lg:w-1/4 xl:w-1/4 inset-0 flex justify-center items-center">
-        {/* <ClipLoader color="#36d7b7" size={50} /> */}
+        <ClipLoader color="#36d7b7" size={50} />
       </div>
     );
   }
 
   const formattedDate = formatDate(weatherData?.location?.localtime);
-  const localCityName =
-    (weatherData && cities[weatherData.location?.name]) ||
-    weatherData?.location?.name;
+  let localCityName:string | undefined = "";
+  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    localCityName = "Xankəndi";
+  } else {
+    localCityName=(weatherData && cities[weatherData.location?.name]) ||
+      weatherData?.location?.name;
+  }
+    
   const conditionText = weatherData?.current?.condition?.text.trim();
   const condition = conditionTranslations[conditionText] || conditionText;
 
   return (
-    <aside className=" md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col h-full bg-gradient-to-tr from-sky-500 to-indigo-600">
+    <aside className="flex flex-col h-screen md:w-1/4 lg:w-1/4 xl:w-1/4 bg-gradient-to-tr from-sky-500 to-indigo-600 ">
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}
