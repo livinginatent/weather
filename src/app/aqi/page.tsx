@@ -13,11 +13,9 @@ type Props = {};
 
 const AqiPage = (props: Props) => {
   return (
-    <>
-      <main className="flex flex-col w-full justify-center items-center">
+    
         <AQIMain />
-      </main>
-    </>
+   
   );
 };
 
