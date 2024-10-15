@@ -79,39 +79,42 @@ const AQIMain = (props: Props) => {
       </h1>
       <Search />
       <div className="flex p-2 flex-col justify-center items-center gap-2">
+        <div className="w-full">
+
         <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
           <MainContainer
             title="PM2.5 (Çirkli partikullar)"
             value={Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
             unit="µg/m³"
             icon={fineParticle}
-          />
+            />
           <MainContainer
             title="Karbon Monoksid (CO)"
             value={Math.round(weeklyWeatherData.current.air_quality.co)}
             unit="µg/m³"
             icon={co}
-          />
+            />
           <MainContainer
             title="Azot Dioksid (NO₂)"
             value={Math.round(weeklyWeatherData.current.air_quality.no2)}
             unit="µg/m³"
             icon={no2}
-          />
+            />
           <MainContainer
             title="Hava Keyfiyyəti İndeksi"
             value={weeklyWeatherData.current.air_quality["us-epa-index"]}
             unit=""
             icon={index}
-          />
+            />
         </div>
         <AQILevel />
         <Warning
           pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
           location={weeklyWeatherData.location.name}
-        />
+          />
         <Recommendations recommendations={recommendations} />
         <AQIWeekly forecastData={weeklyWeatherData} />
+          </div>
       </div>
     </div>
   );
