@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row h-full">
+      <div className="flex flex-col w-screen sm:flex-col md:flex-col lg:flex-row xl:flex-row h-full">
         <SideDetails />
         <MainDetails />
       </div>
