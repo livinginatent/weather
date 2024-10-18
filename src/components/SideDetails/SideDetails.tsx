@@ -8,7 +8,8 @@ import { getIcon } from "@/utils/getIcon";
 import Search from "../Search/Search";
 import { formatDate } from "@/utils/formatDate";
 import useWeatherStore from "@/store/store";
-import { ClipLoader } from "react-spinners";
+// Removed ClipLoader import since we're not using the spinner
+// import { ClipLoader } from "react-spinners";
 import { getHourly } from "@/actions/getHourly";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import ForecastToggle from "@/utils/ForecastToggle";
@@ -18,16 +19,18 @@ const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
-  const [loading, setLoading] = useState<boolean>(true);
+  // Removed loading state since we're not using it anymore
+  // const [loading, setLoading] = useState<boolean>(true);
   const [logoUrl, setLogoUrl] = useState<string>("");
   const searchCity = useWeatherStore((state) => state.coordinates);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      setLoading(true);
+      // Removed setLoading calls
+      // setLoading(true);
       try {
         let data;
-        if (searchCity.lat != null && searchCity.lon !== null) {
+        if (searchCity.lat != null && searchCity.lon != null) {
           data = await getSearchCityHourly({
             lat: searchCity.lat,
             lon: searchCity.lon,
@@ -46,36 +49,46 @@ const SideDetails = () => {
         }
       } catch (error) {
         console.error("Error fetching weather data", error);
-      } finally {
-        setLoading(false);
       }
+      // Removed setLoading(false);
     };
 
     fetchWeatherData();
   }, [searchCity]);
 
-  if (!weatherData) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center">
-        <ClipLoader color="#36d7b7" size={50} />
-      </div>
-    );
-  }
+  // Removed the spinner rendering condition
+  // if (!weatherData) {
+  //   return (
+  //     <div className="fixed inset-0 flex justify-center items-center">
+  //       <ClipLoader color="#36d7b7" size={50} />
+  //     </div>
+  //   );
+  // }
 
-  const formattedDate = formatDate(weatherData?.location?.localtime);
-  const localCityName =
-    (weatherData && cities[weatherData.location?.name]) ||
-    weatherData?.location?.name;
-  const conditionText = weatherData?.current?.condition?.text.trim();
-  const condition = conditionTranslations[conditionText] || conditionText;
+  // Handle undefined data by providing default values or using optional chaining
+  const formattedDate = weatherData?.location?.localtime
+    ? formatDate(weatherData.location.localtime)
+    : "";
+  const localCityName = weatherData?.location?.name
+    ? cities[weatherData.location.name] || weatherData.location.name
+    : "";
+  const conditionText = weatherData?.current?.condition?.text?.trim() || "";
+  const condition =
+    conditionTranslations[conditionText] ||
+    conditionText ||
+    "";
+  const temp =
+    weatherData?.current?.temp_c != null
+      ? `${Math.round(weatherData.current.temp_c)}°C`
+      : "";
 
   return (
-    <aside className=" md:w-1/4 lg:w-1/4 xl:w-1/4  flex flex-col  bg-gradient-to-tr from-sky-500 to-indigo-600">
+    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600">
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}
         city={localCityName}
-        temp={`${Math.round(weatherData?.current?.temp_c)}°C`}
+        temp={temp}
         logo={logoUrl}
       />
       <div className="flex flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
