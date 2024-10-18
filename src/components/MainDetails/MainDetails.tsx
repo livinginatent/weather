@@ -16,6 +16,7 @@ const MainDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -50,8 +51,7 @@ const MainDetails = () => {
     <>
       {loading ? (
         <div className="justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
-          {/*           <ClipLoader size={50} color="#36d7b7" loading={loading} />
-           */}{" "}
+          <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
         <section className="bg-[#e4f1ff] justify-center items-center p-4 flex flex-col w-full xl:9/12 xl:justify-center xl:items-center">
