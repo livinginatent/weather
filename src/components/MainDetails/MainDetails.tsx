@@ -105,7 +105,7 @@ const dummyHourlyWeatherData = {
   return (
     <>
       {loading ? (
-        <div className="justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
+        <div className="justify-center h-full items-center flex flex-col w-full xl:justify-center xl:items-center">
           <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
