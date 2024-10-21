@@ -16,62 +16,7 @@ const MainDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const searchCity = useWeatherStore((state) => state.coordinates);
   const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
-const dummyHourlyWeatherData = {
-  forecast: {
-    // Add your forecast data here (e.g., hourly forecasts, alerts)
-  },
-  location: {
-    name: "Baku",
-    region: "Absheron",
-    country: "Azerbaijan",
-    lat: 40.3993,
-    lon: 49.8947,
-    tz_id: "Asia/Baku",
-    localtime: "2024-10-18 12:28:37",
-    localtime_epoch: 1708225317,
-  },
-  current: {
-    time_epoch: 1708225317,
-    time: "12:28 PM",
-    temp_c: 20,
-    temp_f: 68,
-    is_day: 1,
-    condition: {
-      // Add condition details here (e.g., text, icon)
-    },
-    wind_mph: 10,
-    wind_kph: 16,
-    wind_degree: 270,
-    wind_dir: "West",
-    pressure_mb: 1013,
-    pressure_in: 29.91,
-    precip_mm: 0,
-    precip_in: 0,
-    snow_cm: 0,
-    humidity: 50,
-    cloud: 20,
-    feelslike_c: 22,
-    feelslike_f: 72,
-    windchill_c: 18,
-    windchill_f: 64,
-    heatindex_c: 20,
-    heatindex_f: 68,
-    dewpoint_c: 15,
-    dewpoint_f: 59,
-    will_it_rain: 0,
-    chance_of_rain: 10,
-    will_it_snow: 0,
-    chance_of_snow: 0,
-    vis_km: 10,
-    vis_miles: 6,
-    gust_mph: 12,
-    gust_kph: 19,
-    uv: 3,
-    air_quality: {
-      // Add air quality data here (e.g., co, no2, pm10)
-    },
-  },
-};
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -99,9 +44,14 @@ const dummyHourlyWeatherData = {
 
     fetchWeatherData();
   }, [searchCity]);
-  const localCityName =
-    (hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
-    hourlyWeatherData?.location?.name;
+  let localCityName: string | undefined = "";
+  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    localCityName = "Xankəndi";
+  } else {
+    localCityName =
+      (hourlyWeatherData && cities[hourlyWeatherData.location?.name]) ||
+      hourlyWeatherData?.location?.name;
+  }
   return (
     <>
       {loading ? (

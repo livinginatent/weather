@@ -12,6 +12,12 @@ const cities = {
   Naxçıvan: { lat: 39.209, lon: 45.412 },
   Şamaxı: { lat: 40.6308, lon: 48.6416 },
   Xankəndi: { lat: 39.8265, lon: 46.7656 },
+  Lənkəran: { lat: 38.7528, lon: 48.85 },
+  Masallı: { lat: 39.0358, lon: 48.6556 },
+  Cəlilabad: { lat: 39.20372720746327, lon: 48.508631480318584 },
+  Şəmkir: { lat: 40.8294, lon: 46.0181 },
+  Şəki: { lat: 41.1919, lon: 47.1706 },
+  Xaçmaz: { lat: 41.4628, lon: 48.8042 },
 };
 const cityArray = Object.entries(cities).map(([key, value]) => ({
   name: key,

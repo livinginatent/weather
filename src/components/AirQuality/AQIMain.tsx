@@ -69,9 +69,14 @@ const AQIMain = (props: Props) => {
   const no2 = <LuBiohazard size={24} color="white" />;
   const index = <AiOutlineNumber size={24} color="white" />;
 
-  const city = cities[weeklyWeatherData?.location.name]
-    ? cities[weeklyWeatherData?.location.name]
-    : [weeklyWeatherData?.location.name];
+  let city: string | undefined = "";
+  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    city = "Xankəndi";
+  } else {
+    city =
+      (weeklyWeatherData && cities[weeklyWeatherData.location?.name]) ||
+      weeklyWeatherData?.location?.name;
+  }
   return (
     <div className="flex flex-col  justify-center items-center">
       <h1 className="text-2xl text-center mt-8 font-bold mb-6">

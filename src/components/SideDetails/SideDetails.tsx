@@ -50,7 +50,7 @@ const SideDetails = () => {
       } catch (error) {
         console.error("Error fetching weather data", error);
       }
-      // Removed setLoading(false);
+      
     };
 
     fetchWeatherData();
@@ -69,9 +69,14 @@ const SideDetails = () => {
   const formattedDate = weatherData?.location?.localtime
     ? formatDate(weatherData.location.localtime)
     : "";
-  const localCityName = weatherData?.location?.name
-    ? cities[weatherData.location.name] || weatherData.location.name
-    : "";
+    let localCityName: string | undefined = "";
+    if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+      localCityName = "Xankəndi";
+    } else {
+      localCityName =
+        (weatherData && cities[weatherData.location?.name]) ||
+        weatherData?.location?.name;
+    }
   const conditionText = weatherData?.current?.condition?.text?.trim() || "";
   const condition =
     conditionTranslations[conditionText] ||

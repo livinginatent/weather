@@ -24,9 +24,7 @@ const Search = () => {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
   const setCoordinates = useWeatherStore((state) => state.setCoordinates);
-  const setCity = useWeatherStore((state) => state.setCity);
   const coordinates = useWeatherStore((state) => state.coordinates);
-  const searchCity = useWeatherStore((state) => state.coordinates);
 
   const cityArray = Object.entries(locationNames).map(([key, value]) => ({
     name: key,
