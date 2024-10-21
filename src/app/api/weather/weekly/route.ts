@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     const headers = {
       "Content-Type": "application/json",
-      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      "Cache-Control": "public, max-age=120",
       Pragma: "no-cache",
       Expires: "0",
       "Surrogate-Control": "no-store",
