@@ -96,7 +96,7 @@ const SideDetails = () => {
         temp={temp}
         logo={logoUrl}
       />
-      <div className="flex flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
+      <div className="flex  flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
         <div className="flex w-full">
           <Search />
           <ForecastToggle />

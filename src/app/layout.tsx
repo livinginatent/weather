@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <meta
           name="google-site-verification"
           content="AiTKc0Y6143pH0fcu062C9n_f3gvdRVGLSrW6g3xE2k"

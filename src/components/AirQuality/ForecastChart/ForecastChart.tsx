@@ -46,7 +46,6 @@ const getDayLabel = (index: number) => {
 
 export function ForecastChart({ forecastData }: ForecastChartT) {
   const days = forecastData.forecast.forecastday;
-
   const getAQIHeight = (aqi: number) => {
     if (aqi === 1) return 6;
     if (aqi === 2) return 5;

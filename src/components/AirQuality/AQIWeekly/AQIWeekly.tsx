@@ -10,6 +10,7 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
     const dayOfTheWeek = new Date(day.date).toLocaleDateString("az-AZ", {
       weekday: "long",
     });
+  
 
     function capitalizeWords(str: string) {
       return str
@@ -33,13 +34,11 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
       windSpeed,
     };
   });
-
-  const numOfDays =
-    forecastData.forecast.forecastday.length >= 5 &&
-    forecastData.forecast.forecastday[4].day.air_quality?.["us-epa-index"] !==
-      undefined
-      ? 5
-      : 4;
+    
+  const numOfDays = forecastData.forecast.forecastday.filter(
+    (day) => day.day.air_quality["us-epa-index"] !== undefined
+  ).length;
+  
   return (
     <div className="w-full h-full lg:p-6 xl:p-6 mb-6">
       <h2 className="font-bold text-center text-xl">
@@ -59,6 +58,7 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
             key={index}
             className="grid grid-cols-5 text-center border-b-2 border-slate-200 justify-center items-center"
           >
+            
             <p className="py-2">{day.date}</p>
 
             <div

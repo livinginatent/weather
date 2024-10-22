@@ -63,7 +63,6 @@ const AQIMain = (props: Props) => {
       </div>
     );
   }
-
   const fineParticle = <PiVirusFill size={24} color="white" />;
   const co = <GiGasMask size={24} color="white" />;
   const no2 = <LuBiohazard size={24} color="white" />;
