@@ -6,11 +6,22 @@ import Image from "next/image";
 import React from "react";
 
 const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
+  const weekdaysAz = [
+    "Bazar günü", // Sunday
+    "Bazar ertəsi", // Monday
+    "Çərşənbə axşamı", // Tuesday
+    "Çərşənbə", // Wednesday
+    "Cümə axşamı", // Thursday
+    "Cümə", // Friday
+    "Şənbə", // Saturday
+  ];
   const formattedData = forecastData.forecast.forecastday.map((day) => {
-    const dayOfTheWeek = new Date(day.date).toLocaleDateString("az-AZ", {
-      weekday: "long",
-    });
-  
+    const dateObj = new Date(day.date);
+    // Get the day index (0 for Sunday, 6 for Saturday)
+    const dayIndex = dateObj.getDay();
+
+    // Get the weekday in Azerbaijani from the array
+    const dayOfTheWeekAz = weekdaysAz[dayIndex];
 
     function capitalizeWords(str: string) {
       return str
@@ -19,7 +30,7 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
         .join(" ");
     }
 
-    const dayOfTheWeekCapitalized = capitalizeWords(dayOfTheWeek);
+    const dayOfTheWeekCapitalized = capitalizeWords(dayOfTheWeekAz);
 
     const aqi = day.day.air_quality["us-epa-index"];
     const localIconPath = getIcon(day.day.condition.icon);
@@ -34,11 +45,11 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
       windSpeed,
     };
   });
-    
+
   const numOfDays = forecastData.forecast.forecastday.filter(
     (day) => day.day.air_quality["us-epa-index"] !== undefined
   ).length;
-  
+
   return (
     <div className="w-full h-full lg:p-6 xl:p-6 mb-6">
       <h2 className="font-bold text-center text-xl">
@@ -58,7 +69,6 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
             key={index}
             className="grid grid-cols-5 text-center border-b-2 border-slate-200 justify-center items-center"
           >
-            
             <p className="py-2">{day.date}</p>
 
             <div

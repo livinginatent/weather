@@ -82,9 +82,8 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
 
   return (
     <div className="bg-white xl:w-full w-screen rounded-2xl flex flex-col p-4 justify-between">
-      
       <div className="px-4 py-2"></div>
-      
+
       <div className="pb-4">
         <ResponsiveContainer width="100%" height={225}>
           <ComposedChart

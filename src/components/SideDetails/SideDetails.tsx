@@ -110,7 +110,7 @@ const SideDetails = () => {
       : "";
 
   return (
-    <aside className="md:w-1/4 mt-12 lg:w-1/4 xl:w-1/4 flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600">
+    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600 ">
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}
@@ -118,7 +118,7 @@ const SideDetails = () => {
         temp={temp}
         logo={logoUrl}
       />
-      <div className="flex  flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
+      <div className="flex flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
         <div className="flex w-full">
           <Search />
           <ForecastToggle />
