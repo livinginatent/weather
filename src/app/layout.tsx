@@ -4,7 +4,7 @@ import { Mulish } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
 import Nav from "@/components/Nav/Nav";
-
+import { Analytics } from "@vercel/analytics/react";
 const mulish = Mulish({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -32,6 +32,7 @@ export default function RootLayout({
         <main className={`${mulish.className} h-full`}>
           <Nav />
           {children}
+          <Analytics />
         </main>
       </body>
     </html>
