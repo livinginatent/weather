@@ -14,57 +14,68 @@ import ForecastToggle from "@/utils/ForecastToggle";
 import FeaturedCities from "../FeaturedCities/FeaturedCities";
 
 const SideDetails = () => {
+  // State to manage the current location
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: 40.4093, // Baku latitude
+    lon: 49.8671, // Baku longitude
+    source: "default", // 'default', 'geolocation', or 'search'
+  });
+
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
- 
   const [logoUrl, setLogoUrl] = useState<string>("");
+
   const searchCity = useWeatherStore((state) => state.coordinates);
 
-  const fetchWeatherDataForLocation = async (lat: number, lon: number) => {
-    try {
-      let data;
-
-      if (searchCity.lat != null && searchCity.lon != null) {
-        data = await getSearchCityHourly({
-          lat: searchCity.lat,
-          lon: searchCity.lon,
-        });
-      } else {
-        data = await getHourly({ lat: lat, lon: lon });
-      }
-
-      if (data) {
-        setWeatherData(data);
- if (data.current && data.current.condition.icon) {
-   const localIconPath = getIcon(data.current.condition.icon);
-   setLogoUrl(localIconPath);
- }      }
-    } catch (error) {
-      console.error("Error fetching weather data", error);
-    } finally {
-    }
-  };
-
+  // Fetch weather data whenever currentLocation changes
   useEffect(() => {
-    // Fetch weather for Baku by default
-    const defaultLat = 40.4093; // Baku latitude
-    const defaultLon = 49.8671; // Baku longitude
+    const fetchWeatherData = async () => {
+      try {
+        let data;
 
-    fetchWeatherDataForLocation(defaultLat, defaultLon); // Fetch for Baku by default
+        if (currentLocation.source === "search") {
+          data = await getSearchCityHourly({
+            lat: currentLocation.lat,
+            lon: currentLocation.lon,
+          });
+        } else {
+          data = await getHourly({
+            lat: currentLocation.lat,
+            lon: currentLocation.lon,
+          });
+        }
 
-    // Then try to get the user's actual location
+        if (data) {
+          setWeatherData(data);
+          if (data.current && data.current.condition.icon) {
+            const localIconPath = getIcon(data.current.condition.icon);
+            setLogoUrl(localIconPath);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching weather data", error);
+      }
+    };
+
+    fetchWeatherData();
+  }, [currentLocation]);
+
+  // On component mount, attempt to get the user's location
+  useEffect(() => {
     const getUserLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const userLat = position.coords.latitude;
             const userLon = position.coords.longitude;
-            console.log("User's Latitude:", userLat);
-            console.log("User's Longitude:", userLon);
 
-            // Fetch the weather based on user's actual geolocation
-            fetchWeatherDataForLocation(userLat, userLon);
+            // Update currentLocation to the user's location
+            setCurrentLocation({
+              lat: userLat,
+              lon: userLon,
+              source: "geolocation",
+            });
           },
           (error) => {
             console.error("Error getting location:", error.message);
@@ -76,34 +87,35 @@ const SideDetails = () => {
     };
 
     getUserLocation();
-  }, [searchCity]);
+  }, []); // Empty dependency array ensures this runs once on mount
 
-  // Removed the spinner rendering condition
-  // if (!weatherData) {
-  //   return (
-  //     <div className="fixed inset-0 flex justify-center items-center">
-  //       <ClipLoader color="#36d7b7" size={50} />
-  //     </div>
-  //   );
-  // }
+  // Update currentLocation when a city is searched
+  useEffect(() => {
+    if (searchCity.lat != null && searchCity.lon != null) {
+      setCurrentLocation({
+        lat: searchCity.lat,
+        lon: searchCity.lon,
+        source: "search",
+      });
+    }
+  }, [searchCity]);
 
   // Handle undefined data by providing default values or using optional chaining
   const formattedDate = weatherData?.location?.localtime
     ? formatDate(weatherData.location.localtime)
     : "";
-    let localCityName: string | undefined = "";
-    if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
-      localCityName = "Xankəndi";
-    } else {
-      localCityName =
-        (weatherData && cities[weatherData.location?.name]) ||
-        weatherData?.location?.name;
-    }
+
+  let localCityName: string | undefined = "";
+  if (currentLocation.lat === 39.8265 && currentLocation.lon === 46.7656) {
+    localCityName = "Xankəndi";
+  } else {
+    localCityName =
+      (weatherData && cities[weatherData.location?.name]) ||
+      weatherData?.location?.name;
+  }
+
   const conditionText = weatherData?.current?.condition?.text?.trim() || "";
-  const condition =
-    conditionTranslations[conditionText] ||
-    conditionText ||
-    "";
+  const condition = conditionTranslations[conditionText] || conditionText || "";
   const temp =
     weatherData?.current?.temp_c != null
       ? `${Math.round(weatherData.current.temp_c)}°C`
@@ -118,7 +130,7 @@ const SideDetails = () => {
         temp={temp}
         logo={logoUrl}
       />
-      <div className="flex  flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
+      <div className="flex flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
         <div className="flex w-full">
           <Search />
           <ForecastToggle />
