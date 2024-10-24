@@ -6,34 +6,19 @@ import { getIcon } from "@/utils/getIcon";
 import { ClipLoader } from "react-spinners";
 
 const Day = ({ day, logo, loading }:any) => {
-  const weekdaysAz = [
-    "Bazar günü", // Sunday
-    "Bazar ertəsi", // Monday
-    "Çərşənbə axşamı", // Tuesday
-    "Çərşənbə", // Wednesday
-    "Cümə axşamı", // Thursday
-    "Cümə", // Friday
-    "Şənbə", // Saturday
-  ];
-
   const conditionText = day.day.condition.text.trim();
   const condition = conditionTranslations[conditionText] || conditionText;
 
-  // Create a Date object from the day.date string
-  const dateObj = new Date(day.date);
+  const date = new Date(day.date).toLocaleDateString("az-AZ", {
+    day: "numeric",
+    month: "numeric",
+  });
 
-  // Get the numeric day and month
-  const dayOfMonth = dateObj.getDate(); // Day of the month (1-31)
-  const month = dateObj.getMonth() + 1; // Month (1-12), add 1 because getMonth() returns 0-11
+  const dateCustom = date.split(".").join("/");
 
-  // Format the date as "DD/MM"
-  const dateCustom = `${dayOfMonth}/${month}`;
-
-  // Get the day index (0 for Sunday, 6 for Saturday)
-  const dayIndex = dateObj.getDay();
-
-  // Get the weekday in Azerbaijani from the array
-  const dayOfTheWeekAz = weekdaysAz[dayIndex];
+  const dayOfTheWeek = new Date(day.date).toLocaleDateString("az-AZ", {
+    weekday: "long",
+  });
 
   function capitalizeWords(str: string) {
     return str
@@ -42,7 +27,7 @@ const Day = ({ day, logo, loading }:any) => {
       .join(" ");
   }
 
-  const dayOfTheWeekCapitalized = capitalizeWords(dayOfTheWeekAz);
+  const dayOfTheWeekCapitalized = capitalizeWords(dayOfTheWeek);
   const maxTemp = Math.round(day.day.maxtemp_c);
   const minTemp = Math.round(day.day.mintemp_c);
   const wind = Math.round(day.day.maxwind_kph);

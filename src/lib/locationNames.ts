@@ -189,7 +189,6 @@ export const cities: { [key: string]: string } = {
   Jabrayil: "Cəbrayıl",
   Hadrut: "Cəbrayıl",
   Julfa: "Culfa",
-  Haftoni:"Lənkaran",
   Kalbajar: "Kəlbəcər",
   Istisu: "Kəlbəcər",
   Xacmaz: "Xaçmaz",
