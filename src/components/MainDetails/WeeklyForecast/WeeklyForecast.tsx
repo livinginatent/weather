@@ -40,7 +40,7 @@ const WeeklyForecast = () => {
   }, [searchCity]);
 
   return (
-    <div className="w-full flex items-center justify-center mt-4">
+    <div className="w-full  flex items-center justify-center mt-4">
       <div className="border border-[#F7F9F2] rounded-2xl bg-white">
         <div className="flex flex-col justify-center items-center w-full">
           {weeklyWeatherData?.forecast?.forecastday?.map((day, index) => (

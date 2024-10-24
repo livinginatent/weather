@@ -81,7 +81,7 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const data = getHourlyData();
 
   return (
-    <div className="bg-white xl:w-full w-screen h-full rounded-2xl flex flex-col p-4 justify-between">
+    <div className="bg-white xl:w-full w-screen rounded-2xl flex flex-col p-4 justify-between">
       
       <div className="px-4 py-2"></div>
       

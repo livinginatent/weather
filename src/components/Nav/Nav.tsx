@@ -1,18 +1,25 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import React from "react";
 import {
   NavigationMenu,
- 
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
- 
 } from "@/components/ui/navigation-menu";
 
 type Props = {};
 
 const Nav = (props: Props) => {
+  const pathname = usePathname();
+  console.log(pathname);
+
+  const navBarPosition = pathname === "/aqi" ? "" : "fixed";
   return (
-    <div className="bg-gradient-to-bl from-sky-500 to-indigo-600 w-screen h-16 flex items-center justify-between px-4">
+    <div
+      className={`bg-gradient-to-bl ${navBarPosition} from-sky-500 to-indigo-600 w-screen h-16 flex items-center justify-between px-4`}
+    >
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -23,7 +30,7 @@ const Nav = (props: Props) => {
               Əsas
             </NavigationMenuLink>
           </NavigationMenuItem>
-   {/*        <NavigationMenuItem>
+          {/*        <NavigationMenuItem>
             <NavigationMenuLink
               className="text-white text-xl font-600  p-2 rounded-sm"
               href="/calendar"

@@ -109,7 +109,7 @@ const MainDetails = () => {
   return (
     <>
       {loading ? (
-        <div className="justify-center h-full items-center flex flex-col w-full xl:justify-center xl:items-center">
+        <div className="justify-center items-center flex flex-col w-full xl:justify-center xl:items-center">
           <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
@@ -121,14 +121,11 @@ const MainDetails = () => {
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
         </section>
       ) : (
-        <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
-          <h1 className="text-2xl mt-4 self-center">
-            {" "}
+        <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full">
+          <h1 className="text-2xl  self-center">
             {`${localCityName ? localCityName : "Bakı"} Həftəlik Hava Proqnozu`}
           </h1>{" "}
-          <div className="h-screen flex flex-col items-center justify-start w-full">
-            <WeeklyForecast />
-          </div>
+          <WeeklyForecast />
         </section>
       )}
     </>
