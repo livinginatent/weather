@@ -5,16 +5,13 @@ export const revalidate = 0;
 
 export async function GET(request: NextRequest) {
   const API_KEY = process.env.API_KEY;
-  const environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
-  const forwarded = request.headers.get("x-forwarded-for");
-  const userIp = forwarded ? forwarded.split(/, /)[0] : request.ip;
-  const testIp = "91.160.93.4";
-
-  const ip = environment === "development" ? testIp : userIp;
+  const { searchParams } = new URL(request.url);
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
+ 
 
   try {
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ip}&days=1&aqi=yes&alerts=no`;
-    const res = await fetch(url, { cache: "no-store" });
+    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=1&aqi=yes&alerts=no`;    const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
 
     const headers = {

@@ -6,13 +6,11 @@ import Image from "next/image";
 import "react-loading-skeleton/dist/skeleton.css";
 import {  SyncLoader } from "react-spinners";
 const SideDetailsMainInfo = ({
-  country,
   city,
   temp,
   condition,
   date,
   logo,
-  loading
 }: MainDetailsT) => {
  
   return (
