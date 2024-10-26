@@ -197,6 +197,7 @@ export const cities: { [key: string]: string } = {
   Kurdamir: "Kürdəmir",
   Kjurdamir: "Kürdəmir",
   Lankaran: "Lənkəran",
+  Haftoni: "Lənkəran",
   Lerik: "Lerik",
   Masally: "Masallı",
   Tegh:"Laçın",

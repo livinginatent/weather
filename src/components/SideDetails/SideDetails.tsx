@@ -17,66 +17,103 @@ const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
- 
+  const [currentLocation, setCurrentLocation] = useState<{
+    lat: number;
+    lon: number;
+    source: string;
+  } | null>(null);
   const [logoUrl, setLogoUrl] = useState<string>("");
-  const searchCity = useWeatherStore((state) => state.coordinates);
+const { coordinates: searchCity } = useWeatherStore((state) => ({
+  coordinates: state.coordinates,
+}));
+const [loading, setLoading] = useState(true); 
+ useEffect(() => {
+   const getUserLocation = () => {
+     if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(
+         (position) => {
+           const userLat = position.coords.latitude;
+           const userLon = position.coords.longitude;
 
-  const fetchWeatherDataForLocation = async (lat: number, lon: number) => {
-    try {
-      let data;
+           // Update currentLocation to the user's location
+           setCurrentLocation({
+             lat: userLat,
+             lon: userLon,
+             source: "geolocation",
+           });
+         },
+         (error) => {
+           console.error("Error getting location:", error.message);
+           // If geolocation fails, set currentLocation to default (Baku)
+           setCurrentLocation({
+             lat: 40.4093, // Baku latitude
+             lon: 49.8671, // Baku longitude
+             source: "default",
+           });
+         }
+       );
+     } else {
+       console.error("Geolocation is not supported by this browser.");
+       // If geolocation is not supported, set currentLocation to default
+       setCurrentLocation({
+         lat: 40.4093, // Baku latitude
+         lon: 49.8671, // Baku longitude
+         source: "default",
+       });
+     }
+   };
 
-      if (searchCity.lat != null && searchCity.lon != null) {
-        data = await getSearchCityHourly({
-          lat: searchCity.lat,
-          lon: searchCity.lon,
-        });
-      } else {
-        data = await getHourly({ lat: lat, lon: lon });
-      }
+   getUserLocation();
+ }, []); // Empty dependency array ensures this runs once on mount
 
-      if (data) {
-        setWeatherData(data);
- if (data.current && data.current.condition.icon) {
-   const localIconPath = getIcon(data.current.condition.icon);
-   setLogoUrl(localIconPath);
- }      }
-    } catch (error) {
-      console.error("Error fetching weather data", error);
-    } finally {
-    }
-  };
+ // Update currentLocation when a city is searched
+ useEffect(() => {
+   if (searchCity.lat != null && searchCity.lon != null) {
+     setCurrentLocation({
+       lat: searchCity.lat,
+       lon: searchCity.lon,
+       source: "search",
+     });
+   }
+ }, [searchCity]);
 
-  useEffect(() => {
-    // Fetch weather for Baku by default
-    const defaultLat = 40.4093; // Baku latitude
-    const defaultLon = 49.8671; // Baku longitude
+ // Fetch weather data whenever currentLocation changes
+ useEffect(() => {
+   if (currentLocation) {
+     const fetchWeatherData = async () => {
+       try {
+         setLoading(true);
+         let data;
 
-    fetchWeatherDataForLocation(defaultLat, defaultLon); // Fetch for Baku by default
+         if (currentLocation.source === "search") {
+           data = await getSearchCityHourly({
+             lat: currentLocation.lat,
+             lon: currentLocation.lon,
+           });
+         } else {
+           data = await getHourly({
+             lat: currentLocation.lat,
+             lon: currentLocation.lon,
+           });
+         }
 
-    // Then try to get the user's actual location
-    const getUserLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const userLat = position.coords.latitude;
-            const userLon = position.coords.longitude;
-            console.log("User's Latitude:", userLat);
-            console.log("User's Longitude:", userLon);
+         if (data) {
+           setWeatherData(data);
+           if (data.current && data.current.condition.icon) {
+             const localIconPath = getIcon(data.current.condition.icon);
+             setLogoUrl(localIconPath);
+           }  
+         }
+       } catch (error) {
+         console.error("Error fetching weather data", error);
+       } finally {
+         setLoading(false);
+       }
+     };
 
-            // Fetch the weather based on user's actual geolocation
-            fetchWeatherDataForLocation(userLat, userLon);
-          },
-          (error) => {
-            console.error("Error getting location:", error.message);
-          }
-        );
-      } else {
-        console.error("Geolocation is not supported by this browser.");
-      }
-    };
-
-    getUserLocation();
-  }, [searchCity]);
+     fetchWeatherData();
+   }
+ }, [currentLocation]);
 
   // Removed the spinner rendering condition
   // if (!weatherData) {
@@ -91,19 +128,16 @@ const SideDetails = () => {
   const formattedDate = weatherData?.location?.localtime
     ? formatDate(weatherData.location.localtime)
     : "";
-    let localCityName: string | undefined = "";
-    if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
-      localCityName = "Xankəndi";
-    } else {
-      localCityName =
-        (weatherData && cities[weatherData.location?.name]) ||
-        weatherData?.location?.name;
-    }
+  let localCityName: string | undefined = "";
+  if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    localCityName = "Xankəndi";
+  } else {
+    localCityName =
+      (weatherData && cities[weatherData.location?.name]) ||
+      weatherData?.location?.name;
+  }
   const conditionText = weatherData?.current?.condition?.text?.trim() || "";
-  const condition =
-    conditionTranslations[conditionText] ||
-    conditionText ||
-    "";
+  const condition = conditionTranslations[conditionText] || conditionText || "";
   const temp =
     weatherData?.current?.temp_c != null
       ? `${Math.round(weatherData.current.temp_c)}°C`

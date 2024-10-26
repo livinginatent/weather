@@ -13,21 +13,73 @@ import { cities } from "@/lib/locationNames";
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
     useState<HourlyWeatherDataT | null>(null);
-  const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore();
+  const { showHourlyForecast } = useWeatherStore();
 
-    const [currentLocation, setCurrentLocation] = useState({
-      lat: 40.4093, // Baku latitude
-      lon: 49.8671, // Baku longitude
-      source: "default", // To identify the source of the location
-    });
+  const [currentLocation, setCurrentLocation] = useState<{
+    lat: number;
+    lon: number;
+    source: string;
+  } | null>(null);
 
-    const { coordinates: searchCity } = useWeatherStore((state) => ({
-      coordinates: state.coordinates,
-    }));
-    const [loading, setLoading] = useState(false);
+  const { coordinates: searchCity } = useWeatherStore((state) => ({
+    coordinates: state.coordinates,
+  }));
+  const [loading, setLoading] = useState(true); // Start with loading=true
 
-    // Fetch weather data whenever currentLocation changes
-    useEffect(() => {
+  // On component mount, attempt to get the user's location
+  useEffect(() => {
+    const getUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+
+            // Update currentLocation to the user's location
+            setCurrentLocation({
+              lat: userLat,
+              lon: userLon,
+              source: "geolocation",
+            });
+          },
+          (error) => {
+            console.error("Error getting location:", error.message);
+            // If geolocation fails, set currentLocation to default (Baku)
+            setCurrentLocation({
+              lat: 40.4093, // Baku latitude
+              lon: 49.8671, // Baku longitude
+              source: "default",
+            });
+          }
+        );
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+        // If geolocation is not supported, set currentLocation to default
+        setCurrentLocation({
+          lat: 40.4093, // Baku latitude
+          lon: 49.8671, // Baku longitude
+          source: "default",
+        });
+      }
+    };
+
+    getUserLocation();
+  }, []); // Empty dependency array ensures this runs once on mount
+
+  // Update currentLocation when a city is searched
+  useEffect(() => {
+    if (searchCity.lat != null && searchCity.lon != null) {
+      setCurrentLocation({
+        lat: searchCity.lat,
+        lon: searchCity.lon,
+        source: "search",
+      });
+    }
+  }, [searchCity]);
+
+  // Fetch weather data whenever currentLocation changes
+  useEffect(() => {
+    if (currentLocation) {
       const fetchWeatherData = async () => {
         try {
           setLoading(true);
@@ -56,46 +108,8 @@ const MainDetails = () => {
       };
 
       fetchWeatherData();
-    }, [currentLocation]);
-
-    // On component mount, attempt to get the user's location
-    useEffect(() => {
-      const getUserLocation = () => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const userLat = position.coords.latitude;
-              const userLon = position.coords.longitude;
-
-              // Update currentLocation to the user's location
-              setCurrentLocation({
-                lat: userLat,
-                lon: userLon,
-                source: "geolocation",
-              });
-            },
-            (error) => {
-              console.error("Error getting location:", error.message);
-            }
-          );
-        } else {
-          console.error("Geolocation is not supported by this browser.");
-        }
-      };
-
-      getUserLocation();
-    }, []); // Empty dependency array ensures this runs once on mount
-
-    // Update currentLocation when a city is searched
-    useEffect(() => {
-      if (searchCity.lat != null && searchCity.lon != null) {
-        setCurrentLocation({
-          lat: searchCity.lat,
-          lon: searchCity.lon,
-          source: "search",
-        });
-      }
-    }, [searchCity]);
+    }
+  }, [currentLocation]);
 
   let localCityName: string | undefined = "";
   if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
@@ -110,7 +124,6 @@ const MainDetails = () => {
     <>
       {loading ? (
         <div className="justify-center h-screen items-center flex flex-col w-full xl:justify-center xl:items-center">
-          {" "}
           <ClipLoader size={50} color="#36d7b7" loading={loading} />
         </div>
       ) : showHourlyForecast && hourlyWeatherData ? (
