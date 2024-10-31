@@ -17,103 +17,64 @@ const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
-  const [currentLocation, setCurrentLocation] = useState<{
-    lat: number;
-    lon: number;
-    source: string;
-  } | null>(null);
+    const [currentLocation, setCurrentLocation] = useState<{
+      lat: number;
+      lon: number;
+      source: string;
+    } | null>({ lat: 40.4093, lon: 49.8671, source: "default" });
   const [logoUrl, setLogoUrl] = useState<string>("");
-const { coordinates: searchCity } = useWeatherStore((state) => ({
-  coordinates: state.coordinates,
-}));
-const [loading, setLoading] = useState(true); 
- useEffect(() => {
-   const getUserLocation = () => {
-     if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(
-         (position) => {
-           const userLat = position.coords.latitude;
-           const userLon = position.coords.longitude;
+  const { coordinates: searchCity } = useWeatherStore((state) => ({
+    coordinates: state.coordinates,
+  }));
+  const [loading, setLoading] = useState(true);
 
-           // Update currentLocation to the user's location
-           setCurrentLocation({
-             lat: userLat,
-             lon: userLon,
-             source: "geolocation",
-           });
-         },
-         (error) => {
-           console.error("Error getting location:", error.message);
-           // If geolocation fails, set currentLocation to default (Baku)
-           setCurrentLocation({
-             lat: 40.4093, // Baku latitude
-             lon: 49.8671, // Baku longitude
-             source: "default",
-           });
-         }
-       );
-     } else {
-       console.error("Geolocation is not supported by this browser.");
-       // If geolocation is not supported, set currentLocation to default
-       setCurrentLocation({
-         lat: 40.4093, // Baku latitude
-         lon: 49.8671, // Baku longitude
-         source: "default",
-       });
-     }
-   };
+  useEffect(() => {
+    if (searchCity.lat != null && searchCity.lon != null) {
+      setCurrentLocation({
+        lat: searchCity.lat,
+        lon: searchCity.lon,
+        source: "search",
+      });
+    }
+  }, [searchCity]);
 
-   getUserLocation();
- }, []); // Empty dependency array ensures this runs once on mount
+  
+  useEffect(() => {
+    if (currentLocation) {
+      const fetchWeatherData = async () => {
+        try {
+          setLoading(true);
+          let data;
 
- // Update currentLocation when a city is searched
- useEffect(() => {
-   if (searchCity.lat != null && searchCity.lon != null) {
-     setCurrentLocation({
-       lat: searchCity.lat,
-       lon: searchCity.lon,
-       source: "search",
-     });
-   }
- }, [searchCity]);
+          if (currentLocation.source === "search") {
+            data = await getSearchCityHourly({
+              lat: currentLocation.lat,
+              lon: currentLocation.lon,
+            });
+          } else {
+            data = await getHourly({
+              lat: currentLocation.lat,
+              lon: currentLocation.lon,
+            });
+          }
 
- // Fetch weather data whenever currentLocation changes
- useEffect(() => {
-   if (currentLocation) {
-     const fetchWeatherData = async () => {
-       try {
-         setLoading(true);
-         let data;
+          if (data) {
+            setWeatherData(data);
+            if (data.current && data.current.condition.icon) {
+              const localIconPath = getIcon(data.current.condition.icon);
+              setLogoUrl(localIconPath);
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching weather data", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-         if (currentLocation.source === "search") {
-           data = await getSearchCityHourly({
-             lat: currentLocation.lat,
-             lon: currentLocation.lon,
-           });
-         } else {
-           data = await getHourly({
-             lat: currentLocation.lat,
-             lon: currentLocation.lon,
-           });
-         }
-
-         if (data) {
-           setWeatherData(data);
-           if (data.current && data.current.condition.icon) {
-             const localIconPath = getIcon(data.current.condition.icon);
-             setLogoUrl(localIconPath);
-           }  
-         }
-       } catch (error) {
-         console.error("Error fetching weather data", error);
-       } finally {
-         setLoading(false);
-       }
-     };
-
-     fetchWeatherData();
-   }
- }, [currentLocation]);
+      fetchWeatherData();
+    }
+  }, [currentLocation]);
 
   // Removed the spinner rendering condition
   // if (!weatherData) {
