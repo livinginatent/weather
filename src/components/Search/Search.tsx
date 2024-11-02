@@ -69,7 +69,7 @@ const Search = () => {
           <CommandInput placeholder="Şəhər axtarın..." />
           <CommandEmpty>Şəhər tapılmadı.</CommandEmpty>
           <CommandGroup>
-            <ScrollArea className="h-24">
+            <ScrollArea className="h-36">
               {cityArray.map((city) => (
                 <CommandItem
                   key={city.name}

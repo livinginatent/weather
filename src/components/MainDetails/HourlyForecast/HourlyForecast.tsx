@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
 import { getIcon } from "@/utils/getIcon";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const [hoursToShow, setHoursToShow] = useState<number>(10);
 
@@ -81,39 +82,43 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const data = getHourlyData();
 
   return (
-    <div className="bg-white xl:w-full w-screen rounded-2xl flex flex-col p-4 justify-between">
-      <div className="px-4 py-2"></div>
+    <ScrollArea className="w-full">
+      <div className="bg-white xl:w-full w-screen rounded-2xl flex flex-col p-4 justify-between">
+        <div className="px-4 py-2"></div>
 
-      <div className="pb-4">
-        <ResponsiveContainer width="100%" height={225}>
-          <ComposedChart
-            data={data}
-            margin={{ top: 80, right: 20, bottom: 10, left: 20 }}
-          >
-            <Area type="monotone" dataKey="temp" fill="#77bae8" />
-            <XAxis style={{ fontSize: 12 }} dataKey="windSpeed" />
-            <Bar dataKey="bar" barSize={2} fill="#C7C8CC">
-              <LabelList
-                dataKey="time"
-                content={<TimeLabel />}
-                position="top"
-              />
-              <LabelList
-                dataKey="icon"
-                content={<WeatherIconLabel />}
-                position="top"
-              />
-              <LabelList
-                content={<TempLabel />}
-                dataKey="temp"
-                position="top"
-              />
-            </Bar>
-          </ComposedChart>
-        </ResponsiveContainer>
-        {/*  <ForecastToggle onChange={setIsChecked} checked={checked} /> */}
+        <div className="pb-4">
+         
+            <ResponsiveContainer width="100%" height={225}>
+              <ComposedChart
+                data={data}
+                margin={{ top: 80, right: 20, bottom: 10, left: 20 }}
+              >
+                <Area type="monotone" dataKey="temp" fill="#77bae8" />
+                <XAxis style={{ fontSize: 12 }} dataKey="windSpeed" />
+                <Bar dataKey="bar" barSize={2} fill="#C7C8CC">
+                  <LabelList
+                    dataKey="time"
+                    content={<TimeLabel />}
+                    position="top"
+                  />
+                  <LabelList
+                    dataKey="icon"
+                    content={<WeatherIconLabel />}
+                    position="top"
+                  />
+                  <LabelList
+                    content={<TempLabel />}
+                    dataKey="temp"
+                    position="top"
+                  />
+                </Bar>
+              </ComposedChart>
+            </ResponsiveContainer>
+          
+          {/*  <ForecastToggle onChange={setIsChecked} checked={checked} /> */}
+        </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 };
 
