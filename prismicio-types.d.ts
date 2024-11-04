@@ -4,73 +4,56 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type BlogDocumentDataSlicesSlice = TitleSlice;
-
-/**
- * Content for Blog documents
- */
-interface BlogDocumentData {
-  /**
-   * Slice Zone field in *Blog*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
-   */
-  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice> /**
-   * Meta Title field in *Blog*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: blog.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
-  meta_title: prismic.KeyTextField;
-
-  /**
-   * Meta Description field in *Blog*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: blog.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  meta_description: prismic.KeyTextField;
-
-  /**
-   * Meta Image field in *Blog*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  meta_image: prismic.ImageField<never>;
-}
-
-/**
- * Blog document from Prismic
- *
- * - **API ID**: `blog`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type BlogDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
-
-type BlogPostDocumentDataSlicesSlice = RichTextSlice;
+type BlogPostDocumentDataSlicesSlice = never;
 
 /**
  * Content for Blog Post documents
  */
 interface BlogPostDocumentData {
+  /**
+   * Title field in *Blog Post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Description field in *Blog Post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Featured Image field in *Blog Post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.featured_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  featured_image: prismic.ImageField<never>;
+
+  /**
+   * Publication Date field in *Blog Post*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.publication_date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  publication_date: prismic.DateField;
+
   /**
    * Slice Zone field in *Blog Post*
    *
@@ -130,166 +113,7 @@ export type BlogPostDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = BlogDocument | BlogPostDocument;
-
-/**
- * Primary content in *Image → Default → Primary*
- */
-export interface ImageSliceDefaultPrimary {
-  /**
-   * image field in *Image → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: image.default.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image: prismic.ImageField<never>;
-}
-
-/**
- * Default variation for Image Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type ImageSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<ImageSliceDefaultPrimary>,
-  never
->;
-
-/**
- * Slice variation for *Image*
- */
-type ImageSliceVariation = ImageSliceDefault;
-
-/**
- * Image Shared Slice
- *
- * - **API ID**: `image`
- * - **Description**: Image
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
-
-/**
- * Primary content in *PostBody → Default → Primary*
- */
-export interface PostBodySliceDefaultPrimary {
-  /**
-   * body field in *PostBody → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: post_body.default.primary.body
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  body: prismic.RichTextField;
-}
-
-/**
- * Default variation for PostBody Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type PostBodySliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<PostBodySliceDefaultPrimary>,
-  never
->;
-
-/**
- * Slice variation for *PostBody*
- */
-type PostBodySliceVariation = PostBodySliceDefault;
-
-/**
- * PostBody Shared Slice
- *
- * - **API ID**: `post_body`
- * - **Description**: PostBody
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type PostBodySlice = prismic.SharedSlice<
-  "post_body",
-  PostBodySliceVariation
->;
-
-/**
- * Default variation for RichText Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type RichTextSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *RichText*
- */
-type RichTextSliceVariation = RichTextSliceDefault;
-
-/**
- * RichText Shared Slice
- *
- * - **API ID**: `rich_text`
- * - **Description**: RichText
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type RichTextSlice = prismic.SharedSlice<
-  "rich_text",
-  RichTextSliceVariation
->;
-
-/**
- * Primary content in *Title → Default → Primary*
- */
-export interface TitleSliceDefaultPrimary {
-  /**
-   * title field in *Title → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: title
-   * - **API ID Path**: title.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  title: prismic.RichTextField;
-}
-
-/**
- * Default variation for Title Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type TitleSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<TitleSliceDefaultPrimary>,
-  never
->;
-
-/**
- * Slice variation for *Title*
- */
-type TitleSliceVariation = TitleSliceDefault;
-
-/**
- * Title Shared Slice
- *
- * - **API ID**: `title`
- * - **Description**: Title
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type TitleSlice = prismic.SharedSlice<"title", TitleSliceVariation>;
+export type AllDocumentTypes = BlogPostDocument;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -312,28 +136,10 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
-      BlogDocument,
-      BlogDocumentData,
-      BlogDocumentDataSlicesSlice,
       BlogPostDocument,
       BlogPostDocumentData,
       BlogPostDocumentDataSlicesSlice,
       AllDocumentTypes,
-      ImageSlice,
-      ImageSliceDefaultPrimary,
-      ImageSliceVariation,
-      ImageSliceDefault,
-      PostBodySlice,
-      PostBodySliceDefaultPrimary,
-      PostBodySliceVariation,
-      PostBodySliceDefault,
-      RichTextSlice,
-      RichTextSliceVariation,
-      RichTextSliceDefault,
-      TitleSlice,
-      TitleSliceDefaultPrimary,
-      TitleSliceVariation,
-      TitleSliceDefault,
     };
   }
 }
