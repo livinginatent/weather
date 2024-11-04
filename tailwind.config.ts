@@ -28,6 +28,10 @@ const config = {
 
         "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
+
+        laptop: { raw: "(min-height: 703px) and (min-width: 1024px)" },
+        monitor: { raw: "(min-height: 503px) and (min-width: 1024px)" },
+        // => This defines a laptop screen with a min-height of 703px and min-width of 1024px
       },
     },
     extend: {

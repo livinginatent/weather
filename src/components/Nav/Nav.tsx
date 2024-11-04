@@ -18,7 +18,7 @@ const Nav = (props: Props) => {
   const navBarPosition = pathname === "/aqi" ? "" : "fixed top-0 z-1";
   return (
     <div
-      className={`bg-gradient-to-bl ${navBarPosition} from-sky-500 to-indigo-600 w-screen h-16 flex items-center justify-between px-4`}
+      className={`bg-gradient-to-bl   from-sky-500 to-indigo-600 w-screen h-16 flex items-center justify-between px-4`}
     >
       <NavigationMenu>
         <NavigationMenuList>
