@@ -11,23 +11,25 @@ import {
 import { WeatherIconLabel, TempLabel, TimeLabel } from "./labels";
 import { getIcon } from "@/utils/getIcon";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
-  const [hoursToShow, setHoursToShow] = useState<number>(10);
 
-  const updateHoursToShow = () => {
+const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
+  const [hoursToShow, setHoursToShow] = useState<number>(15);
+  const [chartWidth, setChartWidth] = useState<string | number>("100%");
+
+  const updateChartSettings = () => {
     const width = window.innerWidth;
     if (width <= 768) {
-      setHoursToShow(5);
+      setChartWidth(hoursToShow * 80); 
     } else {
-      setHoursToShow(10);
+      setChartWidth("100%");
     }
   };
 
   useEffect(() => {
-    updateHoursToShow();
-    window.addEventListener("resize", updateHoursToShow);
+    updateChartSettings();
+    window.addEventListener("resize", updateChartSettings);
     return () => {
-      window.removeEventListener("resize", updateHoursToShow);
+      window.removeEventListener("resize", updateChartSettings);
     };
   }, []);
 
@@ -44,9 +46,14 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const getHourlyData = () => {
     const hours = [getCurrentWeather()];
     const now = new Date();
+    const currentHour = now.getHours();
+
+    const remainingHoursToday = 24 - currentHour;
+    const displayHours = Math.min(hoursToShow, remainingHoursToday);
+
     const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
 
-    for (let i = 0; i < hoursToShow - 1; i++) {
+    for (let i = 0; i < displayHours - 1; i++) {
       const newHour = new Date(nextHour.getTime() + i * 60 * 60 * 1000);
       const hourIndex = newHour.getHours();
       const temp = Math.round(
@@ -82,43 +89,40 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const data = getHourlyData();
 
   return (
-    <ScrollArea className="w-full">
-      <div className="bg-white xl:w-full w-screen rounded-2xl flex flex-col p-4 justify-between">
-        <div className="px-4 py-2"></div>
+    <div className="bg-white xl:w-full w-full rounded-2xl flex flex-col p-4 justify-between">
+      <div className="px-4 py-2"></div>
 
-        <div className="pb-4">
-         
-            <ResponsiveContainer width="100%" height={225}>
-              <ComposedChart
-                data={data}
-                margin={{ top: 80, right: 20, bottom: 10, left: 20 }}
-              >
-                <Area type="monotone" dataKey="temp" fill="#77bae8" />
-                <XAxis style={{ fontSize: 12 }} dataKey="windSpeed" />
-                <Bar dataKey="bar" barSize={2} fill="#C7C8CC">
-                  <LabelList
-                    dataKey="time"
-                    content={<TimeLabel />}
-                    position="top"
-                  />
-                  <LabelList
-                    dataKey="icon"
-                    content={<WeatherIconLabel />}
-                    position="top"
-                  />
-                  <LabelList
-                    content={<TempLabel />}
-                    dataKey="temp"
-                    position="top"
-                  />
-                </Bar>
-              </ComposedChart>
-            </ResponsiveContainer>
-          
-          {/*  <ForecastToggle onChange={setIsChecked} checked={checked} /> */}
+      <div className="pb-4 px-4 overflow-x-auto">
+        <div style={{ minWidth: chartWidth }}>
+          <ResponsiveContainer width="100%" height={225}>
+            <ComposedChart
+              data={data}
+              margin={{ top: 80, right: 20, bottom: 10, left: 20 }}
+            >
+              <Area type="monotone" dataKey="temp" fill="#77bae8" />
+              <XAxis style={{ fontSize: 12 }} dataKey="windSpeed" />
+              <Bar dataKey="bar" barSize={2} fill="#C7C8CC">
+                <LabelList
+                  dataKey="time"
+                  content={<TimeLabel />}
+                  position="top"
+                />
+                <LabelList
+                  dataKey="icon"
+                  content={<WeatherIconLabel />}
+                  position="top"
+                />
+                <LabelList
+                  content={<TempLabel />}
+                  dataKey="temp"
+                  position="top"
+                />
+              </Bar>
+            </ComposedChart>
+          </ResponsiveContainer>
         </div>
       </div>
-    </ScrollArea>
+    </div>
   );
 };
 
