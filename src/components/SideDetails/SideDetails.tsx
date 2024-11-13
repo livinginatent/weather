@@ -12,6 +12,7 @@ import { getHourly } from "@/actions/getHourly";
 import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import ForecastToggle from "@/utils/ForecastToggle";
 import FeaturedCities from "../FeaturedCities/FeaturedCities";
+import CitySelector from "../CitySelector/CitySelector";
 
 const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
@@ -113,13 +114,14 @@ const SideDetails = () => {
         temp={temp}
         logo={logoUrl}
       />
-      <div className="flex flex-col w-4/5 mt-4 self-center mb-2 items-center justify-center">
+      <div className="flex flex-col p-6 w-full w-4/5 mt-4 self-center mb-2 items-center justify-center">
         <div className="flex w-full">
           <Search />
           <ForecastToggle />
         </div>
         <div className="w-full mt-6">
           <FeaturedCities />
+          <CitySelector />
         </div>
       </div>
     </aside>

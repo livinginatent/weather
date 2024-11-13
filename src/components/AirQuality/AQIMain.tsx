@@ -18,6 +18,7 @@ import useWeatherStore from "@/store/store";
 import Search from "@/components/Search/Search";
 import AQIWeekly from "@/components/AirQuality/AQIWeekly/AQIWeekly";
 import { getSearchWeekly } from "@/actions/getSearchWeekly";
+import CitySelector from "../CitySelector/CitySelector";
 type Props = {};
 
 const AQIMain = (props: Props) => {
@@ -78,47 +79,53 @@ const AQIMain = (props: Props) => {
   }
   return (
     <div className="flex flex-col  justify-center items-center">
-      <h1 className="text-2xl text-center mt-8 font-bold mb-6">
-        Hava Keyfiyyəti Haqqında Məlumat - {`${city}`}
-      </h1>
+      <div className="flex justify-center items-center gap-2">
+        <h1 className="text-2xl text-center mt-8 font-bold mb-6">
+          Hava Keyfiyyəti Haqqında Məlumat
+        </h1>
+        <p className="text-2xl text-center mt-8 font-bold mb-6">- {city}</p>
+      </div>
       <Search />
+        <div className="w-48">
+          <CitySelector />
+        </div>
+
       <div className="flex p-2 flex-col justify-center items-center gap-2">
         <div className="w-full">
-
-        <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
-          <MainContainer
-            title="PM2.5 (Çirkli partikullar)"
-            value={Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
-            unit="µg/m³"
-            icon={fineParticle}
+          <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
+            <MainContainer
+              title="PM2.5 (Çirkli partikullar)"
+              value={Math.round(weeklyWeatherData.current.air_quality.pm2_5)}
+              unit="µg/m³"
+              icon={fineParticle}
             />
-          <MainContainer
-            title="Karbon Monoksid (CO)"
-            value={Math.round(weeklyWeatherData.current.air_quality.co)}
-            unit="µg/m³"
-            icon={co}
+            <MainContainer
+              title="Karbon Monoksid (CO)"
+              value={Math.round(weeklyWeatherData.current.air_quality.co)}
+              unit="µg/m³"
+              icon={co}
             />
-          <MainContainer
-            title="Azot Dioksid (NO₂)"
-            value={Math.round(weeklyWeatherData.current.air_quality.no2)}
-            unit="µg/m³"
-            icon={no2}
+            <MainContainer
+              title="Azot Dioksid (NO₂)"
+              value={Math.round(weeklyWeatherData.current.air_quality.no2)}
+              unit="µg/m³"
+              icon={no2}
             />
-          <MainContainer
-            title="Hava Keyfiyyəti İndeksi"
-            value={weeklyWeatherData.current.air_quality["us-epa-index"]}
-            unit=""
-            icon={index}
+            <MainContainer
+              title="Hava Keyfiyyəti İndeksi"
+              value={weeklyWeatherData.current.air_quality["us-epa-index"]}
+              unit=""
+              icon={index}
             />
-        </div>
-        <AQILevel />
-        <Warning
-          pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
-          location={weeklyWeatherData.location.name}
-          />
-        <Recommendations recommendations={recommendations} />
-        <AQIWeekly forecastData={weeklyWeatherData} />
           </div>
+          <AQILevel />
+          <Warning
+            pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
+            location={weeklyWeatherData.location.name}
+          />
+          <Recommendations recommendations={recommendations} />
+          <AQIWeekly forecastData={weeklyWeatherData} />
+        </div>
       </div>
     </div>
   );

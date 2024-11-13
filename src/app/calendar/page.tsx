@@ -16,7 +16,7 @@ const CalendarPage = (props: Props) => {
       <div className="flex flex-col justify-center p-4 bg-white  items-center">
         <h1 className="text-4xl p-4 self-center">2024 İstehsalat Təqvimi</h1>
         <div className="flex flex-col lg:flex-row md:flex-row xl:flex-row gap-4">
-     {/*      <Calendar
+          {/*      <Calendar
             mode="single"
             selected={date}
             locale={az}
@@ -51,6 +51,12 @@ const CalendarPage = (props: Props) => {
             tətbiq edərək, məhsuldarlığı artırmaq, iş yükünü bərabər paylamaq və
             vaxtın daha səmərəli istifadə edilməsini təmin etmək üçün daha
             məqsədyönlü qərarlar qəbul edə bilərlər.
+            <br />
+            <br />
+            <br />
+            <a className="font-bold text-decoration-line: underline" href="/">
+              Hava məlumatına geri qayıt
+            </a>
           </p>
         </div>
       </div>

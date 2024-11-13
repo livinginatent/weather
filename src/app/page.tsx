@@ -1,3 +1,5 @@
+import AllCities from "@/components/AllCities/AllCities";
+import CitySelector from "@/components/CitySelector/CitySelector";
 import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
 import type { Metadata } from "next";

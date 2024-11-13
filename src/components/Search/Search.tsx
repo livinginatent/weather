@@ -58,9 +58,9 @@ const Search = () => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] justify-between text-sm"
         >
-          {selectedCity ? selectedCity : "Şəhər seçin"}
+          {selectedCity ? selectedCity : "Şəhər axtarın"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

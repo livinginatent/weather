@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWeatherApi } from "openmeteo";
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
   const params = {
-    latitude: 52.52,
-    longitude: 13.41,
+    latitude: lat,
+    longitude: lon,
+    start_date: "1996-10-10",
+    end_date: "1996-10-10",
     current: [
       "temperature_2m",
       "relative_humidity_2m",
@@ -111,7 +116,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(weatherData);
-  } catch (error:any) {
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
