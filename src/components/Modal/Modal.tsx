@@ -18,7 +18,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
     >
       <div
-        className=" bg-white rounded-lg shadow-lg p-2 relative"
+        className="bg-white rounded-lg shadow-lg p-2 relative max-h-[90vh] overflow-y-auto "
         onClick={(e) => e.stopPropagation()}
       >
         <Button
