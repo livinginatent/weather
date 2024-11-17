@@ -19,7 +19,7 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const updateChartSettings = () => {
     const width = window.innerWidth;
     if (width <= 768) {
-      setChartWidth(hoursToShow * 80); 
+      setChartWidth(hoursToShow * 80);
     } else {
       setChartWidth("100%");
     }
@@ -46,24 +46,23 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const getHourlyData = () => {
     const hours = [getCurrentWeather()];
     const now = new Date();
-    const currentHour = now.getHours();
+    const totalHoursToShow = 12;
 
-    const remainingHoursToday = 24 - currentHour;
-    const displayHours = Math.min(hoursToShow, remainingHoursToday);
+    const nextHour = new Date(now.setMinutes(0, 0, 0));
 
-    const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
-
-    for (let i = 0; i < displayHours - 1; i++) {
+    for (let i = 1; i < totalHoursToShow; i++) {
       const newHour = new Date(nextHour.getTime() + i * 60 * 60 * 1000);
       const hourIndex = newHour.getHours();
-      const temp = Math.round(
-        hourlyWeatherData?.forecast?.forecastday[0]?.hour[hourIndex]?.temp_c ??
-          0
-      );
-      const windSpeed = Math.round(
-        hourlyWeatherData?.forecast?.forecastday[0]?.hour[hourIndex]
-          ?.wind_kph ?? 0
-      );
+      const isNextDay = newHour.getDate() !== now.getDate();
+
+      const forecastDayIndex = isNextDay ? 1 : 0; 
+      const hourlyForecast =
+        hourlyWeatherData?.forecast?.forecastday[forecastDayIndex]?.hour[
+          hourIndex
+        ];
+
+      const temp = Math.round(hourlyForecast?.temp_c ?? 0);
+      const windSpeed = Math.round(hourlyForecast?.wind_kph ?? 0);
 
       hours.push({
         time: newHour
@@ -76,10 +75,7 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
         windSpeed: `${windSpeed}km/saat`,
         bar: 20,
         temp: temp,
-        icon: getIcon(
-          hourlyWeatherData?.forecast?.forecastday[0]?.hour[hourIndex]
-            ?.condition?.icon ?? ""
-        ),
+        icon: getIcon(hourlyForecast?.condition?.icon ?? ""),
       });
     }
 

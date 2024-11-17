@@ -17,7 +17,7 @@ const UVIndexCard = ({ UVindex }: UVIndex) => {
     <Card className="h-[195px]  rounded-2xl ">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0  font-semibold flex justify-between">
-          Ultrabənövşəyi İndeks
+          Ultrabənövşəyi indeks
           {<TbUvIndex style={{ marginBottom: 2 }} color="#77bae8" size={32} />}
         </CardTitle>
       </CardHeader>

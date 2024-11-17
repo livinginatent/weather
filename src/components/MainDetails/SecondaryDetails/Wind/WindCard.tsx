@@ -12,7 +12,7 @@ const WindCard = ({ wind }: Wind) => {
     <Card className="h-[195px]  rounded-2xl">
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0 font-semibold flex justify-between">
-          Külək
+          Külək sürəti
           {<BsWind style={{ marginBottom: 2 }} color="#77bae8" size={30} />}
         </CardTitle>
       </CardHeader>
@@ -44,7 +44,6 @@ const WindCard = ({ wind }: Wind) => {
             length: 0.7,
             width: 12,
             animate: true,
-            // elastic: true,
           }}
           labels={{
             valueLabel: {

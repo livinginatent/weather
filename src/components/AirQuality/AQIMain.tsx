@@ -86,7 +86,7 @@ const AQIMain = (props: Props) => {
         <p className="text-2xl text-center mt-8 font-bold mb-6">- {city}</p>
       </div>
       <Search />
-        <div className="w-48">
+        <div className="w-52">
           <CitySelector />
         </div>
 

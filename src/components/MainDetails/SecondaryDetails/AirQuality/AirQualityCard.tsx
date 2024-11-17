@@ -49,7 +49,7 @@ const AirQualityCard = ({ airQuality }: { airQuality: AirQuality }) => {
       <CardHeader className="p-0 m-4">
         <CardTitle className="text-base p-0  font-semibold flex justify-between">
           <div className="flex justify-center items-center gap-2 ">
-            <p>Hava Keyfiyyəti</p>
+            <p>Hava keyfiyyəti</p>
              {/*  <HoverInfo title="test" info="test" /> */}
           </div>
           {<LuCross style={{ marginBottom: 2 }} color="#77bae8" size={30} />}

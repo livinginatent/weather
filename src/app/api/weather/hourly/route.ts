@@ -8,10 +8,10 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
- 
 
   try {
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=1&aqi=yes&alerts=no`;    const res = await fetch(url, { cache: "no-store" });
+    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=2&aqi=yes&alerts=no`;
+    const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
 
     const headers = {
