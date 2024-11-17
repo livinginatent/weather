@@ -1,7 +1,12 @@
+import { Metadata } from "next";
 import React from "react";
 
 type Props = {};
-
+export const metadata: Metadata = {
+  title: "Havam.az | Hava Proqnozu - Haqqımızda",
+  description:
+    "Havam.az - Etibarlı Hava Proqnozu və Hava Keyfiyyəti Məlumatları",
+};
 const page = (props: Props) => {
   return (
     <div className="flex flex-col items-center justify-center px-4 sm:px-8 md:px-16 ">
