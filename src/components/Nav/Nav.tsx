@@ -39,13 +39,13 @@ const Nav = (props: Props) => {
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-     <NavigationMenuLink
-       className="text-white text-xl font-600  p-2 rounded-sm"
-       href="/calendar"
-     >
-       Təqvim
-     </NavigationMenuLink>
-   </NavigationMenuItem>
+            <NavigationMenuLink
+              className="text-white text-xl font-600  p-2 rounded-sm"
+              href="/calendar"
+            >
+              Təqvim
+            </NavigationMenuLink>
+          </NavigationMenuItem>
           {/* <NavigationMenuItem>
             <NavigationMenuLink
               className="bg-white p-2 border-2 rounded-sm"

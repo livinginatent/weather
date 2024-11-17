@@ -17,6 +17,9 @@ const SideDetailsMainInfo = ({
     <div className="flex flex-col w-full gap-2 justify-center items-center mt-10">
       <>
         <div className="flex justify-center items-center gap-1 flex-col ">
+            <h2 className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
+              Hava Proqnozu
+            </h2>
           <CiLocationOn color="white" size={32} />
           <div>
             <p className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
@@ -31,8 +34,10 @@ const SideDetailsMainInfo = ({
         </div>
         <div className="flex flex-col justify-center items-center lg:gap-2 xl:gap-2 gap-4">
           <div className="flex justify-center items-center self-center lg:gap-1 xl:gap-1 sm:gap-4 md:gap-4">
-            {condition?.length ? ( <Image alt={`${condition}`} src={logo} width={64} height={64} />) : null}
-           
+            {condition?.length ? (
+              <Image alt={`${condition}`} src={logo} width={64} height={64} />
+            ) : null}
+
             <p className="text-slate-50 text-lg md:text-lg lg:text-xl xl:text-xl font-light">
               {condition}
             </p>
