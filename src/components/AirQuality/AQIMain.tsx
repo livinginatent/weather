@@ -79,16 +79,18 @@ const AQIMain = (props: Props) => {
   }
   return (
     <div className="flex flex-col  justify-center items-center">
-      <div className="flex justify-center items-center gap-2">
-        <h1 className="text-2xl text-center mt-8 font-bold mb-6">
+      <div className="flex flex-col  justify-center items-center gap-2 mt-4 mb-4">
+        <h1 className="text-2xl text-center  font-bold">
           Hava Keyfiyyəti Haqqında Məlumat
         </h1>
-        <p className="text-2xl text-center mt-8 font-bold mb-6">- {city}</p>
+        <p className="text-2xl text-center font-bold lg:ml-2">
+           {city}
+        </p>
       </div>
       <Search />
-        <div className="w-52">
-          <CitySelector />
-        </div>
+      <div className="w-52">
+        <CitySelector />
+      </div>
 
       <div className="flex p-2 flex-col justify-center items-center gap-2">
         <div className="w-full">
