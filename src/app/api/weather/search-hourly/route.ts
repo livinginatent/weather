@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
 
-  const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&aqi=yes`;
+  const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=2&aqi=yes`;
 
   try {
     const headers = {
