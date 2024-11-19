@@ -27,7 +27,7 @@ const CalendarPage = (props: Props) => {
           <Image
             className="self-center"
             src={WorkCalendar}
-            alt="qeyri iş günləri 2024"
+            alt="istehsalat teqvimi 2024"
             width={800}
             height={800}
           />
@@ -55,7 +55,7 @@ const CalendarPage = (props: Props) => {
             <br />
             <br />
             <a className="font-bold text-decoration-line: underline" href="/">
-              Hava məlumatına geri qayıt
+              Hava proqnozuna geri qayıt
             </a>
           </p>
         </div>

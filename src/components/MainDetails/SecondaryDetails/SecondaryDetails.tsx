@@ -24,33 +24,36 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
 
   const sunrise =
     hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunrise ?? "";
-  const sunset = hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunset ?? "";
-   const current = hourlyWeatherData?.current
-
+  const sunset =
+    hourlyWeatherData?.forecast?.forecastday[0]?.astro?.sunset ?? "";
+  const current = hourlyWeatherData?.current;
 
   return (
-    <div className="mt-4 w-full justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2 xl:gap-4">
-      <HumidityCard humidity={humidity} />
-      <WindCard wind={wind} />
-      <UVIndexCard UVindex={UVIndex} />
-      <AirQualityCard airQuality={airQuality} />
-      <SunTimes
-        sunrise={sunrise}
-        sunset={sunset}
-        moonrise={""}
-        moonset={""}
-        moon_phase={""}
-        moon_illumination={0}
-        is_moon_up={0}
-        is_sun_up={0}
-      />
-      <ExtraDetailsCard
-        current={current}
-        forecast={{
-          forecastday: [],
-        }}
-      />
-    </div>
+    <>
+      <h2 className="text-xl">Hava haqqında əlavə məlumatlar</h2>
+      <div className="mt-4 w-full justify-center items-center grid grid-cols-1 md:grid-cols-3 gap-2 xl:gap-4">
+        <HumidityCard humidity={humidity} />
+        <WindCard wind={wind} />
+        <UVIndexCard UVindex={UVIndex} />
+        <AirQualityCard airQuality={airQuality} />
+        <SunTimes
+          sunrise={sunrise}
+          sunset={sunset}
+          moonrise={""}
+          moonset={""}
+          moon_phase={""}
+          moon_illumination={0}
+          is_moon_up={0}
+          is_sun_up={0}
+        />
+        <ExtraDetailsCard
+          current={current}
+          forecast={{
+            forecastday: [],
+          }}
+        />
+      </div>
+    </>
   );
 };
 
