@@ -92,16 +92,19 @@ const MainDetails = () => {
           </div>
           <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
-          <a className="font-bold text-decoration-line: underline" href="/about-us">
+          <a
+            className="font-bold text-decoration-line: underline"
+            href="/about-us"
+          >
             Haqqımızda - Havam.az
           </a>
         </section>
       ) : (
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
-          <h1 className="text-2xl mt-4 self-center">
-            {" "}
-            {`${localCityName ? localCityName : "Bakı"} Həftəlik Hava Proqnozu`}
-          </h1>{" "}
+          <div className="flex gap-2">
+            <p className="text-2xl mt-4 self-center">{`${localCityName}`}</p>
+            <h1 className="text-2xl mt-4 self-center">{`Hava Proqnozu`}</h1>
+          </div>
           <div className="h-screen flex flex-col items-center justify-start w-full">
             <WeeklyForecast />
           </div>
