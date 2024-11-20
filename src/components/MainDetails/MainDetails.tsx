@@ -9,6 +9,7 @@ import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ClipLoader } from "react-spinners";
 import { cities } from "@/lib/locationNames";
+import { SrcInfo } from "../SrcInfo/SrcInfo";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
@@ -98,6 +99,7 @@ const MainDetails = () => {
           >
             Haqqımızda - Havam.az
           </a>
+          <SrcInfo/>
         </section>
       ) : (
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
