@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   }, */
 };
 const CalendarPage = (props: Props) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
   return (
     <>
       <div className="flex flex-col justify-center p-4 bg-white  items-center">
