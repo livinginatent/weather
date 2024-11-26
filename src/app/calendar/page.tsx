@@ -8,7 +8,14 @@ import { Metadata } from "next";
 
 type Props = {};
 
-
+export const metadata: Metadata = {
+  title: "İstehsalat təqvimi 2024 | Qeyri-iş günləri",
+  description:
+    " İstehsalat təqvimi, müəssisələrin və təşkilatların istehsal proseslərini planlamaq və idarə etmək üçün istifadə olunan bir vasitədir.",
+  /*   alternates: {
+    canonical: "https://havam.az",
+  }, */
+};
 const CalendarPage = (props: Props) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (

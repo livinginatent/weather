@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {};
 export const metadata: Metadata = {
-  title: "Havam.az | Hava Proqnozu - Haqqımızda",
+  title: "Havam.az | Hava Proqnozu - Haqqımızda | Bakı Hava Proqnozu",
   description:
     "Havam.az - Etibarlı Hava Proqnozu və Hava Keyfiyyəti Məlumatları",
 };

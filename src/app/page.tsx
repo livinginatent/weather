@@ -4,9 +4,9 @@ import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Havam.az | Hava Proqnozu",
+  title: "Bakı Hava Proqnozu | Hava Proqnozu",
   description:
-    "Havam.az ilə ən dəqiq günlük və həftəlik hava proqnozunu öyrənin. Temperatur, külək, yağıntı və hava şəraiti barədə ətraflı məlumat üçün bizə qoşulun.",
+    "Havam.az ilə ən dəqiq günlük və həftəlik hava proqnozunu öyrənin. Temperatur, külək, yağıntı və hava şəraiti barədə ətraflı məlumat üçün bizə qoşulun. Bakı hava proqnozu.",
   /*   alternates: {
     canonical: "https://havam.az",
   }, */
