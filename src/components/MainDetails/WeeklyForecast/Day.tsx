@@ -51,7 +51,7 @@ const Day = ({ day, logo, loading }: any) => {
   const localIconPath = getIcon(day.day.condition.icon);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-6 gap-2 items-center justify-evenly w-full p-2 py-4 border-b-2 border-[#eceeff]">
+    <div className="grid grid-cols-5 md:grid-cols-6 gap-2 items-center justify-evenly w-full p-2 py-4 border-b-2 border-[#eceeff]">
       <p className="col-span-2 md:col-span-1 text-center">{dateCustom}</p>
       <p className="col-span-2 md:col-span-1 text-center">
         {dayOfTheWeekCapitalized}
