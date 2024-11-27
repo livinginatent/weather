@@ -83,17 +83,27 @@ const AQIMain = (props: Props) => {
         <h1 className="text-2xl text-center  font-bold">
           Hava Keyfiyyəti Haqqında Məlumat
         </h1>
-        <p className="text-2xl text-center font-bold lg:ml-2">
-           {city}
-        </p>
+        <p className="text-2xl text-center font-bold lg:ml-2">{city}</p>
       </div>
       <Search />
       <div className="w-52">
         <CitySelector />
       </div>
-
-      <div className="flex p-2 flex-col justify-center items-center gap-2">
-        <div className="w-full">
+      <div className="text-justify w-11/12 mt-4  p-2 rounded-lg">
+        <p>
+          Hava keyfiyyəti atmosferdəki çirkləndirici maddələrin miqdarını ölçən
+          göstəricidir. Azərbaycanda hava keyfiyyəti əsasən sənaye
+          fəaliyyətləri, avtomobil nəqliyyatı və təbii faktorlar kimi amillərdən
+          asılıdır. Ən çox təsir edən çirkləndiricilər arasında toz
+          hissəcikləri, azot oksidləri və karbon monoksid var. Keyfiyyətli hava
+          sağlamlıq üçün vacibdir, buna görə də hava çirkliliyinin azaldılması
+          üçün tədbirlər görmək mühüm əhəmiyyət kəsb edir. Azərbaycanda hava
+          keyfiyyəti bəzi regionlarda daha təmiz olsa da, böyük şəhərlərdə daha
+          çox nəzarət tələb olunur.
+        </p>
+      </div>
+      <div className="p-2 flex-col justify-center items-center gap-2">
+        <div className="">
           <div className="flex w-full flex-col gap-4 lg:flex-row xl:flex-row justify-center items-center">
             <MainContainer
               title="PM2.5 (Çirkli partikullar)"
@@ -120,15 +130,20 @@ const AQIMain = (props: Props) => {
               icon={index}
             />
           </div>
+
           <AQILevel />
           <Warning
             pm2_5={weeklyWeatherData.current.air_quality.pm2_5}
             location={weeklyWeatherData.location.name}
           />
+
           <Recommendations recommendations={recommendations} />
           <AQIWeekly forecastData={weeklyWeatherData} />
         </div>
       </div>
+          <a className="font-bold text-decoration-line: underline" href="/">
+            Hava proqnozuna geri qayıt
+          </a>
     </div>
   );
 };
