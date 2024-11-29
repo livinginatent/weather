@@ -5,7 +5,12 @@ import { client } from "@/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
 import { SanityBlocks } from "@/components/SanityBlocks/SanityBlock";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Havam.az | Hava Proqnozu - Bloq və məqalələr | Hava Haqqında",
+  description:
+    "İqlim, təbiət və hava haqqında hərşey. Havam.az bloq bölməsində maarifləndirici və maraqlı paylaşımlar.",
+};
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 
 const { projectId, dataset } = client.config();
@@ -44,6 +49,7 @@ export default async function PostPage({
         <p className="font-bold">Tarix: {new Date(post.publishedAt).toLocaleDateString()}</p>
         <PortableText value={post.body} components={SanityBlocks} />
       </div>
+    
     </article>
   );
 }

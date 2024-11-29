@@ -27,7 +27,7 @@ const Nav = (props: Props) => {
               className="text-white text-xl font-600  p-2 rounded-sm"
               href="/"
             >
-              Əsas
+              Hava Proqnozu
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -41,9 +41,9 @@ const Nav = (props: Props) => {
           <NavigationMenuItem>
             <NavigationMenuLink
               className="text-white text-xl font-600  p-2 rounded-sm"
-              href="/calendar"
+              href="/blog"
             >
-              Təqvim
+              Bloq
             </NavigationMenuLink>
           </NavigationMenuItem>
           {/* <NavigationMenuItem>
