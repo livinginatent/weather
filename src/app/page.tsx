@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Bakı Hava Proqnozu | Hava Proqnozu",
   description:
-    "Havam.az ilə ən dəqiq günlük və həftəlik hava proqnozunu öyrənin. Temperatur, külək, yağıntı və hava şəraiti barədə ətraflı məlumat üçün bizə qoşulun. Bakı hava proqnozu.",
+    "Bakı və digər şəhərlərin hava proqnozu Havam.az ilə qarşınızda. Günlük, həftəlik hava proqnozu. Bakıda hava.",
   /*   alternates: {
     canonical: "https://havam.az",
   }, */
