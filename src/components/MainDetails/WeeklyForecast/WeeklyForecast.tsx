@@ -5,6 +5,7 @@ import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
 import { getSearchWeekly } from "@/actions/getSearchWeekly";
+import { getMeteo } from "@/actions/getMeteo";
 
 const WeeklyForecast = () => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
@@ -14,8 +15,6 @@ const WeeklyForecast = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      /* const meteo = await getMeteo()
-      console.log(meteo) */
       try {
         let data;
 

@@ -106,6 +106,24 @@ export type Coordinates = {
   lon?: number | null;
   lat?: number | null;
 };
+export type HistoryData = {
+  lon: number | null | undefined;
+  lat: number | null | undefined;
+  date: string;
+};
+
+export type HistoricalDataT = {
+  daily: {
+    time: string[]; // Array of ISO date strings
+    weatherCode: { [key: number]: number }; // Object with numeric keys and weather codes as values
+    apparentTemperatureMax: { [key: number]: number }; // Object with numeric keys and temperature values
+    apparentTemperatureMin: { [key: number]: number }; // Object with numeric keys and temperature values
+    rainSum: { [key: number]: number }; // Object with numeric keys and rain sum values
+    snowfallSum: { [key: number]: number }; // Object with numeric keys and snowfall sum values
+    windSpeed10mMax?: { [key: number]: number }; // Optional: Object with numeric keys and wind speed values
+  };
+};
+
 
 export type Location = {
   city: string;

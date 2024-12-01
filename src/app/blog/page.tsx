@@ -21,10 +21,15 @@ export default async function page() {
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-8 text-center">Bloq - Hava və İqlim Haqqında Məqalələr</h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
+      <h1 className="text-2xl font-bold mb-8 text-center">
+        Bloq - Hava və İqlim Haqqında Məqalələr
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 p-4">
         {posts.map((post) => (
-          <div key={post._id} className="border p-4">
+          <div
+            key={post._id}
+            className="border border-blue-200 rounded-md p-4 shadow-md"
+          >
             <Link href={`blog/${post.slug.current}`}>
               {post.mainImage && (
                 <Image
@@ -35,9 +40,7 @@ export default async function page() {
                 />
               )}
               <h2 className="text-xl font-semibold mt-2">{post.title}</h2>
-              <p className="text-gray-600">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
+              <p className="text-gray-600 text-lg text-[#77bae8]">Oxu →</p>
             </Link>
           </div>
         ))}
