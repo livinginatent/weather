@@ -29,4 +29,3 @@ export const weatherCodes:{[key:number]:string} = {
   99: "Fırtına: Güclü dolu",
 };
 
-console.log(weatherCodes);

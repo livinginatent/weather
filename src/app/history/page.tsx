@@ -7,73 +7,74 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { HistoricalDataT } from "@/lib/types";
 import useWeatherStore from "@/store/store";
-import { format, isValid, parse } from "date-fns";
+import { format } from "date-fns";
 import { az } from "date-fns/locale";
 import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 type Props = {};
 
 const HistoricalData = (props: Props) => {
-  const [date, setDate] = useState<Date | null>(null);
-  const [manualDate, setManualDate] = useState<string>(""); // For manual date input
-  const [error,setError] = useState<string | null>(null)
+  const [date, setDate] = useState<Date | null>(null); // Selected date
+  const [error, setError] = useState<string | null>(null);
   const searchCity = useWeatherStore((state) => state.coordinates);
-  const [historicalData, setHistoricalData] = useState<HistoricalDataT>();
+  const [historicalData, setHistoricalData] = useState<HistoricalDataT | null>(
+    null
+  );
 
- const handleManualDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-   const inputDate = e.target.value;
-   setManualDate(inputDate);
-   setError(null); 
- };
+  // Reset historical data when the date is changed
+  const handleDateChange = (date: Date | null) => {
+    setDate(date);
+    setError(null); // Reset error on date change
+    setHistoricalData(null); // Clear existing data when a new date is selected
+  };
 
-   const handleManualDateSubmit = async () => {
-     if (!manualDate) {
-       setError("Tarixi daxil edin");
-       return;
-     }
+  // Fetch historical data when the button is clicked
+  const handleFetchData = async () => {
+    if (!date) {
+      setError("Tarixi daxil edin");
+      return;
+    }
 
-     const parsedDate = parse(manualDate, "yyyy-MM-dd", new Date());
-     if (isValid(parsedDate)) {
-       setDate(parsedDate);
-       setError(null); // Reset error if date is valid
-       const newFormattedDate = format(parsedDate, "yyyy-MM-dd");
+    const formattedDate = format(date, "yyyy-MM-dd");
 
-       try {
-         const res = await getMeteo({
-           lat: searchCity.lat,
-           lon: searchCity.lon,
-           date: newFormattedDate,
-         });
-         setHistoricalData(res);
-       } catch (error) {
-         console.error("Error fetching data:", error);
-       }
-     } else {
-       setError("Daxil edilən tarix düzgün formatda deyil (nüm:2000-01-01)");
-     }
-   };
- useEffect(() => {
-   if (searchCity.lat && searchCity.lon && date) {
-     const newFormattedDate = format(date, "yyyy-MM-dd");
+    try {
+      const res = await getMeteo({
+        lat: searchCity.lat,
+        lon: searchCity.lon,
+        date: formattedDate,
+      });
+      setHistoricalData(res);
+      setError(null); // Reset error on successful data fetch
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("Xəta baş verdi. Yenidən cəhd edin.");
+    }
+  };
 
-     const fetchData = async () => {
-       try {
-         const res = await getMeteo({
-           lat: searchCity.lat,
-           lon: searchCity.lon,
-           date: newFormattedDate,
-         });
-         setHistoricalData(res);
-       } catch (error) {
-         console.error("Error fetching data:", error);
-       }
-     };
+  // Re-fetch data when the city changes
+  useEffect(() => {
+    if (searchCity.lat && searchCity.lon && date) {
+      const formattedDate = format(date, "yyyy-MM-dd");
+      const fetchData = async () => {
+        try {
+          const res = await getMeteo({
+            lat: searchCity.lat,
+            lon: searchCity.lon,
+            date: formattedDate,
+          });
+          setHistoricalData(res);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchData();
+    }
+  }, [searchCity, date]); // Re-fetch when either the searchCity or date changes
 
-     fetchData();
-   }
- }, [searchCity, date]);
   const maxDate = new Date();
-  maxDate.setDate(maxDate.getDate() - 1);
+  maxDate.setDate(maxDate.getDate() - 1); // Set max date to yesterday
 
   return (
     <div className="flex flex-col justify-center items-center gap-8">
@@ -81,17 +82,22 @@ const HistoricalData = (props: Props) => {
       <Search />
 
       <div className="flex items-center gap-4">
-        <Input
-          disabled={searchCity.lat === null || searchCity.lon === null}
-          type="text"
-          placeholder="2000-01-01"
-          value={manualDate}
-          onChange={handleManualDateChange}
+        {/* Date picker component */}
+        <DatePicker
+          selected={date}
+          onChange={handleDateChange}
+          dateFormat="yyyy-MM-dd"
+          maxDate={maxDate}
+          placeholderText="Tarix seçin"
           className="input input-bordered"
+          locale={az}
+          disabled={searchCity.lat === null || searchCity.lon === null}
+          peekNextMonth
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          wrapperClassName="datePicker"
         />
-        <Button onClick={handleManualDateSubmit} variant="outline">
-          Axtarış et
-        </Button>
       </div>
 
       {/* Show error message if the date is invalid */}
