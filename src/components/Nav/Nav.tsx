@@ -19,7 +19,9 @@ const Nav = (props: Props) => {
     <div
       className={`bg-gradient-to-bl from-sky-500 to-indigo-600 w-screen h-16 flex items-center justify-between px-4`}
     >
-      <a href="/" className="text-white text-2xl font-bold">Havam.az</a>
+      <a href="/" className="text-white text-2xl font-bold">
+        Havam.az
+      </a>
 
       <div className="block lg:hidden">
         <button
@@ -56,6 +58,15 @@ const Nav = (props: Props) => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className="text-white text-xl font-600 p-4 w-full text-center"
+                  href="/history"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Keçmişdə Hava
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  className="text-white text-xl font-600 p-4 w-full text-center"
                   href="/blog"
                   onClick={() => setIsDropdownOpen(false)}
                 >
@@ -84,6 +95,15 @@ const Nav = (props: Props) => {
                 href="/aqi"
               >
                 Hava Keyfiyyəti
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className="text-white text-xl font-600 p-4 w-full text-center"
+                href="/history"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Keçmişdə Hava
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
