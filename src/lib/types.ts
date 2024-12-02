@@ -120,7 +120,7 @@ export type HistoricalDataT = {
     apparentTemperatureMin: { [key: number]: number }; // Object with numeric keys and temperature values
     rainSum: { [key: number]: number }; // Object with numeric keys and rain sum values
     snowfallSum: { [key: number]: number }; // Object with numeric keys and snowfall sum values
-    windSpeed10mMax?: { [key: number]: number }; // Optional: Object with numeric keys and wind speed values
+    windSpeed10mMax: { [key: number]: number }; // Optional: Object with numeric keys and wind speed values
   };
 };
 

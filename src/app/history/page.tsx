@@ -1,84 +1,118 @@
 "use client";
 
 import { getMeteo } from "@/actions/getMeteo";
+import HistoricalDataUI from "@/components/HistoricalData/HistoricalData";
 import Search from "@/components/Search/Search";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
 import { HistoricalDataT } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import useWeatherStore from "@/store/store";
-import { format } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import { az } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {};
 
 const HistoricalData = (props: Props) => {
-  const [date, setDate] = React.useState<Date | null>(null);
+  const [date, setDate] = useState<Date | null>(null);
+  const [manualDate, setManualDate] = useState<string>(""); // For manual date input
+  const [error,setError] = useState<string | null>(null)
   const searchCity = useWeatherStore((state) => state.coordinates);
   const [historicalData, setHistoricalData] = useState<HistoricalDataT>();
 
-  const handleSelect = async (selectedDate: Date | undefined) => {
-    if (selectedDate) {
-      setDate(selectedDate);
-      const newFormattedDate = format(selectedDate, "yyyy-MM-dd");
+ const handleManualDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const inputDate = e.target.value;
+   setManualDate(inputDate);
+   setError(null); 
+ };
 
-      try {
-        const res = await getMeteo({
-          lat: searchCity.lat,
-          lon: searchCity.lon,
-          date: newFormattedDate,
-        });
-        console.log(res);
-        setHistoricalData(res);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    } else {
-      setDate(null);
-    }
-  };
-   const maxDate = new Date();
-   maxDate.setDate(maxDate.getDate() - 1);
+   const handleManualDateSubmit = async () => {
+     if (!manualDate) {
+       setError("Tarixi daxil edin");
+       return;
+     }
+
+     const parsedDate = parse(manualDate, "yyyy-MM-dd", new Date());
+     if (isValid(parsedDate)) {
+       setDate(parsedDate);
+       setError(null); // Reset error if date is valid
+       const newFormattedDate = format(parsedDate, "yyyy-MM-dd");
+
+       try {
+         const res = await getMeteo({
+           lat: searchCity.lat,
+           lon: searchCity.lon,
+           date: newFormattedDate,
+         });
+         setHistoricalData(res);
+       } catch (error) {
+         console.error("Error fetching data:", error);
+       }
+     } else {
+       setError("Daxil edilən tarix düzgün formatda deyil (nüm:2000-01-01)");
+     }
+   };
+ useEffect(() => {
+   if (searchCity.lat && searchCity.lon && date) {
+     const newFormattedDate = format(date, "yyyy-MM-dd");
+
+     const fetchData = async () => {
+       try {
+         const res = await getMeteo({
+           lat: searchCity.lat,
+           lon: searchCity.lon,
+           date: newFormattedDate,
+         });
+         setHistoricalData(res);
+       } catch (error) {
+         console.error("Error fetching data:", error);
+       }
+     };
+
+     fetchData();
+   }
+ }, [searchCity, date]);
+  const maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() - 1);
+
   return (
     <div className="flex flex-col justify-center items-center gap-8">
       <h1 className="text-2xl">Keçmiş tarixlər üçün hava proqnozu</h1>
       <Search />
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "w-[280px] justify-start text-left font-normal",
-              !date && "text-muted-foreground"
-            )}
-          >
-            <CalendarIcon className="mr-2" />
-            {date ? (
-              format(date, "dd-MM-yyyy", { locale: az })
-            ) : (
-              <span>Tarix seçin</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0">
-          <Calendar
-            disabled={{ after: maxDate }}
-            mode="single"
-            onSelect={handleSelect}
-            initialFocus
-            locale={az}
-          />
-        </PopoverContent>
-      </Popover>
-      <Button className="w-[280px]">Seç</Button>
-      <p>{historicalData?.daily.apparentTemperatureMax[0]}</p>
+
+      <div className="flex items-center gap-4">
+        <Input
+          disabled={searchCity.lat === null || searchCity.lon === null}
+          type="text"
+          placeholder="2000-01-01"
+          value={manualDate}
+          onChange={handleManualDateChange}
+          className="input input-bordered"
+        />
+        <Button onClick={handleManualDateSubmit} variant="outline">
+          Axtarış et
+        </Button>
+      </div>
+
+      {/* Show error message if the date is invalid */}
+      {error && <div className="text-red-500 mt-2">{error}</div>}
+
+      {/* Display historical data if available */}
+      {historicalData && historicalData.daily && date && (
+        <HistoricalDataUI
+          apparentTemperatureMax={
+            historicalData.daily.apparentTemperatureMax[0]
+          }
+          apparentTemperatureMin={
+            historicalData.daily.apparentTemperatureMin[0]
+          }
+          rainSum={historicalData.daily.rainSum[0]}
+          snowfallSum={historicalData.daily.snowfallSum[0]}
+          weatherCode={historicalData.daily.weatherCode[0]}
+          windSpeed10mMax={historicalData.daily.windSpeed10mMax[0]}
+          date={format(date, "dd-MM-yyyy", { locale: az })}
+        />
+      )}
     </div>
   );
 };
