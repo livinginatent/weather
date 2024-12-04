@@ -49,6 +49,15 @@ const Nav = (props: Props) => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className="text-white text-xl font-600 p-4 w-full text-center"
+                  href="/monthly"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Aylıq Hava Proqnozu
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  className="text-white text-xl font-600 p-4 w-full text-center"
                   href="/aqi"
                   onClick={() => setIsDropdownOpen(false)}
                 >
@@ -87,6 +96,15 @@ const Nav = (props: Props) => {
                 href="/"
               >
                 Hava Proqnozu
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className="text-white text-xl font-600 p-4 w-full text-center"
+                href="/monthly"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Aylıq Hava Proqnozu
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>

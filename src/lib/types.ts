@@ -231,6 +231,17 @@ export type HourlyForecastT = {
   hourlyWeatherData: HourlyWeatherDataT | null;
   loading?: boolean;
 };
+export type MonthlyDataT = {
+  daily: {
+    time: string[]; // Array of date strings in ISO format
+    weatherCode: { [key: number]: number }; // Mapping of indices to weather codes
+    temperature2mMax: { [key: number]: number }; // Mapping of indices to maximum temperatures
+    temperature2mMin: { [key: number]: number }; // Mapping of indices to minimum temperatures
+    rainSum: { [key: number]: number }; // Mapping of indices to rainfall sums
+    snowfallSum: { [key: number]: number }; // Mapping of indices to snowfall sums
+  };
+  weatherCodeTexts: { [key: number]: string };
+};
 
 export type DailyForecastData = {
   weeklyWeatherData: DailyForecastT | null;

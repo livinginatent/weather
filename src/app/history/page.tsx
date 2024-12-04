@@ -30,7 +30,7 @@ const HistoricalData = (props: Props) => {
     setHistoricalData(null); // Clear existing data when a new date is selected
   };
 
-  // Fetch historical data when the button is clicked
+/*   // Fetch historical data when the button is clicked
   const handleFetchData = async () => {
     if (!date) {
       setError("Tarixi daxil edin");
@@ -51,7 +51,7 @@ const HistoricalData = (props: Props) => {
       console.error("Error fetching data:", error);
       setError("Xəta baş verdi. Yenidən cəhd edin.");
     }
-  };
+  }; */
 
   // Re-fetch data when the city changes
   useEffect(() => {
