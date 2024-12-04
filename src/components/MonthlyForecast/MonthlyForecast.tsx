@@ -8,11 +8,11 @@ const MonthlyForecast: React.FC<MonthlyDataT> = ({
 }) => {
   return (
     <div className="p-5 font-sans">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {daily.time.map((date, index) => (
           <div
             key={index}
-            className="border border-gray-300 rounded-lg p-4 text-center shadow-sm"
+            className="border border-gray-300 rounded-lg p-4 bg-[#fcfcfc] text-center shadow-md"
           >
             <h3 className="font-bold text-lg">
               {new Date(date).toLocaleDateString()}
