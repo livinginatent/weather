@@ -11,7 +11,7 @@ export const SrcInfo = () => {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost">
-          Hava Proqnozu Məlumatları Haradan Gəlir?
+          <h3>Hava Proqnozu Məlumatları Haradan Gəlir?</h3>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
