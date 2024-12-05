@@ -124,7 +124,6 @@ export type HistoricalDataT = {
   };
 };
 
-
 export type Location = {
   city: string;
   coord: Coordinates;
@@ -238,7 +237,8 @@ export type MonthlyDataT = {
     temperature2mMax: { [key: number]: number }; // Mapping of indices to maximum temperatures
     temperature2mMin: { [key: number]: number }; // Mapping of indices to minimum temperatures
     rainSum: { [key: number]: number }; // Mapping of indices to rainfall sums
-    snowfallSum: { [key: number]: number }; // Mapping of indices to snowfall sums
+    snowfallSum: { [key: number]: number };
+    windSpeed10mMax: { [key: number]: number }; // Mapping of indices to snowfall sums
   };
   weatherCodeTexts: { [key: number]: string };
 };

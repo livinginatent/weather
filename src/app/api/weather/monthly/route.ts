@@ -14,6 +14,7 @@ export async function GET(request: NextRequest) {
       "temperature_2m_min",
       "rain_sum",
       "snowfall_sum",
+      "wind_speed_10m_max",
     ],
   };
 
@@ -40,6 +41,7 @@ export async function GET(request: NextRequest) {
         temperature2mMin: daily.variables(2)!.valuesArray()!,
         rainSum: daily.variables(3)!.valuesArray()!,
         snowfallSum: daily.variables(4)!.valuesArray()!,
+        windSpeed10mMax: daily.variables(0)!.valuesArray()!,
       },
     };
 
