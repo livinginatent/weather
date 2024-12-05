@@ -60,7 +60,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="AiTKc0Y6143pH0fcu062C9n_f3gvdRVGLSrW6g3xE2k"
         />
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+       {/*  <script type="application/ld+json">{JSON.stringify(schema)}</script> */}
       </head>
 
       <body
