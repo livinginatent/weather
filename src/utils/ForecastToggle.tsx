@@ -11,10 +11,10 @@ const ForecastToggle = (props: Props) => {
     setShowHourlyForecast(showHourly);
   };
   return (
-    <div className="flex gap-2 ml-2 self-start">
+    <div className="flex w-full gap-2 ml-2 self-start">
       <Button
         onClick={() => handleClick(true)}
-        className={`${
+        className={`w-full ${
           showHourlyForecast
             ? "bg-white hover:bg-[#EAEEF5] text-black"
             : "bg-[#EAEEF5] hover:bg-[#EAEEF5] text-black"
@@ -23,7 +23,7 @@ const ForecastToggle = (props: Props) => {
         Günlük
       </Button>
       <Button
-        className={`${
+        className={` w-full ${
           !showHourlyForecast
             ? "bg-white hover:bg-[#EAEEF5] text-black"
             : "bg-[#EAEEF5] hover:bg-[#EAEEF5] text-black"

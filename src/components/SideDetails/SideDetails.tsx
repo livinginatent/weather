@@ -106,7 +106,7 @@ const SideDetails = () => {
       : "";
 
   return (
-    <aside className="md:w-1/4 lg:w-1/4 xl:w-1/4 flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600 ">
+    <aside className="flex flex-col bg-gradient-to-tr from-sky-500 to-indigo-600 ">
       <SideDetailsMainInfo
         date={formattedDate}
         condition={condition}
