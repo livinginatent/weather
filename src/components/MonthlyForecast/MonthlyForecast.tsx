@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { getMonthly } from "@/actions/getMonthly";
 import { locationNames } from "@/lib/locationNames";
 import { MonthlyDataT } from "@/lib/types";
@@ -29,7 +29,7 @@ const MonthlyForecast = ({}) => {
     } else {
       const fetchData = async () => {
         try {
-          const res = await getMonthly({ lat: 40.4093, lon: 49.8671 });
+          const res = await getMonthly({ lat: 40.37767, lon: 49.89201 });
           setMonthlyData(res);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -37,7 +37,7 @@ const MonthlyForecast = ({}) => {
       };
       fetchData();
     }
-  }, [searchCity]); 
+  }, [searchCity]);
   const getLocationName = (
     lat: number | null | undefined,
     lon: number | null | undefined,
@@ -51,21 +51,24 @@ const MonthlyForecast = ({}) => {
     return "Bakı";
   };
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
+  console.log(monthlyData?.current.windSpeed10m)
   return (
     <div className="flex  flex-col items-center justify-center gap-4">
       <h1 className="text-center text-3xl">Aylıq Hava Proqnozu</h1>
       <h2 className="text-3xl">{city}</h2>
-      <Search />
-      <div className="w-auto">
+      <div className="">
+        <Search />
+
         <CitySelector />
       </div>
+
       <p className="w-5/6 text-center">
         Aylıq hava proqnozu, ay ərzində hava şəraitini qabaqcadan
         qiymətləndirməyə imkan verir. Bu proqnoz, temperatur dəyişiklikləri,
-        yağış və külək sürəti kimi amillərini nəzərə alaraq, daha
-        dəqiq qərarlar qəbul etməyə kömək edir.{" "}
+        yağış və külək sürəti kimi amillərini nəzərə alaraq, daha dəqiq qərarlar
+        qəbul etməyə kömək edir.{" "}
       </p>
-      <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {monthlyData?.daily.time.map((date, index) => (
           <div
             key={index}
@@ -81,14 +84,16 @@ const MonthlyForecast = ({}) => {
                 "Unknown Weather"}
             </div>
             <p className="text-sm">
-              Max Tempratur: {monthlyData?.daily.temperature2mMax[index].toFixed(1)}
+              Max Tempratur:{" "}
+              {monthlyData?.daily.temperature2mMax[index].toFixed(1)}
               °C
             </p>
             <p className="text-sm">
-              Min Tempratur: {monthlyData?.daily.temperature2mMin[index].toFixed(1)}
+              Min Tempratur:{" "}
+              {monthlyData?.daily.temperature2mMin[index].toFixed(1)}
               °C
             </p>
-           {/*  <p className="text-sm">
+            {/*  <p className="text-sm">
               Külək: {monthlyData?.daily.windSpeed10mMax[index].toFixed(1)}
               km/s
             </p> */}

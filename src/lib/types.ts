@@ -241,6 +241,9 @@ export type MonthlyDataT = {
     windSpeed10mMax: { [key: number]: number }; // Mapping of indices to snowfall sums
   };
   weatherCodeTexts: { [key: number]: string };
+  current: {
+    windSpeed10m: number;
+  };
 };
 
 export type DailyForecastData = {

@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
       "snowfall_sum",
       "wind_speed_10m_max",
     ],
+    current: "wind_speed_10m",
   };
 
   const url = "https://api.open-meteo.com/v1/forecast";
@@ -26,9 +27,8 @@ export async function GET(request: NextRequest) {
     const response = responses[0];
 
     const utcOffsetSeconds = response.utcOffsetSeconds();
-
     const daily = response.daily()!;
-
+    const current = response.current()!;
     const weatherData = {
       daily: {
         time: range(
@@ -42,6 +42,10 @@ export async function GET(request: NextRequest) {
         rainSum: daily.variables(3)!.valuesArray()!,
         snowfallSum: daily.variables(4)!.valuesArray()!,
         windSpeed10mMax: daily.variables(0)!.valuesArray()!,
+      },
+      current: {
+        time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+        windSpeed10m: current.variables(0)!.value(),
       },
     };
 
