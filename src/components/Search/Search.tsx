@@ -58,7 +58,7 @@ const Search = () => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between text-sm"
+          className="w-full md:w-[200px] lg:w-[200px] justify-between text-sm"
         >
           {selectedCity ? selectedCity : "Şəhər axtarın"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
