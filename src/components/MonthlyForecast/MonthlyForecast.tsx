@@ -56,9 +56,8 @@ const MonthlyForecast = ({}) => {
     <div className="flex  flex-col items-center justify-center gap-4">
       <h1 className="text-center text-3xl">Aylıq Hava Proqnozu</h1>
       <h2 className="text-3xl">{city}</h2>
-      <div className="">
+      <div className="flex flex-col items-center justify-center">
         <Search />
-
         <CitySelector />
       </div>
 
@@ -68,7 +67,7 @@ const MonthlyForecast = ({}) => {
         yağış və külək sürəti kimi amillərini nəzərə alaraq, daha dəqiq qərarlar
         qəbul etməyə kömək edir.{" "}
       </p>
-      <div className="grid grid-cols-1 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="w-full grid grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {monthlyData?.daily.time.map((date, index) => (
           <div
             key={index}
