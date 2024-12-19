@@ -11,7 +11,14 @@ export async function GET(request: NextRequest) {
     start_date: date,
     end_date: date,
 
-    daily: ["weather_code", "apparent_temperature_max", "apparent_temperature_min", "rain_sum", "snowfall_sum", "wind_speed_10m_max"],
+    daily: [
+      "weather_code",
+      "apparent_temperature_max",
+      "apparent_temperature_min",
+      "rain_sum",
+      "snowfall_sum",
+      "wind_speed_10m_max",
+    ],
     timezone: "Europe/Moscow",
   };
 
@@ -24,7 +31,6 @@ export async function GET(request: NextRequest) {
 
     // Attributes for timezone and location
     const utcOffsetSeconds = response.utcOffsetSeconds();
- 
 
     const daily = response.daily()!;
 
@@ -44,8 +50,18 @@ export async function GET(request: NextRequest) {
         windSpeed10mMax: daily.variables(5)!.valuesArray()!,
       },
     };
+    const headers = {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+      "Surrogate-Control": "no-store",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
 
-    return NextResponse.json(weatherData);
+    return NextResponse.json(weatherData, { status: 200, headers });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
