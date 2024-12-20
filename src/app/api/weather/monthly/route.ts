@@ -49,7 +49,11 @@ export async function GET(request: NextRequest) {
       },
     };
 
-    return NextResponse.json(weatherData);
+   return NextResponse.json(weatherData, {
+     headers: {
+       "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+     },
+   });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
