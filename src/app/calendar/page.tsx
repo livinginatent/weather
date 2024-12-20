@@ -55,6 +55,7 @@ const CalendarPage = (props: Props) => {
             məqsədyönlü qərarlar qəbul edə bilərlər.
             <br />
             <br />
+            <p></p>
             <br />
             <a className="font-bold text-decoration-line: underline" href="/">
               Hava proqnozuna geri qayıt
