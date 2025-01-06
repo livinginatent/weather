@@ -18,11 +18,11 @@ const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
     null
   );
-    const [currentLocation, setCurrentLocation] = useState<{
-      lat: number;
-      lon: number;
-      source: string;
-    } | null>({ lat: 40.4093, lon: 49.8671, source: "default" });
+  const [currentLocation, setCurrentLocation] = useState<{
+    lat: number;
+    lon: number;
+    source: string;
+  } | null>({ lat: 40.4093, lon: 49.8671, source: "default" });
   const [logoUrl, setLogoUrl] = useState<string>("");
   const { coordinates: searchCity } = useWeatherStore((state) => ({
     coordinates: state.coordinates,
@@ -39,7 +39,6 @@ const SideDetails = () => {
     }
   }, [searchCity]);
 
-  
   useEffect(() => {
     if (currentLocation) {
       const fetchWeatherData = async () => {
@@ -87,9 +86,11 @@ const SideDetails = () => {
   // }
 
   // Handle undefined data by providing default values or using optional chaining
-  const formattedDate = weatherData?.location?.localtime
-    ? formatDate(weatherData.location.localtime)
-    : "";
+  console.log(weatherData?.location.localtime);
+  const now = new Date();
+  const currentDateTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+
+  const formattedDate = formatDate(currentDateTime);
   let localCityName: string | undefined = "";
   if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
     localCityName = "Xankəndi";
