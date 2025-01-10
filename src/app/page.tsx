@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Bakı Hava Proqnozu | Azərbaycan Hava Proqnozu - Havam.az",
   description:
-    "Bakı və Azərbaycan Hava proqnozu haqqında ən dəqiq məlumatlar burada! Günlük, həftəlik və aylıq hava şəraiti, temperatur, külək sürəti və digər meteoroloji yeniliklər üçün etibarlı mənbə. Planlarınızı hava ilə uyğunlaşdırın!",
+    "Bakı və Azərbaycan Hava proqnozu haqqında ən dəqiq məlumatlar burada! Günlük, həftəlik və aylıq hava proqnozu, temperatur, külək sürəti və digər meteoroloji yeniliklər üçün etibarlı mənbə. Planlarınızı hava ilə uyğunlaşdırın!",
 };
 export default function Home() {
   const jsonLd = {
