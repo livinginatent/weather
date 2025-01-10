@@ -8,6 +8,7 @@ export async function GET(request: NextRequest) {
     latitude: lat,
     longitude: lon,
     forecast_days: 16,
+    _t: new Date().getTime(),
     daily: [
       "weather_code",
       "temperature_2m_max",
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
 
   const url = "https://api.open-meteo.com/v1/forecast";
   const responses = await fetchWeatherApi(url, params);
-  
+
   const range = (start: number, stop: number, step: number) =>
     Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
   try {
@@ -30,7 +31,7 @@ export async function GET(request: NextRequest) {
     const utcOffsetSeconds = response.utcOffsetSeconds();
     const daily = response.daily()!;
     const current = response.current()!;
-    
+
     const weatherData = {
       daily: {
         time: range(
@@ -51,11 +52,12 @@ export async function GET(request: NextRequest) {
       },
     };
 
-   return NextResponse.json(weatherData, {
-     headers: {
-       "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-     },
-   });
+    return NextResponse.json(weatherData, {
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+      },
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
