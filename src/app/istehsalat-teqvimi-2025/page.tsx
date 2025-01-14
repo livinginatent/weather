@@ -15,8 +15,15 @@ const CalendarPage = (props: Props) => {
   return (
     <>
       <div className="flex  flex-col justify-center p-4 bg-white  items-center">
+        <Image
+          className="self-center"
+          src={WorkCalendar2025}
+          alt="istehsalat teqvimi 2025"
+          width={800}
+          height={800}
+        />
         <h1 className="text-4xl p-4 self-center">2025 İstehsalat Təqvimi</h1>
-        <div className="flex flex-col lg:flex-row md:flex-row xl:flex-row gap-4">
+        <div className="flex lg:flex-row md:flex-row xl:flex-row gap-4">
           {/*      <Calendar
             mode="single"
             selected={date}
@@ -25,13 +32,6 @@ const CalendarPage = (props: Props) => {
             className="rounded-md border self-start bg-white"
           /> */}
 
-          <Image
-            className="self-center"
-            src={WorkCalendar2025}
-            alt="istehsalat teqvimi 2025"
-            width={800}
-            height={800}
-          />
           <p>
             İstehsalat təqvimi, müəssisələrin və təşkilatların istehsal
             proseslərini planlamaq və idarə etmək üçün istifadə olunan bir
@@ -54,37 +54,39 @@ const CalendarPage = (props: Props) => {
             məqsədyönlü qərarlar qəbul edə bilərlər.
             <br />
             <br />
-            <p>
+            <h2>
               Əmək və Əhalinin Sosial M&uuml;dafiəsi Nazirliyinin Kollegiyasının
               Qərarı ilə 2025-ci il &uuml;&ccedil;&uuml;n iş vaxtı normasına
               əsasən gələn ilin aşağıdakı g&uuml;nləri iş g&uuml;n&uuml; hesab
               edilmir:
-            </p>
+            </h2>
             <p>
-              1, 2 yanvar&ndash;Yeni il bayramı;
-              <br />
-              20 Yanvar&ndash;&Uuml;mumxalq H&uuml;zn G&uuml;n&uuml;;
-              <br />8 Mart&ndash;Qadınlar G&uuml;n&uuml;;
-              <br />
-              20, 21, 22, 23, 24 mart&ndash;Novruz bayramı;
-              <br />
-              30, 31 mart &ndash;Ramazan bayramı;
-              <br />9 May &ndash;Faşizm &uuml;zərində Qələbə g&uuml;n&uuml;;
-              <br />
-              28 May&ndash;M&uuml;stəqillik G&uuml;n&uuml;;
-              <br />
-              6, 7 iyun&ndash;Qurban bayramı;
-              <br />
-              15 İyun&ndash;Azərbaycan xalqının Milli Qurtuluş G&uuml;n&uuml;;
-              <br />
-              26 İyun&ndash;Azərbaycan Respublikasının Silahlı Q&uuml;vvələri
-              G&uuml;n&uuml;;
-              <br />8 Noyabr&ndash;Zəfər G&uuml;n&uuml;;
-              <br />9 Noyabr&ndash; Azərbaycan Respublikasının D&ouml;vlət
-              Bayrağı G&uuml;n&uuml;;
-              <br />
-              31 Dekabr&ndash;D&uuml;nya Azərbaycanlılarının Həmrəyliyi
-              G&uuml;n&uuml;.
+              <ul>
+                1, 2 yanvar&ndash;Yeni il bayramı;
+                <br />
+                20 Yanvar&ndash;&Uuml;mumxalq H&uuml;zn G&uuml;n&uuml;;
+                <br />8 Mart&ndash;Qadınlar G&uuml;n&uuml;;
+                <br />
+                20, 21, 22, 23, 24 mart&ndash;Novruz bayramı;
+                <br />
+                30, 31 mart &ndash;Ramazan bayramı;
+                <br />9 May &ndash;Faşizm &uuml;zərində Qələbə g&uuml;n&uuml;;
+                <br />
+                28 May&ndash;M&uuml;stəqillik G&uuml;n&uuml;;
+                <br />
+                6, 7 iyun&ndash;Qurban bayramı;
+                <br />
+                15 İyun&ndash;Azərbaycan xalqının Milli Qurtuluş G&uuml;n&uuml;;
+                <br />
+                26 İyun&ndash;Azərbaycan Respublikasının Silahlı Q&uuml;vvələri
+                G&uuml;n&uuml;;
+                <br />8 Noyabr&ndash;Zəfər G&uuml;n&uuml;;
+                <br />9 Noyabr&ndash; Azərbaycan Respublikasının D&ouml;vlət
+                Bayrağı G&uuml;n&uuml;;
+                <br />
+                31 Dekabr&ndash;D&uuml;nya Azərbaycanlılarının Həmrəyliyi
+                G&uuml;n&uuml;.
+              </ul>
             </p>
             <p>
               Əmək Məcəlləsinə və Nazirlər Kabinetinin qərarlarına uyğun olaraq
