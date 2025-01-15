@@ -6,12 +6,13 @@ export async function GET(request: NextRequest) {
   const API_KEY = process.env.PRAYER_API;
   const { searchParams } = new URL(request.url);
 
-  // Get city from query parameters
-  const city = searchParams.get("city");
+  // Get lat and lon from query parameters
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
 
-  if (!city) {
+  if (!lat || !lon) {
     return NextResponse.json(
-      { error: "City parameter is required" },
+      { error: "Latitude (lat) and longitude (lon) parameters are required" },
       { status: 400 }
     );
   }
@@ -20,8 +21,9 @@ export async function GET(request: NextRequest) {
     const date = searchParams.get("date");
     const calculationMethod = searchParams.get("calculationMethod");
 
-    // Construct the prayer URL with city
-    let prayerUrl = `https://muslimsalat.com/${city}/weekly.json?key=${API_KEY}`;
+    // Construct the prayer URL with lat and lon
+    // NOTE: This URL format is a guess. Adjust based on actual API specs.
+    let prayerUrl = `https://muslimsalat.com/${lat},${lon}/weekly.json?key=${API_KEY}`;
 
     if (date) prayerUrl += `&date=${date}`;
     if (calculationMethod) prayerUrl += `&method=${calculationMethod}`;
