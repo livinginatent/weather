@@ -8,6 +8,7 @@ import useWeatherStore from "@/store/store";
 import React, { useEffect, useState } from "react";
 import Search from "../Search/Search";
 import CitySelector from "../CitySelector/CitySelector";
+import { getLocationName } from "@/utils/getLocationNames";
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
@@ -38,20 +39,9 @@ const MonthlyForecast = ({}) => {
       fetchData();
     }
   }, [searchCity]);
-  const getLocationName = (
-    lat: number | null | undefined,
-    lon: number | null | undefined,
-    locations: { [key: string]: { lat: number | null; lon: number | null } }
-  ): string | null => {
-    for (const [name, coords] of Object.entries(locations)) {
-      if (coords.lat === lat && coords.lon === lon) {
-        return name;
-      }
-    }
-    return "Bakı";
-  };
+
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
-  console.log(monthlyData?.current.windSpeed10m)
+  console.log(monthlyData?.current.windSpeed10m);
   return (
     <div className="flex  flex-col items-center justify-center gap-4">
       <h1 className="text-center text-3xl">Aylıq Hava Proqnozu</h1>

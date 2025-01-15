@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 type Props = {};
 
 const Monthly = (props: Props) => {
-
   return (
     <div className="flex  flex-col items-center justify-center gap-4">
       <MonthlyForecast />

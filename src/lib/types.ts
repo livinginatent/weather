@@ -448,3 +448,23 @@ export type RecommendationsCardT = {
 
   actionText: string;
 };
+
+export type PrayerTimeItem = {
+  date_for: string;
+  fajr: string;
+  shurooq: string;
+  dhuhr: string;
+  asr: string;
+  maghrib: string;
+  isha: string;
+};
+
+export type PrayerTimesResponse = {
+  address: string;
+  city: string;
+  country: string;
+  country_code: string;
+  daylight: string;
+  for: string;
+  items: PrayerTimeItem[];
+};

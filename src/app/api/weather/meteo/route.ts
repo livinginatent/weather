@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWeatherApi } from "openmeteo";
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
   const date = searchParams.get("date");
+
   const params = {
     latitude: lat,
     longitude: lon,
     start_date: date,
     end_date: date,
-
     daily: [
       "weather_code",
       "apparent_temperature_max",
@@ -24,17 +25,15 @@ export async function GET(request: NextRequest) {
 
   const url = "https://archive-api.open-meteo.com/v1/archive";
   const responses = await fetchWeatherApi(url, params);
+
   const range = (start: number, stop: number, step: number) =>
     Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+
   try {
     const response = responses[0];
-
-    // Attributes for timezone and location
     const utcOffsetSeconds = response.utcOffsetSeconds();
-
     const daily = response.daily()!;
 
-    // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
       daily: {
         time: range(
@@ -50,18 +49,13 @@ export async function GET(request: NextRequest) {
         windSpeed10mMax: daily.variables(5)!.valuesArray()!,
       },
     };
-    const headers = {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-      Pragma: "no-cache",
-      Expires: "0",
-      "Surrogate-Control": "no-store",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    };
 
-    return NextResponse.json(weatherData, { status: 200, headers });
+    return NextResponse.json(weatherData, {
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+      },
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
