@@ -43,7 +43,7 @@ const Nav = (props: Props) => {
                   href="/"
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  Hava Proqnozu
+                  Hava Durumu
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
@@ -95,7 +95,7 @@ const Nav = (props: Props) => {
                 className="text-white text-xl font-600 p-2 rounded-sm"
                 href="/"
               >
-                Hava Proqnozu
+                Hava Durumu
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>

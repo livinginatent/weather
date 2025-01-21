@@ -89,7 +89,7 @@ const MainDetails = () => {
         <section className="bg-[#e4f1ff] items-center justify-center xl:items-normal xl:justify-normal p-4 flex flex-col w-full xl:9/12 ">
           <div className="flex gap-2">
             <p className="text-2xl mt-4 self-center">{`${localCityName}`}</p>
-            <h1 className="text-2xl mt-4 self-center">{`Hava Proqnozu`}</h1>
+            <h1 className="text-2xl mt-4 self-center">{`Hava Durumu`}</h1>
           </div>
           <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
           <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
@@ -105,7 +105,7 @@ const MainDetails = () => {
         <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
           <div className="flex gap-2">
             <p className="text-2xl mt-4 self-center">{`${localCityName}`}</p>
-            <h1 className="text-2xl mt-4 self-center">{`Hava Proqnozu`}</h1>
+            <h1 className="text-2xl mt-4 self-center">{`Hava Durumu`}</h1>
           </div>
           <div className="h-screen flex flex-col items-center justify-start w-full">
             <WeeklyForecast />
