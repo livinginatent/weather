@@ -67,10 +67,10 @@ const Nav = (props: Props) => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className="text-white text-xl font-600 p-4 w-full text-center"
-                  href="/history"
+                  href="/namaz"
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  Keçmişdə Hava
+                  Namaz Vaxtları
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
