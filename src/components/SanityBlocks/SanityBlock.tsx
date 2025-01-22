@@ -20,13 +20,13 @@ export const SanityBlocks = {
       <h1 style={{ fontSize: "2em", color: "#333" }}>{children}</h1>
     ),
     h2: ({ children }:any) => (
-      <h2 style={{ fontSize: "1.5em", color: "black" }}>{children}</h2>
+      <h2 style={{ fontSize: "1.9em", color: "black" }}>{children}</h2>
     ),
     h3: ({ children }:any) => (
-      <h2 style={{ fontSize: "1.5em", color: "black" }}>{children}</h2>
+      <h3 style={{ fontSize: "1.6em", color: "black" }}>{children}</h3>
     ),
     h4: ({ children }:any) => (
-      <h2 style={{ fontSize: "1.5em", color: "black" }}>{children}</h2>
+      <h4 style={{ fontSize: "1em", color: "black" }}>{children}</h4>
     ),
     normal: ({ children }:any) => <p style={{ lineHeight: "1.6" }}>{children}</p>,
     blockquote: ({ children }:any) => (
