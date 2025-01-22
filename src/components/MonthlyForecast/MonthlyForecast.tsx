@@ -9,10 +9,13 @@ import React, { useEffect, useState } from "react";
 import Search from "../Search/Search";
 import CitySelector from "../CitySelector/CitySelector";
 import { getLocationName } from "@/utils/getLocationNames";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
   const searchCity = useWeatherStore((state) => state.coordinates);
+  const router = useRouter();
   useEffect(() => {
     if (searchCity.lat && searchCity.lon) {
       const fetchData = async () => {
@@ -43,7 +46,7 @@ const MonthlyForecast = ({}) => {
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
   console.log(monthlyData?.current.windSpeed10m);
   return (
-    <div className="flex  flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4">
       <h1 className="text-center text-3xl">Aylıq Hava Proqnozu</h1>
       <h2 className="text-3xl">{city}</h2>
       <div className="flex flex-col items-center justify-center">
@@ -57,6 +60,14 @@ const MonthlyForecast = ({}) => {
         yağış və külək sürəti kimi amillərini nəzərə alaraq, daha dəqiq qərarlar
         qəbul etməyə kömək edir.{" "}
       </p>
+      <div>
+        <Button
+          onClick={() => router.push("/")}
+          className="bg-gray-300 text-black hover:bg-gray-200 w-full mt-2"
+        >
+          Günlük və həftəlik hava proqnozu
+        </Button>
+      </div>
       <div className="w-full grid grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {monthlyData?.daily.time.map((date, index) => (
           <div
