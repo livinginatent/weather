@@ -44,7 +44,6 @@ const MonthlyForecast = ({}) => {
   }, [searchCity]);
 
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
-  console.log(monthlyData?.current.windSpeed10m);
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <h1 className="text-center text-3xl">Aylıq Hava Proqnozu</h1>
