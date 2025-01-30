@@ -2,7 +2,7 @@ export const weatherCodes:{[key:number]:string} = {
   0: "Açıq səma",
   1: "Əsasən açıq",
   2: "Qismən buludlu",
-  3: "Tutğun",
+  3: "Tutqun",
   45: "Dumanlı",
   48: "Dumanlı",
   51: "Yağış: Yüngül intensiv",
