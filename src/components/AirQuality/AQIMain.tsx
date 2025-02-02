@@ -85,7 +85,9 @@ const AQIMain = (props: Props) => {
         </h1>
         <p className="text-2xl text-center font-bold lg:ml-2">{city}</p>
       </div>
-      <Search />
+      <div>
+        <Search />
+      </div>
       <div className="w-52">
         <CitySelector />
       </div>
@@ -141,9 +143,9 @@ const AQIMain = (props: Props) => {
           <AQIWeekly forecastData={weeklyWeatherData} />
         </div>
       </div>
-          <a className="font-bold text-decoration-line: underline" href="/">
-            Hava proqnozuna geri qayıt
-          </a>
+      <a className="font-bold text-decoration-line: underline" href="/">
+        Hava proqnozuna geri qayıt
+      </a>
     </div>
   );
 };

@@ -11,6 +11,8 @@ import CitySelector from "../CitySelector/CitySelector";
 import { getLocationName } from "@/utils/getLocationNames";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import Recommendations from "../MonthlyRecommendations/Recommendations";
+import MonthlyRecommendationDisplay from "../MonthlyRecommendations/Recommendations";
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
@@ -45,7 +47,7 @@ const MonthlyForecast = ({}) => {
 
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex w-5/6 flex-col items-center justify-center gap-4">
       <h1 className="text-center text-3xl">Aylıq Hava Proqnozu</h1>
       <h2 className="text-3xl">{city}</h2>
       <div className="flex flex-col items-center justify-center">
@@ -59,6 +61,9 @@ const MonthlyForecast = ({}) => {
         yağış və külək sürəti kimi amillərini nəzərə alaraq, daha dəqiq qərarlar
         qəbul etməyə kömək edir.{" "}
       </p>
+      <div className="w-5/6 text-center">
+        <MonthlyRecommendationDisplay monthlyData={monthlyData} />
+      </div>
       <div>
         <Button
           onClick={() => router.push("/")}
@@ -84,12 +89,12 @@ const MonthlyForecast = ({}) => {
             </div>
             <p className="text-sm">
               Max Tempratur:{" "}
-              {monthlyData?.daily.temperature2mMax[index].toFixed(1)}
+              {monthlyData?.daily.temperature2mMax[index].toFixed(0)}
               °C
             </p>
             <p className="text-sm">
               Min Tempratur:{" "}
-              {monthlyData?.daily.temperature2mMin[index].toFixed(1)}
+              {monthlyData?.daily.temperature2mMin[index].toFixed(0)}
               °C
             </p>
             {/*  <p className="text-sm">
