@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/* import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -30,3 +30,4 @@ export async function POST(req: Request) {
 export async function GET() {
   return NextResponse.json({ message: "Method not allowed" }, { status: 405 });
 }
+ */
