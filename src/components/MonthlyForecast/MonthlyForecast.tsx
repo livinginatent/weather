@@ -35,7 +35,7 @@ const MonthlyForecast = ({}) => {
     } else {
       const fetchData = async () => {
         try {
-          const res = await getMonthly({ lat: 40.37767, lon: 49.89201 });
+          const res = await getMonthly({ lat: 40.394317, lon: 49.865584 });
           setMonthlyData(res);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -59,7 +59,10 @@ const MonthlyForecast = ({}) => {
         Aylıq hava proqnozu, ay ərzində hava şəraitini qabaqcadan
         qiymətləndirməyə imkan verir. Bu proqnoz, temperatur dəyişiklikləri,
         yağış və külək sürəti kimi amillərini nəzərə alaraq, daha dəqiq qərarlar
-        qəbul etməyə kömək edir.{" "}
+        qəbul etməyə kömək edir. Hava proqnozunun dəqiqliyi, proqnozun müddəti
+        uzandıqca azalır. Gələcək günlər üçün olan hava proqnozları daha çox
+        dəyişə biləcək olduğundan, ən yaxın günlər üçün verilən məlumatların
+        daha etibarlı olduğunu nəzərə alın.
       </p>
       <div className="w-5/6 text-center">
         <MonthlyRecommendationDisplay monthlyData={monthlyData} />
@@ -94,7 +97,7 @@ const MonthlyForecast = ({}) => {
             </p>
             <p className="text-sm">
               Min Tempratur:{" "}
-              {monthlyData?.daily.temperature2mMin[index].toFixed(0)}
+              {monthlyData?.daily.temperature2mMin[index].toFixed(1)}
               °C
             </p>
             {/*  <p className="text-sm">
@@ -102,10 +105,14 @@ const MonthlyForecast = ({}) => {
               km/s
             </p> */}
             <p className="text-sm">
-              Yağış: {monthlyData?.daily.rainSum[index]?.toFixed(1)} mm
+              {monthlyData?.daily.rainSum[index] === 0
+                ? "Yağış: Gözlənilmir"
+                : `${"Yağış: "}${monthlyData?.daily.rainSum[index]?.toFixed(1)} mm`}
             </p>
             <p className="text-sm">
-              Qar: {monthlyData?.daily.snowfallSum[index]?.toFixed(1)} mm
+              {monthlyData?.daily.rainSum[index] === 0
+                ? "Qar: Gözlənilmir"
+                : `${"Qar: "}${monthlyData?.daily.snowfallSum[index]?.toFixed(1)} mm`}{" "}
             </p>
           </div>
         ))}

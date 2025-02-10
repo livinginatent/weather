@@ -57,7 +57,7 @@ export const conditionTranslations: { [key: string]: string } = {
   "Partly Cloudy": "Qismən buludlu",
   Cloudy: "Buludlu",
   Overcast: "Tutqun",
-  Mist: "Duman",
+  Mist: "Çənli",
   Clear: "Açıq",
   "Patchy rain possible": "Yağış ehtimalı",
   "Patchy snow possible": "Sulu qar ehtimalı",

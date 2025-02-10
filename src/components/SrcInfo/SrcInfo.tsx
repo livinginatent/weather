@@ -16,10 +16,10 @@ export const SrcInfo = () => {
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <p>
-          Saytımızda təqdim olunan hava proqnozu məlumatları etibarlı bir API
-          vasitəsilə əldə edilir. Bu, sizə dəqiq və yenilənmiş hava
-          məlumatlarını çatdırmağa imkan verir. Hər zaman ən etibarlı proqnozlar
-          üçün bizə güvənə bilərsiniz!
+          Saytımızda təqdim olunan hava proqnozu etibarlı və beynəlxalq hava
+          stansiyaları ilə toplanan məlumatın analiz edilmiş formasıdır. Bu,
+          sizə dəqiq və yenilənmiş hava məlumatlarını çatdırmağa imkan verir.
+          Hər zaman ən etibarlı proqnozlar üçün bizə güvənə bilərsiniz!
         </p>
       </PopoverContent>
     </Popover>

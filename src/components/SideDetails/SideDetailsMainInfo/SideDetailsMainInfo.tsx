@@ -24,7 +24,7 @@ const SideDetailsMainInfo = ({
         <>
           <div className="flex justify-center items-center gap-1 flex-col ">
             <h2 className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
-              Hava Durumu
+              Hava Proqnozu
             </h2>
             <CiLocationOn color="white" size={32} />
             <div>

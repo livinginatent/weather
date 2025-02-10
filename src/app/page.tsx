@@ -2,9 +2,9 @@ import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Bakı Hava Durumu | Azərbaycan Hava Durumu | Hava Proqnozu - Havam.az",
+  title: "Bakı Hava Proqnozu | Azərbaycan Hava Proqnozu | Hava Proqnozu - Havam.az",
   description:
-    "Bakı və Azərbaycan Hava durumu haqqında ən dəqiq məlumatlar burada! Günlük, həftəlik və aylıq hava proqnozu, temperatur, külək sürəti və digər meteoroloji yeniliklər üçün etibarlı mənbə. Planlarınızı hava ilə uyğunlaşdırın!",
+    "Bakı və Azərbaycan Hava proqnozu haqqında ən dəqiq məlumatlar burada! Günlük, həftəlik və aylıq hava proqnozu, temperatur, külək sürəti və digər meteoroloji yeniliklər üçün etibarlı mənbə. Planlarınızı hava ilə uyğunlaşdırın!",
 };
 export default function Home() {
   const jsonLd = {
