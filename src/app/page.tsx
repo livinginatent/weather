@@ -1,5 +1,6 @@
 import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
+import WeatherContent from "@/components/WeatherContent/WeatherContent";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Bakı Hava Proqnozu | Azərbaycan Hava Proqnozu | Hava Proqnozu - Havam.az",
@@ -50,10 +51,13 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      
+
       <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row custom-height-903">
         <SideDetails />
         <MainDetails />
       </div>
+    
     </>
   );
 }

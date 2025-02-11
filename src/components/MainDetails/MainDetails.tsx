@@ -10,6 +10,7 @@ import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ClipLoader } from "react-spinners";
 import { cities } from "@/lib/locationNames";
 import { SrcInfo } from "../SrcInfo/SrcInfo";
+import WeatherContent from "../WeatherContent/WeatherContent";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
@@ -95,10 +96,10 @@ const MainDetails = () => {
       </div>
       <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
+      <WeatherContent />
       <a className="font-bold text-decoration-line: underline" href="/about-us">
         Haqqımızda - Havam.az
       </a>
-      <SrcInfo />
     </section>
   );
 
