@@ -6,8 +6,11 @@ import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
 import { getSearchWeekly } from "@/actions/getSearchWeekly";
 import { getMeteo } from "@/actions/getMeteo";
-
-const WeeklyForecast = () => {
+interface WeeklyForecastProps {
+  lat?: number;
+  lon?: number;
+}
+const WeeklyForecast = ({ lat, lon }: WeeklyForecastProps) => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
     useState<DailyForecastT | null>(null);
 
@@ -17,8 +20,12 @@ const WeeklyForecast = () => {
     const fetchWeatherData = async () => {
       try {
         let data;
-
-        if (searchCity.lat != null && searchCity.lon != null) {
+        if (lat !== null && lon !== null) {
+          data = await getSearchWeekly({
+            lat: lat,
+            lon: lon,
+          });
+        } else if (searchCity.lat != null && searchCity.lon != null) {
           data = await getSearchWeekly({
             lat: searchCity.lat,
             lon: searchCity.lon,
@@ -36,7 +43,7 @@ const WeeklyForecast = () => {
     };
 
     fetchWeatherData();
-  }, [searchCity]);
+  }, [searchCity, lat, lon]);
 
   return (
     <div className="w-full  flex items-center justify-center mt-4">
