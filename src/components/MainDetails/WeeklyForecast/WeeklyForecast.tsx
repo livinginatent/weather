@@ -5,7 +5,6 @@ import Day from "./Day";
 import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
 import { getSearchWeekly } from "@/actions/getSearchWeekly";
-import { getMeteo } from "@/actions/getMeteo";
 interface WeeklyForecastProps {
   lat?: number;
   lon?: number;
@@ -20,7 +19,7 @@ const WeeklyForecast = ({ lat, lon }: WeeklyForecastProps) => {
     const fetchWeatherData = async () => {
       try {
         let data;
-        if (lat !== null && lon !== null) {
+        if (lat !== undefined && lon !== undefined) {
           data = await getSearchWeekly({
             lat: lat,
             lon: lon,
