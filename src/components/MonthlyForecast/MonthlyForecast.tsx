@@ -64,9 +64,9 @@ const MonthlyForecast = ({}) => {
         dəyişə biləcək olduğundan, ən yaxın günlər üçün verilən məlumatların
         daha etibarlı olduğunu nəzərə alın.
       </p>
-      <div className="w-5/6 text-center">
+      {/* <div className="w-5/6 text-center">
         <MonthlyRecommendationDisplay monthlyData={monthlyData} />
-      </div>
+      </div> */}
       <div>
         <Button
           onClick={() => router.push("/")}
@@ -91,7 +91,7 @@ const MonthlyForecast = ({}) => {
                 "Unknown Weather"}
             </div>
             <p className="text-sm">
-              Max Tempratur:{" "}
+              Maks Tempratur:{" "}
               {monthlyData?.daily.temperature2mMax[index].toFixed(0)}
               °C
             </p>
@@ -104,16 +104,16 @@ const MonthlyForecast = ({}) => {
               Külək: {monthlyData?.daily.windSpeed10mMax[index].toFixed(1)}
               km/s
             </p> */}
-            <p className="text-sm">
+            {/* <p className="text-sm">
               {monthlyData?.daily.rainSum[index] === 0
                 ? "Yağış: Gözlənilmir"
-                : `${"Yağış: "}${monthlyData?.daily.rainSum[index]?.toFixed(1)} mm`}
+                : `${"Yağış: "}${monthlyData?.daily.rainSum[index]?.toFixed(2)} mm`}
             </p>
             <p className="text-sm">
               {monthlyData?.daily.rainSum[index] === 0
                 ? "Qar: Gözlənilmir"
-                : `${"Qar: "}${monthlyData?.daily.snowfallSum[index]?.toFixed(1)} mm`}{" "}
-            </p>
+                : `${"Qar: "}${monthlyData?.daily.snowfallSum[index]?.toFixed(2)} mm`}{" "}
+            </p> */}
           </div>
         ))}
       </div>
