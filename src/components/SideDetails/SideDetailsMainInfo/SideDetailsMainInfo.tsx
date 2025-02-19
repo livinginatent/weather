@@ -12,6 +12,7 @@ const SideDetailsMainInfo = ({
   condition,
   date,
   logo,
+  feelsLike
 }: MainDetailsT) => {
   // Check if any prop is missing
   const isLoading = !city || !temp || !condition || !date;
@@ -33,9 +34,10 @@ const SideDetailsMainInfo = ({
               </p>
             </div>
           </div>
-          <div className="flex justify-center items-center mt-10">
-            <div className="text-8xl text-slate-50">{temp}</div>
-          </div>
+          <div className="flex flex-col justify-center items-center mt-10">
+            <p className="text-8xl text-slate-50">{temp}</p>
+{/*             <p className="text-xl text-slate-50">Hiss olunan: {feelsLike}</p>
+ */}          </div>
           <div className="flex flex-col justify-center items-center lg:gap-2 xl:gap-2 gap-4">
             <div className="flex justify-center items-center self-center lg:gap-1 xl:gap-1 sm:gap-4 md:gap-4">
               <Image alt={`${condition}`} src={logo} width={64} height={64} />

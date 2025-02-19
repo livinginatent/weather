@@ -11,8 +11,7 @@ import CitySelector from "../CitySelector/CitySelector";
 import { getLocationName } from "@/utils/getLocationNames";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import Recommendations from "../MonthlyRecommendations/Recommendations";
-import MonthlyRecommendationDisplay from "../MonthlyRecommendations/Recommendations";
+
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
