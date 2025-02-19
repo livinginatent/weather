@@ -39,7 +39,7 @@ const Nav = (props: Props) => {
             <NavigationMenuList className="flex flex-col items-center">
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  className="text-white text-xl font-600 p-4 w-full text-center"
+                  className="text-white text-sm font-600 p-4 w-full text-center"
                   href="/"
                   onClick={() => setIsDropdownOpen(false)}
                 >
@@ -48,7 +48,7 @@ const Nav = (props: Props) => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  className="text-white text-xl font-600 p-4 w-full text-center"
+                  className="text-white text-sm font-600 p-4 w-full text-center"
                   href="/monthly"
                   onClick={() => setIsDropdownOpen(false)}
                 >
@@ -56,26 +56,27 @@ const Nav = (props: Props) => {
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    className="text-white text-sm font-600 p-4 w-full text-center"
+                    href="/weekly"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    Həftəlik Hava Proqnozu
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
                 <NavigationMenuLink
-                  className="text-white text-xl font-600 p-4 w-full text-center"
+                  className="text-white text-sm font-600 p-4 w-full text-center"
                   href="/aqi"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   Hava Keyfiyyəti
                 </NavigationMenuLink>
               </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  className="text-white text-xl font-600 p-4 w-full text-center"
-                  href="/namaz"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  Namaz Vaxtları
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  className="text-white text-xl font-600 p-4 w-full text-center"
+                  className="text-white text-sm font-600 p-4 w-full text-center"
                   href="/blog"
                   onClick={() => setIsDropdownOpen(false)}
                 >
@@ -109,21 +110,22 @@ const Nav = (props: Props) => {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
+                className="text-white text-xl font-600 p-4 w-full text-center"
+                href="/weekly"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Həftəlik Hava Proqnozu
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
                 className="text-white text-xl font-600 p-2 rounded-sm"
                 href="/aqi"
               >
                 Hava Keyfiyyəti
               </NavigationMenuLink>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className="text-white text-xl font-600 p-4 w-full text-center"
-                href="/namaz"
-                onClick={() => setIsDropdownOpen(false)}
-              >
-                Namaz vaxtları
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+
             <NavigationMenuItem>
               <NavigationMenuLink
                 className="text-white text-xl font-600 p-2 rounded-sm"
