@@ -3,7 +3,7 @@ import React from "react";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title:
-    "Namaz Vaxtları - Namaz Təqvimi | Aylıq Namaz təqvimi - Şəhər və Rayonlar",
+    "Namaz Vaxtları - Rayonlarda namaz vaxtlari | Aylıq Namaz təqvimi - Şəhər və Rayonlar",
   description:
     "Şəhər və rayonlar üzrə namaz təqvimi. Namaz vaxtları cədvəli - günlük namaz saatları. Dəqiq namaz saatları Azərbaycan.",
 };

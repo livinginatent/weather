@@ -130,6 +130,7 @@ const PrayerTimes = () => {
         </div>
       </div>
       <h2 className="text-2xl">Namaz saatları</h2>
+      <h3 className="text-2xl">Rayonlarda namaz vaxtları</h3>
 
       {todayTimes && (
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-12 mt-4">
@@ -171,12 +172,11 @@ const PrayerTimes = () => {
       )}
       <div className="w-full">
         <p>
-          Bu səhifə vasitəsilə Səhər (Sübh), Günorta (Zöhr), İkindi (Əsr), Axşam
-          (Məğrib) və Yatsı (İşa) namazlarının vaxtlarını ətraflı şəkildə öyrənə
-          bilərsiniz. Xüsusilə, regionunuza uyğun namaz cədvəlləri və hicri
+          Bu səhifə vasitəsilə Bakı namaz vaxtı və rayonlarda namaz vaxtını öyrənə bilərsiniz. Səhər (Sübh), Günorta (Zöhr), İkindi (Əsr), Axşam
+          (Məğrib) və Yatsı (İşa) namazlarının vaxtlarını ətraflı şəkildə öyrənin. Xüsusilə, regionunuza uyğun namaz cədvəlləri və hicri
           tarixi daxil olmaqla, dəqiq informasiya təqdim olunur. Eyni zamanda,
           ayın hər gününə aid namaz saatlarını da əldə etmək mümkündür.
-          Beləliklə, harada olmağınızdan asılı olmayaraq, namaz vaxtlarını
+          Beləliklə, harada olmağınızdan asılı olmayaraq,rayon və Bakı namaz vaxtlarını
           vaxtında izləmək və gündəlik ibadətinizi tənzimləmək üçün bu səhifədən
           faydalana bilərsiniz.
         </p>
