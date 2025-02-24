@@ -26,7 +26,7 @@ const PrayerTimes = () => {
   const DEFAULT_LON = 49.8671;
 
   const [todayTimes, setTodayTimes] = useState<PrayerDay | null>(null);
-
+  const [calculationMethod, setCalculationMethod] = useState("MWL");
   const [monthlyTimes, setMonthlyTimes] = useState<PrayerDay[]>([]);
 
   const [currentDate, setCurrentDate] = useState<string>("");
@@ -69,7 +69,6 @@ const PrayerTimes = () => {
 
   useEffect(() => {
     const today = new Date();
-
     setCurrentDate(
       today.toLocaleDateString("az-AZ", {
         year: "numeric",
@@ -78,6 +77,9 @@ const PrayerTimes = () => {
       })
     );
     setHijriDate(moment().format("iYYYY/iM/iD"));
+
+    // Update calculation method
+    prayTimes.setMethod(calculationMethod);
 
     const todayTimesObj = prayTimes.getTimes(
       today,
@@ -96,7 +98,6 @@ const PrayerTimes = () => {
     const newMonthlyTimes: PrayerDay[] = [];
     for (let day = 1; day <= daysInMonth; day++) {
       const dateObj = new Date(year, month, day);
-
       const dayTimesObj = prayTimes.getTimes(
         dateObj,
         [lat, lon],
@@ -104,12 +105,11 @@ const PrayerTimes = () => {
         "auto",
         "24h"
       );
-
       newMonthlyTimes.push(buildPrayerData(dateObj, dayTimesObj));
     }
 
     setMonthlyTimes(newMonthlyTimes);
-  }, [lat, lon]);
+  }, [lat, lon,calculationMethod]);
   const today = new Date();
 
   const monthName = today.toLocaleString("az-AZ", { month: "long" });
@@ -131,6 +131,24 @@ const PrayerTimes = () => {
       </div>
       <h2 className="text-2xl">Namaz saatları</h2>
       <h3 className="text-2xl">Rayonlarda namaz vaxtları</h3>
+      <div className="w-full sm:w-1/4 mx-auto mb-4">
+        <label className="block text-center text-lg font-semibold mb-2">
+          Hesablama Metodu
+        </label>
+        <select
+          className="block w-full border border-gray-300 rounded-md p-2"
+          value={calculationMethod}
+          onChange={(e) => setCalculationMethod(e.target.value)}
+        >
+          <option value="MWL">Ümumdünya İslam Liqası</option>
+          <option value="ISNA">Şimali Amerika İslam Cəmiyyəti</option>
+          <option value="Egypt">Misir Tədqiqatlar İdarəsi</option>
+          <option value="Makkah">Üm Al Qura Universiteti (Məkkə)</option>
+          <option value="Karachi">İslam Elmləri Universiteti (Karaçi)</option>
+          <option value="Tehran">Tehran Universiteti Geofizika İnstitu</option>
+          <option value="Jafari">Şiə İsnə-Əşəri, Ləva İnstitutu (Qum)</option>
+        </select>
+      </div>
 
       {todayTimes && (
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-12 mt-4">
@@ -172,12 +190,14 @@ const PrayerTimes = () => {
       )}
       <div className="w-full">
         <p>
-          Bu səhifə vasitəsilə Bakı namaz vaxtı və rayonlarda namaz vaxtını öyrənə bilərsiniz. Səhər (Sübh), Günorta (Zöhr), İkindi (Əsr), Axşam
-          (Məğrib) və Yatsı (İşa) namazlarının vaxtlarını ətraflı şəkildə öyrənin. Xüsusilə, regionunuza uyğun namaz cədvəlləri və hicri
-          tarixi daxil olmaqla, dəqiq informasiya təqdim olunur. Eyni zamanda,
-          ayın hər gününə aid namaz saatlarını da əldə etmək mümkündür.
-          Beləliklə, harada olmağınızdan asılı olmayaraq,rayon və Bakı namaz vaxtlarını
-          vaxtında izləmək və gündəlik ibadətinizi tənzimləmək üçün bu səhifədən
+          Bu səhifə vasitəsilə Bakı namaz vaxtı və rayonlarda namaz vaxtını
+          öyrənə bilərsiniz. Səhər (Sübh), Günorta (Zöhr), İkindi (Əsr), Axşam
+          (Məğrib) və Yatsı (İşa) namazlarının vaxtlarını ətraflı şəkildə
+          öyrənin. Xüsusilə, regionunuza uyğun namaz cədvəlləri və hicri tarixi
+          daxil olmaqla, dəqiq informasiya təqdim olunur. Eyni zamanda, ayın hər
+          gününə aid namaz saatlarını da əldə etmək mümkündür. Beləliklə, harada
+          olmağınızdan asılı olmayaraq,rayon və Bakı namaz vaxtlarını vaxtında
+          izləmək və gündəlik ibadətinizi tənzimləmək üçün bu səhifədən
           faydalana bilərsiniz.
         </p>
       </div>

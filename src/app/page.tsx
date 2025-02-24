@@ -3,9 +3,9 @@ import SideDetails from "@/components/SideDetails/SideDetails";
 import WeatherContent from "@/components/WeatherContent/WeatherContent";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Bakı Hava Proqnozu | Azərbaycan Hava Proqnozu | Hava Proqnozu - Havam.az",
+  title: "Bakı Hava Proqnozu | Azərbaycan Hava Proqnozu | Hava Məlumatı",
   description:
-    "Bakı və Azərbaycan Hava proqnozu haqqında ən dəqiq məlumatlar burada! Dəqiq hava proqnozu, temperatur, külək sürəti",
+    "Bakı və Azərbaycan Hava proqnozu haqqında ən dəqiq məlumatlar burada! Dəqiq hava məlumatı, temperatur, külək sürəti",
 };
 export default function Home() {
   const jsonLd = {
