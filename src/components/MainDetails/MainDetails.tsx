@@ -11,6 +11,7 @@ import { ClipLoader } from "react-spinners";
 import { cities } from "@/lib/locationNames";
 import { SrcInfo } from "../SrcInfo/SrcInfo";
 import WeatherContent from "../WeatherContent/WeatherContent";
+import Banner from "../AdBanner/Banner";
 
 const MainDetails = () => {
   const [hourlyWeatherData, setHourlyWeatherData] =
@@ -97,7 +98,8 @@ const MainDetails = () => {
       <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
       <WeatherContent />
-      <a className="font-bold text-decoration-line: underline" href="/about-us">
+{/*       <Banner imageUrl={require("../../../public/assets/irfu.png")} siteUrl="irfu.az"/>
+ */}      <a className="font-bold text-decoration-line: underline" href="/about-us">
         Haqqımızda - Havam.az
       </a>
     </section>

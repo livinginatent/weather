@@ -6,6 +6,7 @@ import { HourlyForecastT } from "@/lib/types";
 import AirQualityCard from "./AirQuality/AirQualityCard";
 import SunTimes from "./SunTimes/SunTimesCard";
 import ExtraDetailsCard from "./ExtraDetails/ExtraDetailsCard";
+import Banner from "@/components/AdBanner/Banner";
 
 const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
   const humidity = hourlyWeatherData?.current?.humidity ?? 0;
@@ -46,6 +47,11 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
           is_moon_up={0}
           is_sun_up={0}
         />
+        <Banner
+          imageUrl={require("../../../../public/assets/irfu.png")}
+          siteUrl="https://irfu.az/"
+        />
+
         <ExtraDetailsCard
           current={current}
           forecast={{

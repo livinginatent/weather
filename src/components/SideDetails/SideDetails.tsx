@@ -13,6 +13,7 @@ import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import ForecastToggle from "@/utils/ForecastToggle";
 import FeaturedCities from "../FeaturedCities/FeaturedCities";
 import CitySelector from "../CitySelector/CitySelector";
+import Banner from "../AdBanner/Banner";
 
 const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(
@@ -104,7 +105,7 @@ const SideDetails = () => {
     weatherData?.current?.temp_c != null
       ? `${Math.round(weatherData.current.temp_c)}°C`
       : "";
-const feelsLike = 
+  const feelsLike =
     weatherData?.current?.feelslike_c != null
       ? `${Math.round(weatherData.current.temp_c)}°C`
       : "";
@@ -118,6 +119,8 @@ const feelsLike =
         feelsLike={feelsLike}
         logo={logoUrl}
       />
+   
+
       <div className="flex flex-col p-6 w-full w-4/5 mt-4 self-center mb-2 items-center justify-center">
         <div className="flex w-full">
           <Search />

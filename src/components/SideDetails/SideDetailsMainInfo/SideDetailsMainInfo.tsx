@@ -27,14 +27,14 @@ const SideDetailsMainInfo = ({
             <h2 className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
               Hava Proqnozu
             </h2>
+            <div className="flex">
             <CiLocationOn color="white" size={32} />
-            <div>
               <p className="text-slate-50 text-2xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
                 {city}
               </p>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center mt-10">
+          <div className="flex flex-col justify-center items-center mt-6">
             <p className="text-8xl text-slate-50">{temp}</p>
 {/*             <p className="text-xl text-slate-50">Hiss olunan: {feelsLike}</p>
  */}          </div>
