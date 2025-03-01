@@ -47,10 +47,10 @@ const SecondaryDetails = ({ hourlyWeatherData }: HourlyForecastT) => {
           is_moon_up={0}
           is_sun_up={0}
         />
-        <Banner
+        {/* <Banner
           imageUrl={require("../../../../public/assets/irfu.png")}
           siteUrl="https://irfu.az/"
-        />
+        /> */}
 
         <ExtraDetailsCard
           current={current}
