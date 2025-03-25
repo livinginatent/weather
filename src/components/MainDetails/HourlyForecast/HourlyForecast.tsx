@@ -46,16 +46,29 @@ const HourlyForecast = ({ hourlyWeatherData }: HourlyForecastT) => {
   const getHourlyData = () => {
     const hours = [getCurrentWeather()];
     const now = new Date();
+    const currentDate = now.getDate(); // Store the current date for comparison
     const totalHoursToShow = 12;
-
-    const nextHour = new Date(now.setMinutes(0, 0, 0));
+    const nextHour = new Date(now.getTime());
+    nextHour.setMinutes(0, 0, 0); // Modify nextHour instead of now
 
     for (let i = 1; i < totalHoursToShow; i++) {
       const newHour = new Date(nextHour.getTime() + i * 60 * 60 * 1000);
       const hourIndex = newHour.getHours();
-      const isNextDay = newHour.getDate() !== now.getDate();
+      const isNextDay = newHour.getDate() !== currentDate;
 
-      const forecastDayIndex = isNextDay ? 1 : 0; 
+      // Find the correct forecast day index by date matching
+      let forecastDayIndex = 0;
+      if (isNextDay && hourlyWeatherData?.forecast?.forecastday) {
+        const forecastDays = hourlyWeatherData.forecast.forecastday;
+        for (let j = 0; j < forecastDays.length; j++) {
+          const forecastDate = new Date(forecastDays[j].date);
+          if (forecastDate.getDate() === newHour.getDate()) {
+            forecastDayIndex = j;
+            break;
+          }
+        }
+      }
+
       const hourlyForecast =
         hourlyWeatherData?.forecast?.forecastday[forecastDayIndex]?.hour[
           hourIndex

@@ -7,6 +7,7 @@ import { getLocationName } from "@/utils/getLocationNames";
 import { locationNames } from "@/lib/locationNames";
 import moment from "moment-hijri";
 import { prayTimes } from "@/utils/prayerTimes";
+import PrayerFAQs from "./PrayerFAQs";
 
 type PrayerDay = {
   date: Date;
@@ -109,7 +110,7 @@ const PrayerTimes = () => {
     }
 
     setMonthlyTimes(newMonthlyTimes);
-  }, [lat, lon,calculationMethod]);
+  }, [lat, lon, calculationMethod]);
   const today = new Date();
 
   const monthName = today.toLocaleString("az-AZ", { month: "long" });
@@ -260,6 +261,7 @@ const PrayerTimes = () => {
           </table>
         </div>
       </div>
+      <PrayerFAQs />
     </div>
   );
 };
