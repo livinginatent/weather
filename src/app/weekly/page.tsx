@@ -15,7 +15,7 @@ const Page = (props: Props) => {
   const searchCity = useWeatherStore((state) => state.coordinates);
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
   const router = useRouter();
-
+console.log(searchCity)
   return (
     <section className="bg-[#e4f1ff] flex flex-col items-center w-full h-full">
       <div>
@@ -38,15 +38,14 @@ const Page = (props: Props) => {
         mövsümdə etibarlı məlumat üçün bizimlə qalın!
       </p>
       <div>
-
-      <Button
-        onClick={() => router.push("/")}
-        className="bg-gray-300 text-black hover:bg-gray-200 w-full mt-2"
+        <Button
+          onClick={() => router.push("/")}
+          className="bg-gray-300 text-black hover:bg-gray-200 w-full mt-2"
         >
-        Günlük hava proqnozu
-      </Button>
-        </div>
-      <WeeklyForecast />
+          Günlük hava proqnozu
+        </Button>
+      </div>
+      <WeeklyForecast lat={40.394317} lon={49.865584} />
     </section>
   );
 };

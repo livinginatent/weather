@@ -14,7 +14,8 @@ const WeeklyForecast = ({ lat, lon }: WeeklyForecastProps) => {
     useState<DailyForecastT | null>(null);
 
   const searchCity = useWeatherStore((state) => state.coordinates);
-
+  console.log(searchCity);
+  console.log(lat, lon);
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
