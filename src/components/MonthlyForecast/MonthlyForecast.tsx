@@ -90,13 +90,13 @@ const MonthlyForecast = ({}) => {
                 "Unknown Weather"}
             </div>
             <p className="text-sm">
-              Maks Tempratur:{" "}
-              {monthlyData?.daily.temperature2mMax[index].toFixed(0)}
+              Yuxarı Tempratur:{" "}
+              {monthlyData?.daily.temperature2mMax[index]?.toFixed(0)}
               °C
             </p>
             <p className="text-sm">
-              Min Tempratur:{" "}
-              {monthlyData?.daily.temperature2mMin[index].toFixed(1)}
+              Aşağı Tempratur:{" "}
+              {monthlyData?.daily.temperature2mMin[index]?.toFixed(0)}
               °C
             </p>
             {/*  <p className="text-sm">

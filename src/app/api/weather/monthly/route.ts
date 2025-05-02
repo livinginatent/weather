@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
     latitude: lat,
     longitude: lon,
     forecast_days: 16,
-    models: "best_match",
     _t: new Date().getTime(),
     daily: [
       "weather_code",
@@ -17,7 +16,6 @@ export async function GET(request: NextRequest) {
       "rain_sum",
       "snowfall_sum",
       "wind_speed_10m_max",
-      
     ],
     current: "wind_speed_10m",
   };

@@ -1,13 +1,13 @@
-export const weatherCodes:{[key:number]:string} = {
+export const weatherCodes: { [key: number]: string } = {
   0: "Açıq səma",
   1: "Əsasən açıq",
   2: "Qismən buludlu",
   3: "Tutqun",
   45: "Dumanlı",
   48: "Dumanlı",
-  51: "Yağış: Yüngül intensiv",
-  53: "Yağış: Orta intensiv",
-  55: "Yağış: Sıx intensiv",
+  51: "Çiskin yağış: Yüngül intensiv",
+  53: "Çiskin yağış: Orta intensiv",
+  55: "Çiskin yağış: Sıx intensiv",
   56: "Sulu qar: Yüngül intensiv",
   57: "Sulu qar: Sıx intensiv",
   61: "Yağış: Az intensiv",
