@@ -126,7 +126,8 @@ const SideDetails = () => {
           <Search />
           <ForecastToggle />
         </div>
-        <div className="w-full mt-6">
+        <div className="w-full  mt-6">
+          <h3 className="text-center text-white text-lg mb-4">Digər şəhərlərdə hava proqnozu</h3>
           <FeaturedCities />
           <CitySelector />
         </div>

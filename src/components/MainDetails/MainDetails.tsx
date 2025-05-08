@@ -95,11 +95,15 @@ const MainDetails = () => {
         <p className="text-2xl mt-4 self-center">{localCityName}</p>
         <h1 className="text-2xl mt-4 self-center">Hava Proqnozu</h1>
       </div>
+      <p className="italic text-sm text-gray-600">
+        Bu səhifədə cari saatlıq hava proqnozu təqdim olunur.
+      </p>
       <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
       <SecondaryDetails hourlyWeatherData={hourlyWeatherData} />
       <WeatherContent />
-{/*       <Banner imageUrl={require("../../../public/assets/irfu.png")} siteUrl="irfu.az"/>
- */}      <a className="font-bold text-decoration-line: underline" href="/about-us">
+      {/*       <Banner imageUrl={require("../../../public/assets/irfu.png")} siteUrl="irfu.az"/>
+       */}{" "}
+      <a className="font-bold text-decoration-line: underline" href="/about-us">
         Haqqımızda - Havam.az
       </a>
     </section>
