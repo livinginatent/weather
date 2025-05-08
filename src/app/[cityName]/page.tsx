@@ -117,6 +117,12 @@ export default async function CityPage({ params }: Props) {
   const weatherData = getWeatherData(params.cityName);
   const { current, forecast } = weatherData;
   const coords = locationNames[nativeCity];
+  if (!coords) {
+    console.error(`Coordinates for ${nativeCity} are missing!`);
+    return notFound(); // Optionally return a 404 page
+  }
+
+  const { lat, lon } = coords;
   const hourlyWeather = await getHourly({ lat: coords.lat, lon: coords.lon });
   console.log(hourlyWeather)
   return (
