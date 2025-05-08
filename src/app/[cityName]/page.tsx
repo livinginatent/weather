@@ -3,7 +3,10 @@ import { cities, locationNames } from "@/lib/locationNames"; // adjust path acco
 import { Droplets, Sunrise, Sunset, Wind } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { getHourly } from "@/actions/getHourly";
-
+import { getSearchWeekly } from "@/actions/getSearchWeekly";
+import Image from "next/image";
+import { useState } from "react";
+import { getIcon } from "@/utils/getIcon";
 
 type Props = {
   params: {
@@ -26,85 +29,14 @@ export async function generateMetadata({ params }: Props) {
   if (!cityKey) return { title: "City Not Found" };
 
   const nativeCity = cities[cityKey];
-  const coords = locationNames[nativeCity]
- 
+
   return {
-    title: `Weather in ${nativeCity}`,
-    description: `${nativeCity} üçün hava proqnozu. Gündəlik və həftəlik hava durumu.`,
+    title: `${nativeCity} Hava Proqnozu - Ən Dəqiq Hava Proqnozu`,
+    description: `${nativeCity} üçün hava proqnozu. Gündəlik və həftəlik hava durumu. ${nativeCity} Hava məlumatı.`,
   };
 }
 
-// Placeholder weather data
-const getWeatherData = (cityName: string) => {
-  // This would be replaced with actual API call
-  return {
-    current: {
-      temp: 24,
-      tempMin: 18,
-      tempMax: 27,
-      windSpeed: 12,
-      humidity: 65,
-      uvIndex: 6,
-      sunrise: "06:15",
-      sunset: "20:45",
-      condition: "partly-cloudy",
-    },
-    forecast: [
-      {
-        day: "Monday",
-        tempMin: 18,
-        tempMax: 27,
-        windSpeed: 12,
-        condition: "sunny",
-      },
-      {
-        day: "Tuesday",
-        tempMin: 17,
-        tempMax: 25,
-        windSpeed: 10,
-        condition: "partly-cloudy",
-      },
-      {
-        day: "Wednesday",
-        tempMin: 16,
-        tempMax: 24,
-        windSpeed: 8,
-        condition: "cloudy",
-      },
-      {
-        day: "Thursday",
-        tempMin: 15,
-        tempMax: 23,
-        windSpeed: 15,
-        condition: "rainy",
-      },
-      {
-        day: "Friday",
-        tempMin: 14,
-        tempMax: 22,
-        windSpeed: 18,
-        condition: "stormy",
-      },
-      {
-        day: "Saturday",
-        tempMin: 16,
-        tempMax: 25,
-        windSpeed: 9,
-        condition: "partly-cloudy",
-      },
-      {
-        day: "Sunday",
-        tempMin: 19,
-        tempMax: 28,
-        windSpeed: 7,
-        condition: "sunny",
-      },
-    ],
-  };
-};
-
 export default async function CityPage({ params }: Props) {
-  
   const cityKey = Object.keys(cities).find(
     (key) => key.toLowerCase() === params.cityName.toLowerCase()
   );
@@ -114,21 +46,44 @@ export default async function CityPage({ params }: Props) {
   }
 
   const nativeCity = cities[cityKey];
-  const weatherData = getWeatherData(params.cityName);
-  const { current, forecast } = weatherData;
   const coords = locationNames[nativeCity];
   if (!coords) {
     console.error(`Coordinates for ${nativeCity} are missing!`);
     return notFound(); // Optionally return a 404 page
   }
 
-  const { lat, lon } = coords;
   const hourlyWeather = await getHourly({ lat: coords.lat, lon: coords.lon });
-  console.log(hourlyWeather)
+  const weeklyWeather = await getSearchWeekly({
+    lat: coords.lat,
+    lon: coords.lon,
+  });
+
+  const temp =
+    hourlyWeather?.current?.temp_c != null
+      ? `${Math.round(hourlyWeather.current.temp_c)}°C`
+      : "";
+  const feelsLike =
+    hourlyWeather?.current?.feelslike_c != null
+      ? `${Math.round(hourlyWeather.current.temp_c)}°C`
+      : "";
+  const windSpeed = Math.round(hourlyWeather.current.wind_kph);
+  const humidity = hourlyWeather.current.humidity;
+  const maxTemp = Math.round(
+    weeklyWeather.forecast.forecastday[0].day.maxtemp_c
+  );
+  const minTemp = Math.round(
+    weeklyWeather.forecast.forecastday[0].day.mintemp_c
+  );
+  const uvIndex = hourlyWeather.current.uv;
+  const sunrise = hourlyWeather?.forecast?.forecastday[0]?.astro?.sunrise ?? "";
+  const sunset = hourlyWeather?.forecast?.forecastday[0]?.astro?.sunset ?? "";
+  const localIconPath = getIcon(hourlyWeather.current.condition.icon);
+  const condition = hourlyWeather.current.condition.icon;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{nativeCity}</h1>
+        <h1 className="text-3xl font-bold mb-2">{nativeCity} Hava Proqnozu</h1>
         <p className="text-muted-foreground">
           {new Date().toLocaleDateString("az-AZ", {
             weekday: "long",
@@ -144,105 +99,115 @@ export default async function CityPage({ params }: Props) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-4">
-               {/*  <WeatherIcon condition={current.condition} size={64} /> */}
+              <div className="flex items-center justify-start gap-4">
                 <div>
-                  <div className="text-5xl font-bold">{current.temp}°C</div>
+                  <div className="text-5xl font-bold">{temp}</div>
                   <div className="text-muted-foreground">
-                    Feels like {current.temp - 2}°C
+                    Hiss olunan {feelsLike}
                   </div>
                 </div>
+                <Image
+                  alt={`${condition}`}
+                  src={localIconPath}
+                  width={64}
+                  height={64}
+                />
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
+              <div className="mt-6 flex flex-col gap-4">
+                <p className="text-lg font-bold">Külək sürəti</p>
+                <div className="flex justify-start items-center gap-2">
                   <Wind className="h-5 w-5 text-muted-foreground" />
-                  <span>{current.windSpeed} km/h</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Droplets className="h-5 w-5 text-muted-foreground" />
-                  <span>{current.humidity}%</span>
+                  <span>{windSpeed} km/saat</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6">
               <div className="text-sm text-muted-foreground mb-1">
-                Temperature
+                Gün ərzində
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-red-500">Max: {current.tempMax}°C</span>
+                <span className="text-red-500">Yuxarı: {maxTemp}°C</span>
                 <span className="mx-2">|</span>
-                <span className="text-blue-500">Min: {current.tempMin}°C</span>
+                <span className="text-blue-500">Aşağı: {minTemp}°C</span>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Card className="p-4 bg-muted/50">
-              <div className="text-sm font-medium mb-2">UV Index</div>
+              <div className="text-sm font-medium mb-2">
+                Ultra Bənövşəyi İndeks
+              </div>
               <div className="flex items-center justify-between">
-                <div className="text-2xl font-bold">{current.uvIndex}</div>
+                <div className="text-2xl font-bold">{uvIndex}</div>
                 <div
                   className={`px-2 py-1 rounded text-xs ${
-                    current.uvIndex <= 2
+                    uvIndex <= 2
                       ? "bg-green-100 text-green-800"
-                      : current.uvIndex <= 5
+                      : uvIndex <= 5
                         ? "bg-yellow-100 text-yellow-800"
-                        : current.uvIndex <= 7
+                        : uvIndex <= 7
                           ? "bg-orange-100 text-orange-800"
                           : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {current.uvIndex <= 2
-                    ? "Low"
-                    : current.uvIndex <= 5
-                      ? "Moderate"
-                      : current.uvIndex <= 7
-                        ? "High"
-                        : "Very High"}
+                  {uvIndex <= 2
+                    ? "Aşağı"
+                    : uvIndex <= 5
+                      ? "Orta"
+                      : uvIndex <= 7
+                        ? "Yuxarı"
+                        : "Təhlükəli"}
                 </div>
               </div>
             </Card>
 
             <Card className="p-4 bg-muted/50">
-              <div className="text-sm font-medium mb-2">Humidity</div>
-              <div className="text-2xl font-bold">{current.humidity}%</div>
+              <div className="text-sm font-medium mb-2">Rütubət</div>
+              <div className="text-2xl font-bold">{humidity}%</div>
               <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                 <div
                   className="bg-blue-500 h-2 rounded-full"
-                  style={{ width: `${current.humidity}%` }}
+                  style={{ width: `${humidity}%` }}
                 ></div>
               </div>
             </Card>
 
             <Card className="p-4 bg-muted/50">
-              <div className="text-sm font-medium mb-2">Sunrise</div>
+              <div className="text-sm font-medium mb-2">Gün doğumu</div>
               <div className="flex items-center gap-2">
                 <Sunrise className="h-5 w-5 text-yellow-500" />
-                <span className="text-xl font-medium">{current.sunrise}</span>
+                <span className="text-xl font-medium">{sunrise}</span>
               </div>
             </Card>
 
             <Card className="p-4 bg-muted/50">
-              <div className="text-sm font-medium mb-2">Sunset</div>
+              <div className="text-sm font-medium mb-2">Gün batışı</div>
               <div className="flex items-center gap-2">
                 <Sunset className="h-5 w-5 text-orange-500" />
-                <span className="text-xl font-medium">{current.sunset}</span>
+                <span className="text-xl font-medium">{sunset}</span>
               </div>
             </Card>
           </div>
         </div>
       </Card>
-
-      {/* 7-Day Forecast */}
-      <div>
-        <h2 className="text-2xl font-bold mb-4">7-Day Forecast</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
-         {/*  {forecast.map((day, index) => (
-            <DailyForecast key={index} forecast={day} />
-          ))} */}
-        </div>
+      <div className="bg-white bg-opacity-90 rounded-lg shadow-md p-4">
+        {" "}
+        <h2 className="text-xl text-center mb-2 font-bold">{`${nativeCity} üçün hava proqnozu`}</h2>
+        <p className="text-center">
+          {`${nativeCity} şəhəri üçün təqdim etdiyimiz hava proqnozu dəqiqdir və daima yenilənir. Hava şəraiti gün ərzində dəyişə bilər, buna görə də sizə ən son məlumatları təqdim edirik. Şəhərinizin tempraturu, hava proqnozu, yağış və külək kimi hava şəraitləri haqqında proqnozları bir səhifədə. `}
+          <a
+            className="font-bold"
+            href="https://havam.az"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Havam.az
+          </a>
+          {` ${nativeCity} şəhəri üçün hər zaman dəqiq və etibarlı hava məlumatları təqdim edir.`}
+        </p>
       </div>
     </div>
   );

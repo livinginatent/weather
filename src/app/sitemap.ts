@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { client } from "@/sanity/client"; // Adjust the import path to your Sanity client
 import { SanityDocument } from "next-sanity";
+import { cities } from "@/lib/locationNames"; // Adjust the import path to your location names
 
 const POSTS_QUERY = `*[_type == "post" && defined(slug.current)]{
   "slug": slug.current,
@@ -89,9 +90,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `https://havam.az/blog/${post.slug}`,
     lastModified: post._updatedAt ? new Date(post._updatedAt) : new Date(),
-    changeFrequency: "weekly" as const, 
+    changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  // Dynamic routes for cities
+  const cityRoutes: MetadataRoute.Sitemap = Object.keys(cities).map((city) => ({
+    url: `https://havam.az/${city.toLowerCase()}`,
+    lastModified: new Date(),
+    changeFrequency: "daily",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...postRoutes, ...cityRoutes];
 }
