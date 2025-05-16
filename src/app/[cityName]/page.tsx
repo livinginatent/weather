@@ -95,6 +95,8 @@ export default async function CityPage({ params }: Props) {
   const uvIndex = hourlyWeather.current.uv;
   const sunrise = hourlyWeather?.forecast?.forecastday[0]?.astro?.sunrise ?? "";
   const sunset = hourlyWeather?.forecast?.forecastday[0]?.astro?.sunset ?? "";
+  const chanceOfRain =
+    hourlyWeather?.forecast?.forecastday[0].day.daily_chance_of_rain;
   const localIconPath = getIcon(hourlyWeather.current.condition.icon);
   const condition = hourlyWeather.current.condition.icon;
 
@@ -156,6 +158,9 @@ export default async function CityPage({ params }: Props) {
                   <span className="mx-2">|</span>
                   <span className="text-blue-500">Aşağı: {minTemp}°C</span>
                 </div>
+                <p className="text-lg font-bold mt-4 underline">
+                  Gün ərzində yağış yağma ehtimalı: {chanceOfRain}%
+                </p>
               </div>
             </div>
 
