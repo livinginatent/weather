@@ -221,7 +221,7 @@ export default async function CityPage({ params }: Props) {
           {" "}
           <h2 className="text-xl text-center mb-2 font-bold">{`${nativeCity} üçün hava proqnozu`}</h2>
           <p className="text-center">
-            {`${nativeCity} şəhəri üçün təqdim etdiyimiz hava proqnozu dəqiqdir və daima yenilənir. Hava şəraiti gün ərzində dəyişə bilər, buna görə də sizə ən son məlumatları təqdim edirik. Şəhərinizin tempraturu, hava proqnozu, yağış və külək kimi hava şəraitləri haqqında proqnozları bir səhifədə. `}
+            {`${nativeCity} şəhəri üçün təqdim etdiyimiz hava proqnozu dəqiqdir və daima yenilənir. Hava şəraiti gün ərzində dəyişə bilər, buna görə də sizə ən son məlumatları təqdim edirik. Şəhərinizin temperaturu, hava proqnozu, yağış və külək kimi hava şəraitləri haqqında proqnozları bir səhifədə. `}
             <a
               className="font-bold"
               href="https://havam.az"

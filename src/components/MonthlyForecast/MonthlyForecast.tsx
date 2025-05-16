@@ -12,7 +12,6 @@ import { getLocationName } from "@/utils/getLocationNames";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
-
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
   const searchCity = useWeatherStore((state) => state.coordinates);
@@ -90,12 +89,12 @@ const MonthlyForecast = ({}) => {
                 "Unknown Weather"}
             </div>
             <p className="text-sm">
-              Yuxarı Tempratur:{" "}
+              Yuxarı Temperaturtur:{" "}
               {monthlyData?.daily.temperature2mMax[index]?.toFixed(0)}
               °C
             </p>
             <p className="text-sm">
-              Aşağı Tempratur:{" "}
+              Aşağı Temperaturtur:{" "}
               {monthlyData?.daily.temperature2mMin[index]?.toFixed(0)}
               °C
             </p>

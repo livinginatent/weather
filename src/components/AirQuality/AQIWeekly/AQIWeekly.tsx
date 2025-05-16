@@ -59,7 +59,7 @@ const AQIWeekly = ({ forecastData }: AQIWeeklyT) => {
         <p className="py-2">Tarix</p>
         <p className="py-2">Hava Keyfiyyəti</p>
         <p className="py-2">Hava</p>
-        <p className="py-2">Tempratur</p>
+        <p className="py-2">Temperaturtur</p>
         <p className="py-2">Külək</p>
       </div>
 
