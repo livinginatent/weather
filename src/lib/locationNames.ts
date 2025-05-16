@@ -103,7 +103,6 @@ export const cities: { [key: string]: string } = {
   Dashkasan: "Daşkəsən",
   Susa: "Şuşa",
   Fuzuli: "Füzuli",
-  Lokbatan: "Qaradağ",
   Gedebey: "Gədəbəy",
   Kedabeko: "Gədəbəy",
   Ganja: "Gəncə",
