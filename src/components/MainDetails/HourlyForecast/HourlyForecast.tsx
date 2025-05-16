@@ -1,3 +1,4 @@
+'use client'
 import { HourlyForecastT } from "@/lib/types";
 import React, { useState, useEffect } from "react";
 import {

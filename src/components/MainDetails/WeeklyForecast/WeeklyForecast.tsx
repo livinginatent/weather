@@ -1,3 +1,4 @@
+"use client";
 import useWeatherStore from "@/store/store";
 import React, { useEffect, useState } from "react";
 
@@ -6,16 +7,15 @@ import { getWeekly } from "@/actions/getWeekly";
 import { DailyForecastT } from "@/lib/types";
 import { getSearchWeekly } from "@/actions/getSearchWeekly";
 interface WeeklyForecastProps {
-  lat?: number;
-  lon?: number;
+  lat?: number | null;
+  lon?: number | null;
 }
 const WeeklyForecast = ({ lat, lon }: WeeklyForecastProps) => {
   const [weeklyWeatherData, setWeeklyWeatherData] =
     useState<DailyForecastT | null>(null);
 
   const searchCity = useWeatherStore((state) => state.coordinates);
-  console.log(searchCity);
-  console.log(lat, lon);
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {

@@ -7,6 +7,8 @@ import { getSearchWeekly } from "@/actions/getSearchWeekly";
 import Image from "next/image";
 import Head from "next/head";
 import { getIcon } from "@/utils/getIcon";
+import HourlyForecast from "@/components/MainDetails/HourlyForecast/HourlyForecast";
+import WeeklyForecast from "@/components/MainDetails/WeeklyForecast/WeeklyForecast";
 
 type Props = {
   params: {
@@ -160,7 +162,7 @@ export default async function CityPage({ params }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Card className="p-4 bg-muted/50">
                 <div className="text-sm font-medium mb-2">
-                  Ultra Bənövşəyi İndeks
+                  Ultra Bənövşəyi İndeks (Günəş şüaları)
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="text-2xl font-bold">{uvIndex}</div>
@@ -230,6 +232,13 @@ export default async function CityPage({ params }: Props) {
             </a>
             {` ${nativeCity} şəhəri üçün hər zaman dəqiq və etibarlı hava məlumatları təqdim edir.`}
           </p>
+        </div>
+        <div className="mt-6">
+          <h3 className="text-xl text-center font-bold">{`${nativeCity} saatlıq hava proqnozu`}</h3>
+          <HourlyForecast hourlyWeatherData={hourlyWeather} />
+          <h3 className="text-xl text-center font-bold">{`${nativeCity} həftəlik hava proqnozu`}</h3>
+
+          <WeeklyForecast lat={coords.lat} lon={coords.lon} />
         </div>
       </div>
     </>
