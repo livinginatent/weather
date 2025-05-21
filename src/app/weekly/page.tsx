@@ -15,7 +15,6 @@ const Page = (props: Props) => {
   const searchCity = useWeatherStore((state) => state.coordinates);
   const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
   const router = useRouter();
-console.log(searchCity)
   return (
     <section className="bg-[#e4f1ff] flex flex-col items-center w-full h-full">
       <div>

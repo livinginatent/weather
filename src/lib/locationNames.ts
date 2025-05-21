@@ -156,7 +156,7 @@ export const cities: { [key: string]: string } = {
   Qaracala: "Şirvan",
   Qarayeri: "Samux",
   Siazan: "Siyəzən",
-  Sumgayit: "Sumqayıt",
+  Ceyranbatan: "Sumqayıt",
   Terter: "Tərtər",
   Tovuz: "Tovuz",
   Ujar: "Ucar",

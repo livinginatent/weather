@@ -29,7 +29,6 @@ const SideDetails = () => {
     coordinates: state.coordinates,
   }));
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (searchCity.lat != null && searchCity.lon != null) {
       setCurrentLocation({
