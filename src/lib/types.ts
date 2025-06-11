@@ -239,10 +239,12 @@ export type MonthlyDataT = {
     rainSum: { [key: number]: number }; // Mapping of indices to rainfall sums
     snowfallSum: { [key: number]: number };
     windSpeed10mMax: { [key: number]: number }; // Mapping of indices to snowfall sums
+    windSpeed80mMax: { [key: number]: number }; // Mapping of indices to snowfall sums
   };
   weatherCodeTexts: { [key: number]: string };
   current: {
     windSpeed10m: number;
+    windSpeed80m: number;
   };
 };
 
