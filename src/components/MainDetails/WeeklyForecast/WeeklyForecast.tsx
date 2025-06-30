@@ -31,7 +31,7 @@ const WeeklyForecast = ({ lat, lon }: WeeklyForecastProps) => {
             lon: searchCity.lon,
           });
         } else {
-          data = await getWeekly();
+          data = await getWeekly({ lat: 40.394317, lon: 49.865584 });
         }
 
         if (data) {

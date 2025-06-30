@@ -44,7 +44,7 @@ const Page = (props: Props) => {
           Günlük hava proqnozu
         </Button>
       </div>
-      <WeeklyForecast lat={40.394317} lon={49.865584} />
+      <WeeklyForecast />
     </section>
   );
 };
