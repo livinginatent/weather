@@ -19,6 +19,7 @@ import {
   CloudRain,
   Snowflake,
 } from "lucide-react";
+import Banner from "../AdBanner/Banner";
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
@@ -78,10 +79,7 @@ const MonthlyForecast = ({}) => {
         {/* Header Section */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-4">
-           
-            <h1 className="text-4xl font-bold ">
-              Aylıq Hava Proqnozu
-            </h1>
+            <h1 className="text-4xl font-bold ">Aylıq Hava Proqnozu</h1>
           </div>
 
           <div className="bg-white/70 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-white/20 mb-6 max-w-2xl mx-auto">
@@ -93,7 +91,7 @@ const MonthlyForecast = ({}) => {
               <CitySelector />
             </div>
           </div>
-
+      
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow-md border border-white/20 max-w-4xl mx-auto">
             <p className="text-gray-700 leading-relaxed">
               Aylıq hava proqnozu, ay ərzində hava şəraitini qabaqcadan
@@ -166,7 +164,7 @@ const MonthlyForecast = ({}) => {
               </div>
 
               {/* Additional Weather Info */}
-       {/*        <div className="space-y-2">
+              {/*        <div className="space-y-2">
                 {monthlyData?.daily.windSpeed10mMax && (
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Wind className="w-4 h-4 text-blue-600" />

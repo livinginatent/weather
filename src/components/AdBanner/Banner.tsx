@@ -1,18 +1,26 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { X } from "lucide-react"; // Lightweight X icon
+import Image from "next/image";
 
 const Banner = (props: { imageUrl: string; siteUrl: string }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
 
+  // Helper function to ensure URL has protocol
+  const formatUrl = (url: string) => {
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
+    }
+    return `https://${url}`;
+  };
+
   return (
-    <div className="fixed  flex-col bottom-10 left-10 w-full flex justify-center items-center z-50">
+    <div className="fixed flex-col bottom-10 right-10 w-full flex justify-center items-center z-50">
       {/* Close Button */}
-      <div className=" flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <button
           className="bg-gray-800 text-white rounded-full p-1 hover:bg-red-500 transition"
           onClick={() => setIsVisible(false)}
@@ -21,12 +29,13 @@ const Banner = (props: { imageUrl: string; siteUrl: string }) => {
         </button>
         <p className="text-md mt-1">Bağla</p>
       </div>
+
       {/* Flipping Ad Banner */}
       <motion.a
-        href={props.siteUrl}
+        href={formatUrl(props.siteUrl)}
         target="_blank"
         rel="noopener noreferrer"
-        className=" flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
+        className="flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
         animate={{
           rotateX: [0, 90, 0], // Smooth up-and-down flip
         }}
@@ -39,8 +48,8 @@ const Banner = (props: { imageUrl: string; siteUrl: string }) => {
         <Image
           src={props.imageUrl}
           alt="Ad Banner"
-          width={525}
-          height={225}
+          width={300}
+          height={300}
           className="object-cover"
         />
       </motion.a>

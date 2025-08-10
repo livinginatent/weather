@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
 import Nav from "@/components/Nav/Nav";
 import { Analytics } from "@vercel/analytics/react";
+import Banner from "@/components/AdBanner/Banner";
 const mulish = Mulish({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -60,7 +61,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="AiTKc0Y6143pH0fcu062C9n_f3gvdRVGLSrW6g3xE2k"
         />
-       {/*  <script type="application/ld+json">{JSON.stringify(schema)}</script> */}
+        {/*  <script type="application/ld+json">{JSON.stringify(schema)}</script> */}
       </head>
 
       <body
@@ -70,6 +71,10 @@ export default function RootLayout({
         <main className={`${mulish.className} h-full`}>
           <Nav />
           {children}
+          <Banner
+            imageUrl={require("../../public/assets/milla.png")}
+            siteUrl="milla.az"
+          />
           <Analytics />
         </main>
       </body>

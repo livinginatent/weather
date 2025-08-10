@@ -8,6 +8,7 @@ import Image from "next/image";
 import { getIcon } from "@/utils/getIcon";
 import HourlyForecast from "@/components/MainDetails/HourlyForecast/HourlyForecast";
 import WeeklyForecast from "@/components/MainDetails/WeeklyForecast/WeeklyForecast";
+import Banner from "@/components/AdBanner/Banner";
 
 type Props = {
   params: {
@@ -145,7 +146,7 @@ export default async function CityPage({ params }: Props) {
                 </div>
               </div>
             </div>
-
+          
             <div className="mt-6">
               <div className="text-sm text-muted-foreground mb-1">
                 Gün ərzində
