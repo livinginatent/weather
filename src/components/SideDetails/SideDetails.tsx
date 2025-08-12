@@ -13,7 +13,6 @@ import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import ForecastToggle from "@/utils/ForecastToggle";
 import FeaturedCities from "../FeaturedCities/FeaturedCities";
 import CitySelector from "../CitySelector/CitySelector";
-import Banner from "../AdBanner/Banner";
 
 const SideDetails = () => {
   const [weatherData, setWeatherData] = useState<CurrentWeatherDataT | null>(

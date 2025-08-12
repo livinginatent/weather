@@ -19,7 +19,6 @@ import {
   CloudRain,
   Snowflake,
 } from "lucide-react";
-import Banner from "../AdBanner/Banner";
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);

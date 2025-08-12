@@ -72,8 +72,7 @@ export default function RootLayout({
           <Nav />
           {children}
           <Banner
-            imageUrl={require("../../public/assets/milla.png")}
-            siteUrl="milla.az"
+            imageUrl={require("../../public/assets/yourad.png")}
           />
           <Analytics />
         </main>

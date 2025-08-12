@@ -1,4 +1,3 @@
-import Banner from "@/components/AdBanner/Banner";
 import MainDetails from "@/components/MainDetails/MainDetails";
 import SideDetails from "@/components/SideDetails/SideDetails";
 import WeatherContent from "@/components/WeatherContent/WeatherContent";

@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react"; // Lightweight X icon
 import Image from "next/image";
 
-const Banner = (props: { imageUrl: string; siteUrl: string }) => {
+const Banner = (props: { imageUrl: string; siteUrl?: string }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
 
   // Helper function to ensure URL has protocol
-  const formatUrl = (url: string) => {
+  const formatUrl = (url: string | undefined) => {
+    if (!url) return;
     if (url.startsWith("http://") || url.startsWith("https://")) {
       return url;
     }

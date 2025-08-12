@@ -8,7 +8,6 @@ import Image from "next/image";
 import { getIcon } from "@/utils/getIcon";
 import HourlyForecast from "@/components/MainDetails/HourlyForecast/HourlyForecast";
 import WeeklyForecast from "@/components/MainDetails/WeeklyForecast/WeeklyForecast";
-import Banner from "@/components/AdBanner/Banner";
 
 type Props = {
   params: {
@@ -66,7 +65,6 @@ export default async function CityPage({ params }: Props) {
     notFound();
   }
 
-  const canonicalCityKey = canonicalMap[cityKey.toLowerCase()] ?? cityKey;
   const nativeCity = cities[cityKey];
   const coords = locationNames[nativeCity];
 
@@ -146,7 +144,7 @@ export default async function CityPage({ params }: Props) {
                 </div>
               </div>
             </div>
-          
+
             <div className="mt-6">
               <div className="text-sm text-muted-foreground mb-1">
                 Gün ərzində
@@ -223,10 +221,19 @@ export default async function CityPage({ params }: Props) {
 
       <div className="bg-white bg-opacity-90 rounded-lg shadow-md p-4">
         <h2 className="text-xl text-center mb-2 font-bold">
-          {`${nativeCity} üçün hava proqnozu`}
+          {`${nativeCity} üçün hava proqnozu və hava durumu`}
         </h2>
         <p className="text-center">
-          {`${nativeCity} şəhəri üçün təqdim etdiyimiz hava proqnozu dəqiqdir və daima yenilənir. ${nativeCity} hava durumu gün ərzində dəyişə bilər, buna görə də sizə ən son məlumatları təqdim edirik. Şəhərinizin temperaturu, hava proqnozu, yağış və külək kimi hava şəraitləri haqqında proqnozları bir səhifədə. `}
+          {`${nativeCity} şəhəri üçün təqdim etdiyimiz`}{" "}
+          <a
+            className="font-bold"
+            href="https://havam.az"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            hava proqnozu
+          </a>{" "}
+          {`dəqiqdir və daima yenilənir. ${nativeCity} hava durumu gün ərzində dəyişə bilər, buna görə də sizə ən son məlumatları təqdim edirik. Şəhərinizin temperaturu, hava proqnozu, yağış və külək kimi hava şəraitləri haqqında proqnozları bir səhifədə. `}
           <a
             className="font-bold"
             href="https://havam.az"
