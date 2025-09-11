@@ -96,6 +96,7 @@ const SideDetails = () => {
     localCityName =
       (weatherData && cities[weatherData.location?.name]) ||
       weatherData?.location?.name;
+      console.log(localCityName,'test')
   }
   const conditionText = weatherData?.current?.condition?.text?.trim() || "";
   const condition = conditionTranslations[conditionText] || conditionText || "";
