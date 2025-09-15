@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       "wind_speed_10m_max",
     ],
     current: "wind_speed_10m",
-    models: "icon_eu",
+    
   };
 
   const url = "https://api.open-meteo.com/v1/forecast";
