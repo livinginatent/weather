@@ -71,9 +71,9 @@ export default function RootLayout({
         <main className={`${mulish.className} h-full`}>
           <Nav />
           {children}
-          <Banner
+         {/*  <Banner
             imageUrl={require("../../public/assets/yourad.png")}
-          />
+          /> */}
           <Analytics />
         </main>
       </body>
