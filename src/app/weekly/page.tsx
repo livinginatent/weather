@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { locationNames } from "@/lib/locationNames";
 import { getLocationName } from "@/utils/getLocationNames";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 type Props = {};
 
-const Page = (props: Props) => {
+const WeeklyContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const lat = searchParams.get("lat");
@@ -53,6 +53,18 @@ const Page = (props: Props) => {
         lon={lon ? parseFloat(lon) : undefined}
       />
     </section>
+  );
+};
+
+const Page = (props: Props) => {
+  return (
+    <Suspense fallback={
+      <section className="bg-[#e4f1ff] flex flex-col items-center justify-center w-full h-full">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </section>
+    }>
+      <WeeklyContent />
+    </Suspense>
   );
 };
 
