@@ -3,7 +3,7 @@ import SideDetails from "@/components/SideDetails/SideDetails";
 import WeatherContent from "@/components/WeatherContent/WeatherContent";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Bakı Hava Proqnozu | Azərbaycan Hava Proqnozu",
+  title: "Hava Proqnozu | Saatlıq, Günlük Hava Proqnozu",
   description:
     "Bakı və Azərbaycan Hava proqnozu haqqında ən dəqiq məlumatlar burada! Dəqiq hava proqnozu, temperatur, külək sürəti",
 };
@@ -55,7 +55,6 @@ export default function Home() {
       <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row custom-height-903">
         <SideDetails />
         <MainDetails />
-        
       </div>
     </>
   );

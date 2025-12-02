@@ -120,7 +120,8 @@ const PrayerTimes = () => {
       <h3 className="text-4xl font-semibold mb-1">
         {locationName || "Default City"}
       </h3>
-      <div className="w-full sm:w-1/4 mx-auto">
+      <div className="w-full flex flex-col items-center justify-center mt--6 sm:w-1/4 mx-auto">
+        <div>Şəhər seç</div>
         <CitySelector />
       </div>
 
@@ -130,8 +131,46 @@ const PrayerTimes = () => {
           <span className="italic">(Hicri tarixi)</span>
         </div>
       </div>
-      <h2 className="text-2xl">Namaz saatları</h2>
-      <h3 className="text-2xl">Rayonlarda namaz vaxtları</h3>
+      <h2 className="text-2xl">Namaz saatları - Düzgün Namaz vaxtları</h2>
+
+      {todayTimes && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-12 mt-4">
+          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
+            <h3 className="text-xl font-semibold">Sübh</h3>
+            <p className="text-lg">
+              {convertTo24HourFormat(todayTimes.times.fajr)}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
+            <h3 className="text-xl font-semibold">Zöhr</h3>
+            <p className="text-lg">
+              {convertTo24HourFormat(todayTimes.times.dhuhr)}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
+            <h3 className="text-xl font-semibold">Əsr</h3>
+            <p className="text-lg">
+              {convertTo24HourFormat(todayTimes.times.asr)}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
+            <h3 className="text-xl font-semibold">Məğrib</h3>
+            <p className="text-lg">
+              {convertTo24HourFormat(todayTimes.times.maghrib)}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
+            <h3 className="text-xl font-semibold">İşa</h3>
+            <p className="text-lg">
+              {convertTo24HourFormat(todayTimes.times.isha)}
+            </p>
+          </div>
+        </div>
+      )}
       <div className="w-full sm:w-1/4 mx-auto mb-4">
         <label className="block text-center text-lg font-semibold mb-2">
           Hesablama Metodu
@@ -150,45 +189,6 @@ const PrayerTimes = () => {
           <option value="Jafari">Şiə İsnə-Əşəri, Ləva İnstitutu (Qum)</option>
         </select>
       </div>
-
-      {todayTimes && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-12 mt-4">
-          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
-            <p className="text-xl font-semibold">Sübh</p>
-            <p className="text-lg">
-              {convertTo24HourFormat(todayTimes.times.fajr)}
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
-            <p className="text-xl font-semibold">Zöhr</p>
-            <p className="text-lg">
-              {convertTo24HourFormat(todayTimes.times.dhuhr)}
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
-            <p className="text-xl font-semibold">Əsr</p>
-            <p className="text-lg">
-              {convertTo24HourFormat(todayTimes.times.asr)}
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
-            <p className="text-xl font-semibold">Məğrib</p>
-            <p className="text-lg">
-              {convertTo24HourFormat(todayTimes.times.maghrib)}
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-around bg-[#E8F9FF] border-2 border-blue-950 w-full h-32 rounded-lg p-8">
-            <p className="text-xl font-semibold">İşa</p>
-            <p className="text-lg">
-              {convertTo24HourFormat(todayTimes.times.isha)}
-            </p>
-          </div>
-        </div>
-      )}
       <div className="w-full">
         <p>
           Bu səhifə vasitəsilə Bakı namaz vaxtı və rayonlarda namaz vaxtını

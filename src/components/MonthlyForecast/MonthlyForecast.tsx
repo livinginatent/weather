@@ -73,7 +73,7 @@ const MonthlyForecast = ({}) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-sky-100">
+    <div className="min-h-screen ">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header Section */}
         <div className="text-center mb-8">
