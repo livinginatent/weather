@@ -1,60 +1,42 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import HourlyForecast from "./HourlyForecast/HourlyForecast";
 import { HourlyWeatherDataT } from "@/lib/types";
-import { getHourly } from "@/actions/getHourly";
 import SecondaryDetails from "./SecondaryDetails/SecondaryDetails";
 import useWeatherStore from "@/store/store";
-import { getSearchCityHourly } from "@/actions/getSearchCityHourly";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
-import { ClipLoader } from "react-spinners";
 import { cities } from "@/lib/locationNames";
 import WeatherContent from "../WeatherContent/WeatherContent";
+import { useSearchParams } from "next/navigation";
 
-const MainDetails = () => {
-  const [hourlyWeatherData, setHourlyWeatherData] =
-    useState<HourlyWeatherDataT | null>(null);
-  const [currentLocation, setCurrentLocation] = useState({
-    lat: 40.4093,
-    lon: 49.8671,
-    source: "default",
-  });
-  const [loading, setLoading] = useState(true);
+type MainDetailsProps = {
+  hourlyWeatherData: HourlyWeatherDataT | null;
+};
 
-  const { showHourlyForecast, coordinates: searchCity } = useWeatherStore(
-    (state) => ({
-      showHourlyForecast: state.showHourlyForecast,
-      coordinates: state.coordinates,
-    })
-  );
+const MainDetails = ({ hourlyWeatherData }: MainDetailsProps) => {
+  const { showHourlyForecast, setShowHourlyForecast } = useWeatherStore((state) => ({
+    showHourlyForecast: state.showHourlyForecast,
+    setShowHourlyForecast: state.setShowHourlyForecast,
+  }));
+  const searchParams = useSearchParams();
 
-  const fetchWeatherData = useCallback(async () => {
-    if (!currentLocation) return;
-
-    try {
-      setLoading(true);
-
-      const data =
-        currentLocation.source === "search"
-          ? await getSearchCityHourly({
-              lat: currentLocation.lat,
-              lon: currentLocation.lon,
-            })
-          : await getHourly({
-              lat: currentLocation.lat,
-              lon: currentLocation.lon,
-            });
-
-      if (data) setHourlyWeatherData(data);
-    } catch (error) {
-      console.error("Error fetching weather data", error);
-    } finally {
-      setLoading(false);
+  // Sync Zustand state with URL parameter
+  useEffect(() => {
+    const viewParam = searchParams.get("view");
+    if (viewParam === "weekly") {
+      setShowHourlyForecast(false);
+    } else if (viewParam === "hourly") {
+      setShowHourlyForecast(true);
     }
-  }, [currentLocation]);
+    // If no view param, keep current Zustand state (defaults to hourly)
+  }, [searchParams, setShowHourlyForecast]);
 
   const resolveCityName = () => {
-    if (searchCity.lat === 39.8265 && searchCity.lon === 46.7656) {
+    // Check if it's Xankəndi by coordinates
+    if (
+      hourlyWeatherData?.location?.lat === 39.8265 &&
+      hourlyWeatherData?.location?.lon === 46.7656
+    ) {
       return "Xankəndi";
     }
     return hourlyWeatherData?.location?.name
@@ -63,29 +45,7 @@ const MainDetails = () => {
       : "";
   };
 
-  useEffect(() => {
-    if (searchCity.lat && searchCity.lon) {
-      setCurrentLocation({
-        lat: searchCity.lat,
-        lon: searchCity.lon,
-        source: "search",
-      });
-    }
-  }, [searchCity]);
-
-  useEffect(() => {
-    fetchWeatherData();
-  }, [fetchWeatherData]);
-
   const localCityName = resolveCityName();
-
-  if (loading) {
-    return (
-      <div className="justify-center h-screen items-center flex flex-col w-full xl:justify-center xl:items-center">
-        <ClipLoader size={50} color="#36d7b7" loading={loading} />
-      </div>
-    );
-  }
 
   const renderHourlyForecastSection = () => (
     <section className="bg-[#e4f1ff] items-center justify-center xl:items-normal xl:justify-normal p-4 flex flex-col w-full xl:9/12">
@@ -120,6 +80,10 @@ const MainDetails = () => {
       </div>
     </section>
   );
+
+  if (!hourlyWeatherData) {
+    return null;
+  }
 
   return showHourlyForecast && hourlyWeatherData
     ? renderHourlyForecastSection()

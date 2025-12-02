@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import useWeatherStore from "@/store/store";
 import { Coordinates } from "@/lib/types";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 type Props = {};
 const cities = {
@@ -25,9 +25,28 @@ const cityArray = Object.entries(cities).map(([key, value]) => ({
 }));
 
 const FeaturedCities = (props: Props) => {
-  const setCoordinates = useWeatherStore((state) => state.setCoordinates);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const handleClick = (cityCoordinates: Coordinates) => {
-    setCoordinates(cityCoordinates);
+    if (cityCoordinates.lat != null && cityCoordinates.lon != null) {
+      // If on /weekly or /monthly page, navigate to that page with coordinates
+      if (pathname === "/weekly") {
+        router.push(
+          `/weekly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`
+        );
+      } else if (pathname === "/monthly") {
+        router.push(
+          `/monthly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`
+        );
+      } else {
+        // On main page, preserve the current view parameter
+        const currentView = searchParams.get("view") || "hourly";
+        router.push(
+          `/?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&view=${currentView}`
+        );
+      }
+    }
   };
   return (
     <div>

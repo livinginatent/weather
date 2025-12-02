@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { CiSearch } from "react-icons/ci";
@@ -16,15 +17,15 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { locationNames } from "@/lib/locationNames";
 import { ScrollArea } from "../ui/scroll-area";
-import useWeatherStore from "@/store/store";
 import { Coordinates } from "@/lib/types";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 const Search = () => {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
-
-  const setCoordinates = useWeatherStore((state) => state.setCoordinates);
-  const coordinates = useWeatherStore((state) => state.coordinates);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const cityArray = Object.entries(locationNames).map(([key, value]) => ({
     name: key,
@@ -32,9 +33,15 @@ const Search = () => {
   }));
 
   useEffect(() => {
-    const currentCity = getLocationName(coordinates.lat, coordinates.lon);
-    setSelectedCity(currentCity);
-  }, [coordinates]);
+    const lat = searchParams.get("lat");
+    const lon = searchParams.get("lon");
+    if (lat && lon) {
+      const currentCity = getLocationName(parseFloat(lat), parseFloat(lon));
+      setSelectedCity(currentCity);
+    } else {
+      setSelectedCity(null);
+    }
+  }, [searchParams]);
 
   const getLocationName = (lat: any, lon: any) => {
     for (const cityName in locationNames) {
@@ -47,7 +54,18 @@ const Search = () => {
   };
 
   const handleSelect = (cityCoordinates: Coordinates) => {
-    setCoordinates(cityCoordinates);
+    if (cityCoordinates.lat != null && cityCoordinates.lon != null) {
+      // If on /weekly or /monthly page, navigate to that page with coordinates
+      if (pathname === "/weekly") {
+        router.push(`/weekly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`);
+      } else if (pathname === "/monthly") {
+        router.push(`/monthly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`);
+      } else {
+        // On main page, preserve the current view parameter
+        const currentView = searchParams.get("view") || "hourly";
+        router.push(`/?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&view=${currentView}`);
+      }
+    }
     setOpen(false);
   };
 

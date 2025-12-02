@@ -1,6 +1,7 @@
 import MonthlyForecast from "@/components/MonthlyForecast/MonthlyForecast";
 import { Metadata } from "next";
 import React from "react";
+
 export const metadata: Metadata = {
   title: "Aylıq Hava Proqnozu | Bakı 10 Günlük Hava Proqnozu - Havam.az",
   description:

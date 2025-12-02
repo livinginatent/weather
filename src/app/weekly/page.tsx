@@ -4,17 +4,21 @@ import WeeklyForecast from "@/components/MainDetails/WeeklyForecast/WeeklyForeca
 import Search from "@/components/Search/Search";
 import { Button } from "@/components/ui/button";
 import { locationNames } from "@/lib/locationNames";
-import useWeatherStore from "@/store/store";
 import { getLocationName } from "@/utils/getLocationNames";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 type Props = {};
 
 const Page = (props: Props) => {
-  const searchCity = useWeatherStore((state) => state.coordinates);
-  const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
+  const city =
+    lat && lon
+      ? getLocationName(parseFloat(lat), parseFloat(lon), locationNames)
+      : getLocationName(null, null, locationNames);
   return (
     <section className="bg-[#e4f1ff] flex flex-col items-center w-full h-full">
       <div>
@@ -44,7 +48,10 @@ const Page = (props: Props) => {
           Günlük hava proqnozu
         </Button>
       </div>
-      <WeeklyForecast />
+      <WeeklyForecast
+        lat={lat ? parseFloat(lat) : undefined}
+        lon={lon ? parseFloat(lon) : undefined}
+      />
     </section>
   );
 };

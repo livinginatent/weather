@@ -5,13 +5,12 @@ import { locationNames } from "@/lib/locationNames";
 import type { MonthlyDataT } from "@/lib/types";
 import { weatherCodes } from "@/lib/weatherCodes";
 import { weatherIcons } from "@/lib/weatherIcons";
-import useWeatherStore from "@/store/store";
 import { useEffect, useState } from "react";
 import Search from "../Search/Search";
 import CitySelector from "../CitySelector/CitySelector";
 import { getLocationName } from "@/utils/getLocationNames";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   Thermometer,
@@ -22,37 +21,39 @@ import {
 
 const MonthlyForecast = ({}) => {
   const [monthlyData, setMonthlyData] = useState<MonthlyDataT | null>(null);
-  const searchCity = useWeatherStore((state) => state.coordinates);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (searchCity.lat && searchCity.lon) {
-      const fetchData = async () => {
-        try {
+    const lat = searchParams.get("lat");
+    const lon = searchParams.get("lon");
+    
+    const fetchData = async () => {
+      try {
+        if (lat && lon) {
           const res = await getMonthly({
-            lat: searchCity.lat,
-            lon: searchCity.lon,
+            lat: parseFloat(lat),
+            lon: parseFloat(lon),
           });
           setMonthlyData(res);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-      fetchData();
-    } else {
-      const fetchData = async () => {
-        try {
+        } else {
           const res = await getMonthly({ lat: 40.394317, lon: 49.865584 });
           setMonthlyData(res);
-        } catch (error) {
-          console.error("Error fetching data:", error);
         }
-      };
-      fetchData();
-    }
-  }, [searchCity]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [searchParams]);
 
-  const city = getLocationName(searchCity.lat, searchCity.lon, locationNames);
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
+  const city = getLocationName(
+    lat ? parseFloat(lat) : null,
+    lon ? parseFloat(lon) : null,
+    locationNames
+  );
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

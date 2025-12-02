@@ -171,6 +171,7 @@ export const cities: { [key: string]: string } = {
   Zaqatala: "Zaqatala",
   Mincivan: "Zəngilan",
   Zardob: "Zərdab",
+  "Masalaâ±":"Masallı"
 };
 
 export const cityDescriptions: { [key: string]: string } = {
