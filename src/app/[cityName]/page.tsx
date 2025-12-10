@@ -8,6 +8,7 @@ import Image from "next/image";
 import { getIcon } from "@/utils/getIcon";
 import HourlyForecast from "@/components/MainDetails/HourlyForecast/HourlyForecast";
 import WeeklyForecast from "@/components/MainDetails/WeeklyForecast/WeeklyForecast";
+import { Metadata } from "next";
 
 type Props = {
   params: {
@@ -35,23 +36,66 @@ const canonicalMap: Record<string, string> = {
   qabaqcol: "balakan",
 };
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { cityName } = params;
   const cityKey = Object.keys(cities).find(
     (key) => key.toLowerCase() === cityName.toLowerCase()
   );
 
-  if (!cityKey) return { title: "City Not Found" };
+  if (!cityKey) return { title: "Şəhər Tapılmadı | Havam.az" };
 
   const nativeCity = cities[cityKey];
   const canonicalCityKey = canonicalMap[cityKey.toLowerCase()] ?? cityKey;
   const canonicalUrl = `https://havam.az/city/${canonicalCityKey.toLowerCase()}`;
 
+  // Dynamic dates help CTR (Click Through Rate) in search results
+  const dateStr = new Date().toLocaleDateString("az-AZ", {
+    month: "long",
+    year: "numeric",
+  });
+
+  const title = `${nativeCity} Hava Proqnozu - ${dateStr} | Ən Dəqiq Hava Məlumatı`;
+  const description = `${nativeCity} üçün saatlıq və həftəlik hava proqnozu. ${nativeCity} bu gün, sabah və 7 günlük hava durumu, temperatur, yağış və külək məlumatları Havam.az-da.`;
+
   return {
-    title: `${nativeCity} Hava Proqnozu - Ən Dəqiq Hava Məlumatı | ${nativeCity} Hava Durumu`,
-    description: `${nativeCity} üçün hava proqnozu. Gündəlik və həftəlik hava durumu. ${nativeCity} Hava məlumatı. Havam.az vasitəsi ilə dəqiq hava proqnozu əldə edin.`,
+    title: title,
+    description: description,
     alternates: {
       canonical: canonicalUrl,
+    },
+    // Open Graph for Facebook/WhatsApp/LinkedIn sharing
+    openGraph: {
+      title: title,
+      description: description,
+      url: canonicalUrl,
+      siteName: "Havam.az",
+      locale: "az_AZ",
+      type: "website",
+      images: [
+        {
+          url: "https://havam.az/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${nativeCity} Hava Proqnozu`,
+        },
+      ],
+    },
+    // Twitter Card data
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+    },
+    keywords: [
+      `${nativeCity} hava proqnozu`,
+      `${nativeCity} hava durumu`,
+      "hava haqqinda",
+      "azerbaycan hava",
+      nativeCity,
+    ],
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -73,11 +117,11 @@ export default async function CityPage({ params }: Props) {
     return notFound();
   }
 
-  const hourlyWeather = await getHourly({ lat: coords.lat, lon: coords.lon });
-  const weeklyWeather = await getSearchWeekly({
-    lat: coords.lat,
-    lon: coords.lon,
-  });
+  // Parallel data fetching for performance
+  const [hourlyWeather, weeklyWeather] = await Promise.all([
+    getHourly({ lat: coords.lat, lon: coords.lon }),
+    getSearchWeekly({ lat: coords.lat, lon: coords.lon }),
+  ]);
 
   const temp =
     hourlyWeather?.current?.temp_c != null
@@ -85,7 +129,7 @@ export default async function CityPage({ params }: Props) {
       : "";
   const feelsLike =
     hourlyWeather?.current?.feelslike_c != null
-      ? `${Math.round(hourlyWeather.current.temp_c)}°C`
+      ? `${Math.round(hourlyWeather.current.feelslike_c)}°C` // Fixed: was using temp_c
       : "";
   const windSpeed = Math.round(hourlyWeather.current.wind_kph);
   const humidity = hourlyWeather.current.humidity;
@@ -101,13 +145,55 @@ export default async function CityPage({ params }: Props) {
   const chanceOfRain =
     hourlyWeather?.forecast?.forecastday[0].day.daily_chance_of_rain;
   const localIconPath = getIcon(hourlyWeather.current.condition.icon);
-  const condition = hourlyWeather.current.condition.icon;
+  const conditionText = hourlyWeather.current.condition.text || "Hava durumu"; // API usually provides text
+
+  // --- JSON-LD Structured Data Construction ---
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Ana Səhifə",
+            item: "https://havam.az",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: `${nativeCity} Hava Proqnozu`,
+            item: `https://havam.az/${cityKey}`,
+          },
+        ],
+      },
+      {
+        "@type": "Place",
+        name: nativeCity,
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "AZ",
+          addressLocality: nativeCity,
+        },
+      },
+    ],
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Inject Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{nativeCity} Hava Proqnozu</h1>
+        <h1 className="text-3xl font-bold mb-2">
+          {nativeCity} Hava Proqnozu
+        </h1>
         <p className="text-muted-foreground">
+          {nativeCity} üçün ən son hava məlumatları:{" "}
           {new Date().toLocaleDateString("az-AZ", {
             weekday: "long",
             year: "numeric",
@@ -128,16 +214,20 @@ export default async function CityPage({ params }: Props) {
                     Hiss olunan {feelsLike}
                   </div>
                 </div>
-                <Image
-                  alt={`${condition}`}
-                  src={localIconPath}
-                  width={64}
-                  height={64}
-                />
+                <div className="relative w-16 h-16">
+                  <Image
+                    alt={`${nativeCity} hava durumu: ${conditionText}`}
+                    src={localIconPath}
+                    fill
+                    className="object-contain"
+                    priority={true} // Priority loading for LCP improvement
+                    sizes="(max-width: 768px) 64px, 64px"
+                  />
+                </div>
               </div>
 
               <div className="mt-6 flex flex-col gap-4">
-                <p className="text-lg font-bold">Külək sürəti</p>
+                <h2 className="text-lg font-bold m-0">Külək sürəti</h2>
                 <div className="flex justify-start items-center gap-2">
                   <Wind className="h-5 w-5 text-muted-foreground" />
                   <span>{windSpeed} km/saat</span>
@@ -147,28 +237,31 @@ export default async function CityPage({ params }: Props) {
 
             <div className="mt-6">
               <div className="text-sm text-muted-foreground mb-1">
-                Gün ərzində
+                Gün ərzində temperatur
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-red-500">Yuxarı: {maxTemp}°C</span>
-                <span className="mx-2">|</span>
-                <span className="text-blue-500">Aşağı: {minTemp}°C</span>
+                <span className="text-red-500 font-medium">
+                  Max: {maxTemp}°C
+                </span>
+                <span className="mx-2 text-gray-300">|</span>
+                <span className="text-blue-500 font-medium">
+                  Min: {minTemp}°C
+                </span>
               </div>
-              <p className="text-lg font-bold mt-4 underline">
-                Gün ərzində yağış yağma ehtimalı: {chanceOfRain}%
+              <p className="text-lg font-bold mt-4">
+                Yağış ehtimalı:{" "}
+                <span className="text-blue-600">{chanceOfRain}%</span>
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Card className="p-4 bg-muted/50">
-              <div className="text-sm font-medium mb-2">
-                Ultra Bənövşəyi İndeks (Günəş şüaları)
-              </div>
+              <div className="text-sm font-medium mb-2">UV İndeksi (Günəş)</div>
               <div className="flex items-center justify-between">
                 <div className="text-2xl font-bold">{uvIndex}</div>
                 <div
-                  className={`px-2 py-1 rounded text-xs ${
+                  className={`px-2 py-1 rounded text-xs font-semibold ${
                     uvIndex <= 2
                       ? "bg-green-100 text-green-800"
                       : uvIndex <= 5
@@ -219,42 +312,40 @@ export default async function CityPage({ params }: Props) {
         </div>
       </Card>
 
-      <div className="bg-white bg-opacity-90 rounded-lg shadow-md p-4">
-        <h2 className="text-xl text-center mb-2 font-bold">
-          {`${nativeCity} üçün hava proqnozu və hava durumu`}
+      {/* SEO Content Section - Improved Readability */}
+      <section className="bg-white/90 rounded-lg shadow-sm p-6 border border-gray-100">
+        <h2 className="text-2xl text-center mb-4 font-bold text-gray-800">
+          {nativeCity} Hava Durumu Haqqında Məlumat
         </h2>
-        <p className="text-center">
-          {`${nativeCity} şəhəri üçün təqdim etdiyimiz`}{" "}
-          <a
-            className="font-bold"
-            href="https://havam.az"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            hava proqnozu
-          </a>{" "}
-          {`dəqiqdir və daima yenilənir. ${nativeCity} hava durumu gün ərzində dəyişə bilər, buna görə də sizə ən son məlumatları təqdim edirik. Şəhərinizin temperaturu, hava proqnozu, yağış və külək kimi hava şəraitləri haqqında proqnozları bir səhifədə. `}
-          <a
-            className="font-bold"
-            href="https://havam.az"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Havam.az
-          </a>
-          {` ${nativeCity} şəhəri üçün hər zaman dəqiq və etibarlı hava məlumatları təqdim edir.`}
-        </p>
-      </div>
+        <article className="prose max-w-none text-center text-gray-600 leading-relaxed">
+          <p>
+            Siz hal-hazırda <strong>{nativeCity} hava proqnozu</strong>{" "}
+            səhifəsindəsiniz. Burada siz {nativeCity} şəhəri üçün bu günlük,
+            sabahkı və gələn həftə üçün (10 günlük) dəqiq hava məlumatlarını
+            öyrənə bilərsiniz.
+          </p>
+          <p className="mt-2">
+            Məlumatlarımız daima yenilənir və sizə külək sürəti, yağıntı
+            ehtimalı, rütubət dərəcəsi və UV indeksi kimi vacib göstəriciləri
+            təqdim edir.
+          </p>
+        </article>
+      </section>
 
-      <div className="mt-6">
-        <h3 className="text-xl text-center font-bold">
-          {`${nativeCity} saatlıq hava proqnozu`}
-        </h3>
-        <HourlyForecast hourlyWeatherData={hourlyWeather} />
-        <h3 className="text-xl text-center font-bold">
-          {`${nativeCity} həftəlik hava proqnozu`}
-        </h3>
-        <WeeklyForecast lat={coords.lat} lon={coords.lon} />
+      <div className="mt-8 space-y-8">
+        <section>
+          <h3 className="text-2xl text-center font-bold mb-4">
+            {nativeCity} Saatlıq Hava Proqnozu
+          </h3>
+          <HourlyForecast hourlyWeatherData={hourlyWeather} />
+        </section>
+
+        <section>
+          <h3 className="text-2xl text-center font-bold mb-4">
+            {nativeCity} Həftəlik (7 Günlük) Hava Proqnozu
+          </h3>
+          <WeeklyForecast lat={coords.lat} lon={coords.lon} />
+        </section>
       </div>
     </div>
   );
