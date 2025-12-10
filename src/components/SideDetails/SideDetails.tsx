@@ -24,12 +24,7 @@ const SideDetails = ({ weatherData }: SideDetailsProps) => {
 
   const localCityName = useMemo(() => {
     if (!weatherData) return "";
-    if (
-      weatherData.location?.lat === 39.8265 &&
-      weatherData.location?.lon === 46.7656
-    ) {
-      return "Xankəndi";
-    }
+  
     return (
       (weatherData && cities[weatherData.location?.name]) ||
       weatherData?.location?.name ||

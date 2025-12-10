@@ -91,9 +91,10 @@ export const cities: { [key: string]: string } = {
   Agstafa: "Ağstafa",
   Agsu: "Ağsu",
   Astara: "Astara",
+  
   Astrakhanovka: "Cəlilabad",
   Babek: "Babək",
-  Shushi: "Şuşa",
+ Nakhicevan:"Naxçıvan",
   "QcâBcâLcâ": "Qəbələ",
   Balakan: "Balakən",
   Qabaqcol: "Balakən",

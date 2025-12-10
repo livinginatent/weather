@@ -27,7 +27,7 @@ const MonthlyForecast = ({}) => {
   useEffect(() => {
     const lat = searchParams.get("lat");
     const lon = searchParams.get("lon");
-    
+
     const fetchData = async () => {
       try {
         if (lat && lon) {
@@ -91,7 +91,7 @@ const MonthlyForecast = ({}) => {
               <CitySelector />
             </div>
           </div>
-      
+
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow-md border border-white/20 max-w-4xl mx-auto">
             <p className="text-gray-700 leading-relaxed">
               Aylıq hava proqnozu, ay ərzində hava şəraitini qabaqcadan
@@ -150,22 +150,20 @@ const MonthlyForecast = ({}) => {
                   <div className="text-center">
                     <p className="text-xs text-gray-600 mb-1">Yuxarı</p>
                     <p className="text-xl font-bold text-blue-700">
-                      {monthlyData?.daily.temperature2mMax[index]?.toFixed(0)}°
+                      {Math.round(monthlyData?.daily.temperature2mMax[index])}°
                     </p>
                   </div>
                   <Thermometer className="w-6 h-6 text-orange-500" />
                   <div className="text-center">
                     <p className="text-xs text-gray-600 mb-1">Aşağı</p>
                     <p className="text-xl font-bold text-sky-700">
-                      {monthlyData?.daily.temperature2mMin[index]?.toFixed(0)}°
+                      {Math.round(monthlyData?.daily.temperature2mMin[index])}°
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Additional Weather Info */}
-              {/*        <div className="space-y-2">
-                {monthlyData?.daily.windSpeed10mMax && (
+              {/*    {monthlyData?.daily.windSpeed10mMax && (
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Wind className="w-4 h-4 text-blue-600" />
                     <span>
@@ -174,29 +172,55 @@ const MonthlyForecast = ({}) => {
                       km/s
                     </span>
                   </div>
-                )}
+                )} */}
+              {/* Additional Weather Info */}
+              <div className="space-y-2 text-sm">
+                {(() => {
+                  const rain = monthlyData?.daily.rainSum?.[index] || 0;
+                  const snow = monthlyData?.daily.snowfallSum?.[index] || 0;
+                  const hasRain = rain > 0;
+                  const hasSnow = snow > 0;
 
-                {monthlyData?.daily.rainSum &&
-                  monthlyData.daily.rainSum[index] > 0 && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <CloudRain className="w-4 h-4 text-blue-600" />
-                      <span>
-                        Yağış: {monthlyData.daily.rainSum[index]?.toFixed(1)} mm
-                      </span>
-                    </div>
-                  )}
-
-                {monthlyData?.daily.snowfallSum &&
-                  monthlyData.daily.snowfallSum[index] > 0 && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Snowflake className="w-4 h-4 text-sky-600" />
-                      <span>
-                        Qar: {monthlyData.daily.snowfallSum[index]?.toFixed(1)}{" "}
-                        mm
-                      </span>
-                    </div>
-                  )}
-              </div> */}
+                  if (hasSnow && hasRain) {
+                    // Both snow and rain
+                    return (
+                      <>
+                        <div className="flex justify-center items-center gap-2 text-cyan-600">
+                          <Snowflake className="w-4 h-4" />
+                          Qar: {snow.toFixed(0)} mm
+                        </div>
+                        <div className="flex justify-center items-center gap-2 text-blue-600">
+                          <CloudRain className="w-4 h-4" />
+                          Yağış: {rain.toFixed(0)} mm
+                        </div>
+                      </>
+                    );
+                  } else if (hasSnow) {
+                    // Only snow
+                    return (
+                      <div className="flex justify-center items-center gap-2 text-cyan-600">
+                        <Snowflake className="w-4 h-4" />
+                        Qar: {snow.toFixed(0)} mm
+                      </div>
+                    );
+                  } else if (hasRain) {
+                    // Only rain
+                    return (
+                      <div className="flex justify-center items-center gap-2 text-blue-600">
+                        <CloudRain className="w-4 h-4" />
+                        Yağış: {rain.toFixed(0)} mm
+                      </div>
+                    );
+                  } else {
+                    // No precipitation
+                    return (
+                      <div className="flex justify-center items-center gap-2 text-slate-400">
+                        Yağıntı gözlənilmir
+                      </div>
+                    );
+                  }
+                })()}
+              </div>
             </div>
           ))}
         </div>
