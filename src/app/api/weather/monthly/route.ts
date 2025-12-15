@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWeatherApi } from "openmeteo";
+
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get("lat");
@@ -8,7 +10,6 @@ export async function GET(request: NextRequest) {
     latitude: lat,
     longitude: lon,
     forecast_days: 16,
-    _t: new Date().getTime(),
     daily: [
       "weather_code",
       "temperature_2m_max",
@@ -45,7 +46,7 @@ export async function GET(request: NextRequest) {
         temperature2mMin: daily.variables(2)!.valuesArray()!,
         rainSum: daily.variables(3)!.valuesArray()!,
         snowfallSum: daily.variables(4)!.valuesArray()!,
-        windSpeed10mMax: daily.variables(0)!.valuesArray()!,
+        windSpeed10mMax: daily.variables(5)!.valuesArray()!,
       },
       current: {
         time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
@@ -55,8 +56,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(weatherData, {
       headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
       },
     });
   } catch (error: any) {

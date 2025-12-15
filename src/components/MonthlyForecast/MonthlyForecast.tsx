@@ -163,16 +163,15 @@ const MonthlyForecast = ({}) => {
                 </div>
               </div>
 
-              {/*    {monthlyData?.daily.windSpeed10mMax && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Wind className="w-4 h-4 text-blue-600" />
-                    <span>
-                      Külək:{" "}
-                      {monthlyData.daily.windSpeed10mMax[index]?.toFixed(1)}{" "}
-                      km/s
-                    </span>
-                  </div>
-                )} */}
+              {monthlyData?.daily.windSpeed10mMax && (
+                <div className="flex justify-center items-center gap-2 text-sm text-gray-600">
+                  <Wind className="w-4 h-4 text-blue-600" />
+                  <span>
+                    Külək:{" "}
+                    {monthlyData.daily.windSpeed10mMax[index]?.toFixed(0)} km/saat
+                  </span>
+                </div>
+              )}
               {/* Additional Weather Info */}
               <div className="space-y-2 text-sm">
                 {(() => {

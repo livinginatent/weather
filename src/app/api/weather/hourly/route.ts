@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Add this line to prevent caching
-export const revalidate = 0;
+// Remove the revalidate = 0 to allow caching
+// export const revalidate = 0;
 
 export async function GET(request: NextRequest) {
   const API_KEY = process.env.API_KEY;
@@ -11,15 +11,18 @@ export async function GET(request: NextRequest) {
 
   try {
     const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=2&aqi=yes&alerts=no`;
-    const res = await fetch(url, { cache: "no-store" });
+
+    // Enable caching for the external API call
+    const res = await fetch(url, {
+      next: { revalidate: 600 }, // Cache for 10 minutes
+    });
+
     const data = await res.json();
 
     const headers = {
       "Content-Type": "application/json",
-      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-      Pragma: "no-cache",
-      Expires: "0",
-      "Surrogate-Control": "no-store",
+      // Cache for 10 minutes on edge, serve stale for 20 minutes while revalidating
+      "Cache-Control": "public, s-maxage=600, stale-while-revalidate=1200",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
@@ -29,10 +32,8 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     const headers = {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=120",
-      Pragma: "no-cache",
-      Expires: "0",
-      "Surrogate-Control": "no-store",
+      // Cache errors for 2 minutes (shorter than success)
+      "Cache-Control": "public, s-maxage=120, stale-while-revalidate=240",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
@@ -45,7 +46,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Handle preflight requests
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
