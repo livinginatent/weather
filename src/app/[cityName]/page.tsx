@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     year: "numeric",
   });
 
-  const title = `${nativeCity} Hava Proqnozu - ${dateStr} | Ən Dəqiq Hava Məlumatı`;
+  const title = `${nativeCity} Hava Proqnozu | Ən Dəqiq Hava Məlumatı`;
   const description = `${nativeCity} üçün saatlıq və həftəlik hava proqnozu. ${nativeCity} bu gün, sabah və 7 günlük hava durumu, temperatur, yağış və külək məlumatları Havam.az-da.`;
 
   return {
