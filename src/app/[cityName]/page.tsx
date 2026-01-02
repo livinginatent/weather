@@ -9,6 +9,7 @@ import { getIcon } from "@/utils/getIcon";
 import HourlyForecast from "@/components/MainDetails/HourlyForecast/HourlyForecast";
 import WeeklyForecast from "@/components/MainDetails/WeeklyForecast/WeeklyForecast";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 type Props = {
   params: {
@@ -344,7 +345,9 @@ export default async function CityPage({ params }: Props) {
           <h3 className="text-2xl text-center font-bold mb-4">
             {nativeCity} Həftəlik (7 Günlük) Hava Proqnozu
           </h3>
-          <WeeklyForecast lat={coords.lat} lon={coords.lon} />
+          <Suspense fallback={<div className="text-center p-8">Yüklənir...</div>}>
+            <WeeklyForecast lat={coords.lat} lon={coords.lon} />
+          </Suspense>
         </section>
       </div>
     </div>
