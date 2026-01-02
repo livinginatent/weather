@@ -1,59 +1,106 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { X } from "lucide-react"; // Lightweight X icon
-import Image from "next/image";
+import React, { useState, useEffect, useCallback } from "react";
+import { X, Instagram } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-const Banner = (props: { imageUrl: string; siteUrl?: string }) => {
+declare global {
+  interface Window {
+    gtag?: (
+      command: string,
+      targetId: string | { [key: string]: any },
+      config?: {
+        event_category?: string;
+        event_label?: string;
+        value?: number;
+        [key: string]: any;
+      }
+    ) => void;
+  }
+}
+
+const Banner = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const pathname = usePathname();
+
+  // Instagram URL for the dentist friend - Replace with actual Instagram handle
+  const instagramUrl = "https://www.instagram.com/uzm.dr.kamran.mammadov/";
+
+  // Helper function to send GA events
+  const sendGAEvent = useCallback(
+    (
+      eventName: string,
+      eventCategory: string,
+      eventLabel: string
+    ) => {
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag("event", eventName, {
+          event_category: eventCategory,
+          event_label: eventLabel,
+          page_path: pathname,
+        });
+      }
+    },
+    [pathname]
+  );
+
+  // Track banner view when component mounts or pathname changes
+  useEffect(() => {
+    if (isVisible) {
+      // Small delay to ensure GA is loaded
+      const timer = setTimeout(() => {
+        sendGAEvent("banner_view", "ad_banner", "dentist_instagram");
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, pathname, sendGAEvent]);
+
+  const handleClose = () => {
+    sendGAEvent("banner_close", "ad_banner", "dentist_instagram");
+    setIsVisible(false);
+  };
+
+  const handleClick = () => {
+    sendGAEvent("banner_click", "ad_banner", "dentist_instagram");
+  };
 
   if (!isVisible) return null;
 
-  // Helper function to ensure URL has protocol
-  const formatUrl = (url: string | undefined) => {
-    if (!url) return;
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-      return url;
-    }
-    return `https://${url}`;
-  };
-
   return (
-    <div className="fixed flex-col bottom-10 right-10 w-full flex justify-center items-center z-50">
-      {/* Close Button */}
-      <div className="flex flex-col justify-center items-center">
-        <button
-          className="bg-gray-800 text-white rounded-full p-1 hover:bg-red-500 transition"
-          onClick={() => setIsVisible(false)}
+    <div className="fixed bottom-0 left-0 right-0 w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-2xl z-50 border-t-2 border-white/30">
+      <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 max-w-7xl">
+        {/* Ad Content */}
+        <a
+          href={instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleClick}
+          className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 hover:opacity-90 transition-opacity cursor-pointer group"
         >
-          <X color="white" size={20} />
-        </button>
-        <p className="text-md mt-1">Bağla</p>
-      </div>
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden">
+            <div className="bg-white/20 p-1.5 sm:p-2 rounded-full group-hover:bg-white/30 transition-colors flex-shrink-0">
+              <Instagram className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+            </div>
+            <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
+              <span className="font-bold text-xs sm:text-sm md:text-base lg:text-lg leading-tight  sm:line-clamp-none">
+                Uzm Dr. Kamran Mammadov - Stomatoloq | Oral cərrah | İmplantoloq
+                <br />
+              </span>
+              <span className="text-[10px] sm:text-xs md:text-sm opacity-90 hidden sm:block line-clamp-1">
+                Get dental tips, updates, and special offers
+              </span>
+            </div>
+          </div>
+        </a>
 
-      {/* Flipping Ad Banner */}
-      <motion.a
-        href={formatUrl(props.siteUrl)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
-        animate={{
-          rotateX: [0, 90, 0], // Smooth up-and-down flip
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 4.5, // Smooth and fluid
-          ease: "easeInOut", // Natural motion curve
-        }}
-      >
-        <Image
-          src={props.imageUrl}
-          alt="Ad Banner"
-          width={300}
-          height={300}
-          className="object-cover"
-        />
-      </motion.a>
+        {/* Close Button */}
+        <button
+          onClick={handleClose}
+          className="flex-shrink-0 p-1.5 sm:p-2 hover:bg-white/20 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 active:bg-white/30 touch-manipulation"
+          aria-label="Close banner"
+        >
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+      </div>
     </div>
   );
 };
