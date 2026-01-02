@@ -27,11 +27,7 @@ const Banner = () => {
 
   // Helper function to send GA events
   const sendGAEvent = useCallback(
-    (
-      eventName: string,
-      eventCategory: string,
-      eventLabel: string
-    ) => {
+    (eventName: string, eventCategory: string, eventLabel: string) => {
       if (typeof window !== "undefined" && window.gtag) {
         window.gtag("event", eventName, {
           event_category: eventCategory,
