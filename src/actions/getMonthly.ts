@@ -5,7 +5,7 @@ export const getMonthly = async ({ lat, lon }: Coordinates) => {
   const data = await fetch(
     `${baseUrl}/api/weather/monthly?lat=${lat}&lon=${lon}`,
     {
-      cache: "no-store",
+      next: { revalidate: 600 }, // Cache for 10 minutes - monthly forecasts update less frequently
     }
   );
   if (!data.ok) {

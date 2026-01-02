@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const revalidate = 0;
+// Prayer times change daily, cache for 1 hour
+export const revalidate = 3600;
 
 export async function GET(request: NextRequest) {
   const API_KEY = process.env.PRAYER_API;
@@ -28,8 +29,10 @@ export async function GET(request: NextRequest) {
     if (date) prayerUrl += `&date=${date}`;
     if (calculationMethod) prayerUrl += `&method=${calculationMethod}`;
 
-    // Fetch data from the external API
-    const res = await fetch(prayerUrl, { cache: "no-store" });
+    // Cache external API call for 1 hour (prayer times change daily)
+    const res = await fetch(prayerUrl, { 
+      next: { revalidate: 3600 } 
+    });
     if (!res.ok) {
       throw new Error("Failed to fetch data from external API");
     }
@@ -39,7 +42,9 @@ export async function GET(request: NextRequest) {
     // Set any headers you need
     const headers = {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*", // adjust if needed
+      // Cache on edge for 1 hour, allow stale for 2 hours while revalidating
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200",
+      "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
@@ -49,7 +54,12 @@ export async function GET(request: NextRequest) {
     console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch data" },
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        },
+      }
     );
   }
 }

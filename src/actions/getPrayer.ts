@@ -25,7 +25,10 @@ export async function getPrayer(
 
   const url = `${baseUrl}/api/prayer?${params.toString()}`;
 
-  const response = await fetch(url, { cache: "no-store" });
+  // Prayer times change daily, so cache for 1 hour (3600 seconds)
+  const response = await fetch(url, { 
+    next: { revalidate: 3600 } 
+  });
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
   }

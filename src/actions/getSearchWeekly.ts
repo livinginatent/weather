@@ -5,7 +5,7 @@ export const getSearchWeekly = async ({ lat, lon }: Coordinates) => {
   const data = await fetch(
     `${baseUrl}/api/weather/search-weekly?lat=${lat}&lon=${lon}`,
     {
-      cache: "no-store",
+      next: { revalidate: 300 }, // Cache for 5 minutes
     }
   );
   if (!data.ok) {

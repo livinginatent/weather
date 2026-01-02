@@ -5,7 +5,7 @@ export const getSearchCityHourly = async ({ lat, lon }: Coordinates) => {
   const data = await fetch(
     `${baseUrl}/api/weather/search-hourly?lat=${lat}&lon=${lon}`,
     {
-      cache: "no-store", // This ensures the request is not cached
+      next: { revalidate: 300 }, // Cache for 5 minutes
     }
   );
   if (!data.ok) {

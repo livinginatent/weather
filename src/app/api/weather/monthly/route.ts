@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWeatherApi } from "openmeteo";
 
+// Cache for 10 minutes on edge (monthly forecasts update less frequently)
+export const revalidate = 600;
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get("lat");
@@ -66,10 +69,19 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(weatherData, {
       headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
+        // Cache on edge for 10 minutes, allow stale for 20 minutes while revalidating
+        "Cache-Control": "public, s-maxage=600, stale-while-revalidate=1200",
       },
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message },
+      {
+        status: 500,
+        headers: {
+          "Cache-Control": "public, s-maxage=120, stale-while-revalidate=240",
+        },
+      }
+    );
   }
 }

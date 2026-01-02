@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWeatherApi } from "openmeteo";
 
+// Historical data doesn't change, cache for 24 hours
+export const revalidate = 86400;
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get("lat");
@@ -52,11 +55,19 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(weatherData, {
       headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        // Historical data can be cached for 24 hours
+        "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=172800",
       },
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message },
+      {
+        status: 500,
+        headers: {
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        },
+      }
+    );
   }
 }

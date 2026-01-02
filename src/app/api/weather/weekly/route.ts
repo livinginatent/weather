@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-export const revalidate = 0;
+
+// Cache for 5 minutes (300 seconds) on edge
+export const revalidate = 300;
 
 export async function GET(request: NextRequest) {
   const API_KEY = process.env.API_KEY;
@@ -21,31 +23,30 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    // Cache external API call for 5 minutes
+    const res = await fetch(url, { 
+      next: { revalidate: 300 } 
+    });
     const data = await res.json();
 
     const headers = {
       "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=120",
-      Pragma: "no-cache",
-      Expires: "0",
-      "Surrogate-Control": "no-store",
-      "Access-Control-Allow-Origin": "*", // Allow all origins
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", // Allow specific methods
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow specific headers
+      // Cache on edge for 5 minutes, allow stale for 10 minutes while revalidating
+      "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     return new NextResponse(JSON.stringify(data), { status: 200, headers });
   } catch (error) {
     const headers = {
       "Content-Type": "application/json",
-      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-      Pragma: "no-cache",
-      Expires: "0",
-      "Surrogate-Control": "no-store",
-      "Access-Control-Allow-Origin": "*", // Allow all origins
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", // Allow specific methods
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow specific headers
+      // Cache errors for shorter time (2 minutes)
+      "Cache-Control": "public, s-maxage=120, stale-while-revalidate=240",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     return new NextResponse(JSON.stringify({ error: "Failed to fetch data" }), {

@@ -3,7 +3,7 @@ export const getHourly = async ({ lat, lon }: { lat: number | null; lon: number 
   const data = await fetch(
     `${baseUrl}/api/weather/hourly?lat=${lat}&lon=${lon}`,
     {
-      cache: "no-store",
+      next: { revalidate: 300 }, // Cache for 5 minutes
     }
   );
   if (!data.ok) {

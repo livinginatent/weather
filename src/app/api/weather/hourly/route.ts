@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Remove the revalidate = 0 to allow caching
-// export const revalidate = 0;
+// Cache for 5 minutes on edge (hourly data updates frequently)
+export const revalidate = 300;
 
 export async function GET(request: NextRequest) {
   const API_KEY = process.env.API_KEY;
@@ -12,17 +12,17 @@ export async function GET(request: NextRequest) {
   try {
     const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=2&aqi=yes&alerts=no`;
 
-    // Enable caching for the external API call
+    // Cache external API call for 5 minutes
     const res = await fetch(url, {
-      next: { revalidate: 600 }, // Cache for 10 minutes
+      next: { revalidate: 300 }, // Cache for 5 minutes
     });
 
     const data = await res.json();
 
     const headers = {
       "Content-Type": "application/json",
-      // Cache for 10 minutes on edge, serve stale for 20 minutes while revalidating
-      "Cache-Control": "public, s-maxage=600, stale-while-revalidate=1200",
+      // Cache on edge for 5 minutes, allow stale for 10 minutes while revalidating
+      "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
