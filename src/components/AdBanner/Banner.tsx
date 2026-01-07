@@ -65,28 +65,26 @@ const Banner = () => {
     <div className="fixed bottom-0 left-0 right-0 w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-2xl z-50 border-t-2 border-white/30">
       <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 max-w-7xl">
         {/* Ad Content */}
-        <a
+     {/*    <a
           href={instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
           className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 hover:opacity-90 transition-opacity cursor-pointer group"
-        >
+        > */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden">
-            <div className="bg-white/20 p-1.5 sm:p-2 rounded-full group-hover:bg-white/30 transition-colors flex-shrink-0">
-              <Instagram className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-            </div>
+          
             <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
               <span className="font-bold text-xs sm:text-sm md:text-base lg:text-lg leading-tight  sm:line-clamp-none">
-                Uzm Dr. Kamran Mammadov - Stomatoloq | Oral cərrah | İmplantoloq
+                Reklam üçün əlaqə: 0558801868
                 <br />
               </span>
               <span className="text-[10px] sm:text-xs md:text-sm opacity-90 hidden sm:block line-clamp-1">
-                Get dental tips, updates, and special offers
+                
               </span>
             </div>
           </div>
-        </a>
+      {/*   </a> */}
 
         {/* Close Button */}
         <button
