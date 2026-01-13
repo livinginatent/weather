@@ -19,6 +19,10 @@ const Nav = (props: Props) => {
 
   // Function to check if a link is active
   const isActive = (path: string) => {
+    // Special case for 10-day forecast - match any city's 10-day forecast page
+    if (path.includes("/10-gunluk-hava-proqnozu")) {
+      return pathname.includes("/10-gunluk-hava-proqnozu");
+    }
     return pathname === path;
   };
 
@@ -58,6 +62,10 @@ const Nav = (props: Props) => {
             <NavigationMenuList className="flex flex-col w-full">
               {[
                 { href: "/", label: "Hava Proqnozu" },
+                {
+                  href: "/baku/10-gunluk-hava-proqnozu",
+                  label: "10 Günlük Hava Proqnozu",
+                },
                 { href: "/monthly", label: "Aylıq Hava Proqnozu" },
                 { href: "/weekly", label: "Həftəlik Hava Proqnozu" },
                 { href: "/aqi", label: "Hava Keyfiyyəti" },
@@ -87,6 +95,10 @@ const Nav = (props: Props) => {
           <NavigationMenuList className="flex items-center space-x-4">
             {[
               { href: "/", label: "Hava Proqnozu" },
+              {
+                href: "/baku/10-gunluk-hava-proqnozu",
+                label: "10 Günlük Hava Proqnozu",
+              },
               { href: "/monthly", label: "Aylıq Hava Proqnozu" },
               { href: "/weekly", label: "Həftəlik Hava Proqnozu" },
               { href: "/aqi", label: "Hava Keyfiyyəti" },

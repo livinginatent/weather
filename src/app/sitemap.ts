@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { client } from "@/sanity/client"; // Adjust the import path to your Sanity client
 import { SanityDocument } from "next-sanity";
-import { cities } from "@/lib/locationNames"; // Adjust the import path to your location names
+import { cities, locationNames } from "@/lib/locationNames"; // Adjust the import path to your location names
 
 const POSTS_QUERY = `*[_type == "post" && defined(slug.current)]{
   "slug": slug.current,
@@ -102,5 +102,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...postRoutes, ...cityRoutes];
+  // Dynamic routes for 10-day forecasts (using cities keys for URLs)
+  const tenDayForecastRoutes: MetadataRoute.Sitemap = Object.keys(cities).map(
+    (cityKey) => ({
+      url: `https://havam.az/${cityKey.toLowerCase()}/10-gunluk-hava-proqnozu`,
+      lastModified: new Date(),
+      changeFrequency: "daily" as const,
+      priority: 0.9,
+    })
+  );
+
+  return [...staticRoutes, ...postRoutes, ...cityRoutes, ...tenDayForecastRoutes];
 }

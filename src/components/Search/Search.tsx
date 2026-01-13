@@ -15,7 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { locationNames } from "@/lib/locationNames";
+import { locationNames, cities } from "@/lib/locationNames";
 import { ScrollArea } from "../ui/scroll-area";
 import { Coordinates } from "@/lib/types";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -57,13 +57,34 @@ const Search = () => {
     if (cityCoordinates.lat != null && cityCoordinates.lon != null) {
       // If on /weekly or /monthly page, navigate to that page with coordinates
       if (pathname === "/weekly") {
-        router.push(`/weekly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`);
+        router.push(
+          `/weekly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`
+        );
       } else if (pathname === "/monthly") {
-        router.push(`/monthly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`);
+        router.push(
+          `/monthly?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}`
+        );
+      } else if (pathname.includes("/10-gunluk-hava-proqnozu")) {
+        // If on 10-day forecast page, navigate to the selected city's 10-day forecast
+        const selectedCityName = getLocationName(
+          cityCoordinates.lat,
+          cityCoordinates.lon
+        );
+        if (selectedCityName) {
+          // Find the URL key for this city from cities object
+          const cityKey = Object.keys(cities).find(
+            (key) => cities[key] === selectedCityName
+          );
+          if (cityKey) {
+            router.push(`/${cityKey.toLowerCase()}/10-gunluk-hava-proqnozu`);
+          }
+        }
       } else {
         // On main page, preserve the current view parameter
         const currentView = searchParams.get("view") || "hourly";
-        router.push(`/?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&view=${currentView}`);
+        router.push(
+          `/?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&view=${currentView}`
+        );
       }
     }
     setOpen(false);
