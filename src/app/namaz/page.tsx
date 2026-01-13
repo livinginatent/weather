@@ -3,7 +3,8 @@ import React from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Namaz Vaxti - Dəqiq Namaz Vaxtları Azərbaycan | Günlük Namaz Saatları",
+  title:
+    "Namaz Vaxti - Dəqiq Namaz Vaxtları Azərbaycan | Günlük Namaz Saatları",
   description:
     "Namaz vaxti Azərbaycan üzrə - Bakı, Gəncə, Sumqayıt və digər şəhərlərdə dəqiq namaz vaxtları. Sübh, günorta, əsr, məğrib və işa namazı saatları. Aylıq namaz təqvimi və namaz vaxtları cədvəli.",
   keywords: [
