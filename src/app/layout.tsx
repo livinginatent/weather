@@ -71,7 +71,6 @@ export default function RootLayout({
         <main className={`${mulish.className} h-full`}>
           <Nav />
           {children}
-          <Banner />
           <Analytics />
         </main>
       </body>
