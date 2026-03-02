@@ -201,6 +201,7 @@ const PrayerTimes = () => {
           izləmək və gündəlik ibadətinizi tənzimləmək üçün bu səhifədən
           faydalana bilərsiniz.
         </p>
+      
       </div>
 
       <div className="w-full mt-12">
@@ -262,6 +263,150 @@ const PrayerTimes = () => {
         </div>
       </div>
       <PrayerFAQs />
+        <article className="mt-10 rounded-2xl bg-white/90 p-6 shadow-sm border border-gray-100 text-gray-800">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+            Namaz Vaxtları: İbadətin Nizamı və Mənəvi Dərinlik
+          </h2>
+
+          <p className="mb-4 text-sm md:text-base leading-relaxed">
+            İslam dinində ibadət, insanın yaradıcısı ilə qurduğu ən şəxsi və
+            dərin əlaqədir. Bu əlaqənin ən mühüm ayağı olan namaz, günün müəyyən
+            anlarında dünyanın qayğılarından uzaqlaşıb ruhu dincliyə
+            qovuşdurmaqdır.{" "}
+            <strong className="font-semibold text-gray-900">Namaz vaxtları</strong>, təkcə
+            zamanı təqib etmək deyil, həm də həyatın ritmini ibadətlə tənzimləməkdir.
+          </p>
+
+          <h2 className="mt-6 text-xl md:text-2xl font-semibold text-gray-900">
+            Namazın Həyatımızdakı Yeri
+          </h2>
+          <p className="mt-2 mb-4 text-sm md:text-base leading-relaxed">
+            İnsan həyatı çox vaxt qarmaqarışıq və sürətli axır. İş, təhsil və
+            sosial öhdəliklər arasında insan öz mənəvi köklərini unuda bilər.
+            Məhz bu məqamda{" "}
+            <strong className="font-semibold text-gray-900">namaz vaxtlari</strong> bir
+            çərçivə rolunu oynayır. Gündə beş dəfə Yaradanın hüzuruna çıxmaq,
+            insana etdiyi səhvləri düşünmək, şükür etmək və gələcəyə dair
+            ümidlərini təzələmək imkanı verir.
+          </p>
+
+          <h2 className="mt-6 text-xl md:text-2xl font-semibold text-gray-900">
+            Beş Vaxt Namazın Ətraflı Təhlili
+          </h2>
+
+          <div className="mt-3 space-y-3">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                1. Sübh (Fəcr) Namazı
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed">
+                Günün başlanğıcı, qaranlığın işığa təslim olduğu an. Sübh namazı,
+                yeni bir günə bərəkətlə başlamağın açarıdır. Bir çoxları üçün
+                səhərin erkən saatlarında yuxudan oyanmaq çətin görünsə də, bu
+                ibadət günün qalan hissəsində mənəvi bir dayanıqlılıq bəxş edir.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                2. Zöhr (Günorta) Namazı
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed">
+                İş və qayğıların ən sıx olduğu zaman. Zöhr namazı, dünyəvi
+                işlərin ortasında verilən mənəvi bir fasilədir. Bu vaxt, insanın
+                dünyəvi məqsədləri ilə əbədi məqsədləri arasında bir tarazlıq
+                yaratmasına kömək edir.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                3. Əsr (İkindi) Namazı
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed">
+                Günün ikinci yarısı, yorğunluğun hiss olunmağa başladığı an. Əsr
+                namazı, günün qalan hissəsini daha səmərəli keçirmək üçün bir
+                motivasiya mənbəyidir.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                4. Məğrib (Axşam) Namazı
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed">
+                Günəşin batışı, günün sonuna doğru bir addım. Məğrib namazı,
+                geridə qoyulan günün hesabını vermək və axşamın dincliyinə qədəm
+                qoymaq üçün bir fürsətdir.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                5. İşa (Yatsı) Namazı
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed">
+                Gecənin sakitliyi. İşa namazı, insanın yuxuya getməzdən əvvəl
+                ruhunu təmizləməsi və rahat bir yuxu üçün mənəvi hazırlaşmasıdır.
+              </p>
+            </div>
+          </div>
+
+          <h2 className="mt-8 text-xl md:text-2xl font-semibold text-gray-900">
+            Niyə Dəqiq &quot;Namaz Vaxtlari&quot; Hesablaması Vacibdir?
+          </h2>
+          <p className="mt-2 mb-4 text-sm md:text-base leading-relaxed">
+            İbadətin qəbul olunması və yerinə yetirilməsi üçün{" "}
+            <strong className="font-semibold text-gray-900">namaz vaxtları</strong> düzgün
+            riayət edilməlidir. Astronomik hadisələr və coğrafi mövqe{" "}
+            <strong className="font-semibold text-gray-900">namaz vaxtları</strong>{" "}
+            cədvəlinin hər gün, hətta hər dəqiqə dəyişməsinə səbəb olur.
+            Saytımızda təqdim etdiyimiz məlumatlar, yerli koordinatlarınız və
+            müasir astronomik alqoritmlər əsasında hesablanır.
+          </p>
+
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-left border-collapse text-sm md:text-base">
+              <caption className="mb-2 text-sm font-medium text-gray-700">
+                Gündəlik İbadət Qrafiki
+              </caption>
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="px-3 py-2 font-semibold text-gray-900">
+                    Namaz
+                  </th>
+                  <th className="px-3 py-2 font-semibold text-gray-900">
+                    Zamanın Əsas Göstəricisi
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                <tr>
+                  <td className="px-3 py-2">Sübh</td>
+                  <td className="px-3 py-2">Fəcrin doğuşu</td>
+                </tr>
+                <tr>
+                  <td className="px-3 py-2">Zöhr</td>
+                  <td className="px-3 py-2">Günəşin zenitdən keçməsi</td>
+                </tr>
+                <tr>
+                  <td className="px-3 py-2">Əsr</td>
+                  <td className="px-3 py-2">Kölgənin bir misli artması</td>
+                </tr>
+                <tr>
+                  <td className="px-3 py-2">Məğrib</td>
+                  <td className="px-3 py-2">Günəşin batması</td>
+                </tr>
+                <tr>
+                  <td className="px-3 py-2">İşa</td>
+                  <td className="px-3 py-2">Şəfəqin itməsi</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+   
+        </article>
     </div>
   );
 };

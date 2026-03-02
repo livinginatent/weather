@@ -80,10 +80,15 @@ const Search = () => {
           }
         }
       } else {
-        // On main page, preserve the current view parameter
+        // Default: stay on the current page and just update coordinates
+        // For home page, preserve the current view parameter
         const currentView = searchParams.get("view") || "hourly";
+        const basePath = pathname || "/";
+        const viewSuffix =
+          basePath === "/" ? `&view=${encodeURIComponent(currentView)}` : "";
+
         router.push(
-          `/?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&view=${currentView}`
+          `${basePath}?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}${viewSuffix}`
         );
       }
     }
