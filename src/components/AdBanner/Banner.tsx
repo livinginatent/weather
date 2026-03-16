@@ -67,7 +67,7 @@ const Banner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 sm:hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="relative w-[90%] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
         {/* Ad Image only */}
         <div className="relative w-full overflow-hidden rounded-xl bg-white shadow-2xl">
@@ -84,14 +84,14 @@ const Banner = () => {
         {/* Call to action section */}
         <button
           onClick={handleCall}
-          className="mt-3 w-full flex items-center justify-center gap-2 rounded-lg bg-blue-500 hover:bg-green-600 text-white text-sm sm:text-base font-semibold py-2 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-300"
+          className="mt-3 w-full flex items-center justify-center gap-2 rounded-lg bg-blue-500 hover:bg-green-600 text-white text-sm sm:text-base font-semibold py-2 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-300 md:hidden"
         >
           <span>İndi zəng et</span>
         </button>
 
         {/* Small close button in the top-right corner */}
         <button
-          onClick={handleClose}//
+          onClick={handleClose}
           className="absolute -top-3 -right-3 flex items-center gap-1 rounded-sm bg-white text-black px-2 py-1 text-[11px] sm:text-xs shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white/60"
           aria-label="Bağla"
         >
