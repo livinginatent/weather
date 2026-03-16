@@ -91,7 +91,7 @@ const Banner = () => {
 
         {/* Small close button in the top-right corner */}
         <button
-          onClick={handleClose}
+          onClick={handleClose}//
           className="absolute -top-3 -right-3 flex items-center gap-1 rounded-sm bg-white text-black px-2 py-1 text-[11px] sm:text-xs shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white/60"
           aria-label="Bağla"
         >
