@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { X, Instagram } from "lucide-react";
+import Image from "next/image";
+import { X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 declare global {
@@ -55,41 +56,47 @@ const Banner = () => {
     setIsVisible(false);
   };
 
-  const handleClick = () => {
+  const handleCall = () => {
     sendGAEvent("banner_click", "ad_banner", "dentist_instagram");
+    if (typeof window !== "undefined") {
+      window.location.href = "tel:+994506344949";
+    }
+    setIsVisible(false);
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-2xl z-50 border-t-2 border-white/30">
-      <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 max-w-7xl">
-        {/* Ad Content */}
-           {/* <a
-          href={instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleClick}
-          className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 hover:opacity-90 transition-opacity cursor-pointer group"
-        > */}
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden">
-          <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-            <span className="font-bold text-xs sm:text-sm md:text-base lg:text-lg leading-tight  sm:line-clamp-none">
-              Reklam üçün əlaqə saxlayın: 0558801868
-              <br />
-            </span>
-            <span className="text-[10px] sm:text-xs md:text-sm opacity-90 hidden sm:block line-clamp-1"></span>
-          </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 sm:hidden">
+      <div className="relative w-[90%] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+        {/* Ad Image only */}
+        <div className="relative w-full overflow-hidden rounded-xl bg-white shadow-2xl">
+          <Image
+            src="/Dr Radioloq Rafail Cömərdov.png"
+            alt="Dr Radioloq Rafail Cömərdov"
+            width={1200}
+            height={800}
+            className="w-full h-auto object-contain"
+            priority
+          />
         </div>
-        {/*   </a> */}
 
-        {/* Close Button */}
+        {/* Call to action section */}
+        <button
+          onClick={handleCall}
+          className="mt-3 w-full flex items-center justify-center gap-2 rounded-lg bg-blue-500 hover:bg-green-600 text-white text-sm sm:text-base font-semibold py-2 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-300"
+        >
+          <span>İndi zəng et</span>
+        </button>
+
+        {/* Small close button in the top-right corner */}
         <button
           onClick={handleClose}
-          className="flex-shrink-0 p-1.5 sm:p-2 hover:bg-white/20 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 active:bg-white/30 touch-manipulation"
-          aria-label="Close banner"
+          className="absolute -top-3 -right-3 flex items-center gap-1 rounded-sm bg-white text-black px-2 py-1 text-[11px] sm:text-xs shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white/60"
+          aria-label="Bağla"
         >
-          <X className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span>Bağla</span>
+          <X className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
       </div>
     </div>
