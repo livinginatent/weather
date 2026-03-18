@@ -20,11 +20,14 @@ declare global {
 }
 
 const Banner = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const pathname = usePathname();
 
   // Instagram URL for the dentist friend - Replace with actual Instagram handle
   const instagramUrl = "https://www.instagram.com/normsement/";
+
+  const STORAGE_KEY_LAST_SHOWN = "ad_banner_last_shown_at_v1";
+  const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
 
   // Helper function to send GA events
   const sendGAEvent = useCallback(
@@ -39,6 +42,28 @@ const Banner = () => {
     },
     [pathname]
   );
+
+  // Decide whether banner should be shown (once per 2 weeks per browser/user)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY_LAST_SHOWN);
+      const lastShownAt = raw ? Number(raw) : 0;
+      const isExpired =
+        !Number.isFinite(lastShownAt) || Date.now() - lastShownAt >= TWO_WEEKS_MS;
+
+      if (isExpired) {
+        window.localStorage.setItem(STORAGE_KEY_LAST_SHOWN, String(Date.now()));
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    } catch {
+      // If storage is blocked/unavailable, fall back to showing the banner.
+      setIsVisible(true);
+    }
+  }, []);
 
   // Track banner view when component mounts or pathname changes
   useEffect(() => {
