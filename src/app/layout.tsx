@@ -74,7 +74,7 @@ export default function RootLayout({
           <Analytics />
         </main>
         {/* Global bottom ad banner */}
-        <Banner />
+     
       </body>
     </html>
   );
