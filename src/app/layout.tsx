@@ -68,13 +68,17 @@ export default function RootLayout({
         className={cn("noto-sans m-0 p-0  h-screen   bg-[#e4f1ff] antialiased")}
       >
         <GoogleAnalytics gaId="G-64H88GM53T" />
-        <main className={`${mulish.className} h-full`}>
+        <main
+          className={cn(
+            mulish.className,
+            "h-full pb-9 sm:pb-10"
+          )}
+        >
           <Nav />
           {children}
           <Analytics />
         </main>
-        {/* Global bottom ad banner */}
-     
+        <Banner />
       </body>
     </html>
   );
