@@ -24,6 +24,33 @@ const MonthlyForecast = ({}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const parseDailyDate = (dateString: string) => {
+    // API daily dates are typically `YYYY-MM-DD`. Parsing as UTC avoids TZ shifting.
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateString);
+    if (m) {
+      const y = Number(m[1]);
+      const mo = Number(m[2]) - 1;
+      const d = Number(m[3]);
+      return new Date(Date.UTC(y, mo, d));
+    }
+    return new Date(dateString);
+  };
+
+  const azMonths = [
+    "yanvar",
+    "fevral",
+    "mart",
+    "aprel",
+    "may",
+    "iyun",
+    "iyul",
+    "avqust",
+    "sentyabr",
+    "oktyabr",
+    "noyabr",
+    "dekabr",
+  ] as const;
+
   useEffect(() => {
     const lat = searchParams.get("lat");
     const lon = searchParams.get("lon");
@@ -56,7 +83,7 @@ const MonthlyForecast = ({}) => {
   );
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = parseDailyDate(dateString);
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -66,10 +93,32 @@ const MonthlyForecast = ({}) => {
     } else if (date.toDateString() === tomorrow.toDateString()) {
       return "Sabah";
     } else {
-      return date.toLocaleDateString("az-AZ", {
-        day: "numeric",
-        month: "long",
+      const day = date.getUTCDate();
+      const monthName = azMonths[date.getUTCMonth()];
+      return `${day} ${monthName}`;
+    }
+  };
+
+  const formatWeekday = (dateString: string) => {
+    const date = parseDailyDate(dateString);
+    try {
+      const fmt = new Intl.DateTimeFormat(["az-AZ", "az", "en-US"], {
+        weekday: "long",
+        timeZone: "UTC",
       });
+      return fmt.format(date);
+    } catch {
+      // Fallback if Intl is unavailable for any reason
+      const weekdays = [
+        "bazar",
+        "bazar ertəsi",
+        "çərşənbə axşamı",
+        "çərşənbə",
+        "cümə axşamı",
+        "cümə",
+        "şənbə",
+      ] as const;
+      return weekdays[date.getUTCDay()];
     }
   };
 
@@ -126,11 +175,7 @@ const MonthlyForecast = ({}) => {
                 <h3 className="font-bold text-lg text-gray-800">
                   {formatDate(date)}
                 </h3>
-                <p className="text-sm text-gray-500">
-                  {new Date(date).toLocaleDateString("az-AZ", {
-                    weekday: "long",
-                  })}
-                </p>
+                <p className="text-sm text-gray-500">{formatWeekday(date)}</p>
               </div>
 
               {/* Weather Icon and Description */}
