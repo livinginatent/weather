@@ -101,25 +101,16 @@ const MonthlyForecast = ({}) => {
 
   const formatWeekday = (dateString: string) => {
     const date = parseDailyDate(dateString);
-    try {
-      const fmt = new Intl.DateTimeFormat(["az-AZ", "az", "en-US"], {
-        weekday: "long",
-        timeZone: "UTC",
-      });
-      return fmt.format(date);
-    } catch {
-      // Fallback if Intl is unavailable for any reason
-      const weekdays = [
-        "bazar",
-        "bazar ertəsi",
-        "çərşənbə axşamı",
-        "çərşənbə",
-        "cümə axşamı",
-        "cümə",
-        "şənbə",
-      ] as const;
-      return weekdays[date.getUTCDay()];
-    }
+    const weekdays = [
+      "bazar",
+      "bazar ertəsi",
+      "çərşənbə axşamı",
+      "çərşənbə",
+      "cümə axşamı",
+      "cümə",
+      "şənbə",
+    ] as const;
+    return weekdays[date.getUTCDay()];
   };
 
   return (
